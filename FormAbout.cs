@@ -292,8 +292,8 @@ namespace BASSCOMPORT
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            loadimage();
-            loadimage2();
+            //loadimage();
+            //loadimage2();
             if (variables.numEN == 11)
             {
                 if (trying2 == false)

@@ -840,6 +840,7 @@
     <None Include="Resources\22.jpg" />
     <None Include="Resources\33.jpg" />
     <None Include="Resources\44.jpg" />
+    <None Include="Resources\BANNER.png" />
     <Content Include="Resources\icons8-ok-80.png" />
     <None Include="Resources\signboard.png" />
     <None Include="Resources\right-arrow1.png" />
