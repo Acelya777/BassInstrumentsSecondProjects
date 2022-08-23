@@ -1,0 +1,238 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="A" xml:space="preserve">
+    <value>Lütfen ürün etiketi üzerinde bulunan ölçeklendirme aralığını kontrol ediniz. Ardından minimum ve maksimum değerleri belirtilen kutucuklara giriniz ve AYARLA butonuna tıklayınız. Bu şekilde cihaza referans ölçeklendirme aralığı vermiş oluyoruz. </value>
+  </data>
+  <data name="About" xml:space="preserve">
+    <value>    Hakkında</value>
+  </data>
+  <data name="Attach" xml:space="preserve">
+    <value>Ekle</value>
+  </data>
+  <data name="Ayarlanacak maxScale" xml:space="preserve">
+    <value>Ayarlanacak maxScale</value>
+  </data>
+  <data name="Ayarlanacak minScale" xml:space="preserve">
+    <value>Ayarlanacak minScale</value>
+  </data>
+  <data name="B" xml:space="preserve">
+    <value>Sonra ölçeklendirmek istediğiniz minimum ve maksimum değerleri giriniz ve DEĞİŞTİR butonuna tıklayınız. Lütfen 'OK' işaretini görene kadar bekleyiniz.</value>
+  </data>
+  <data name="BAUD RATE" xml:space="preserve">
+    <value>BAUD HIZI</value>
+  </data>
+  <data name="CHANGE" xml:space="preserve">
+    <value>DEĞİŞTİR</value>
+  </data>
+  <data name="CLOSE" xml:space="preserve">
+    <value>KAPAT</value>
+  </data>
+  <data name="Collect Data" xml:space="preserve">
+    <value>Veri Topla</value>
+  </data>
+  <data name="COM PORT SETTINGS" xml:space="preserve">
+    <value>COM PORT AYARLARI</value>
+  </data>
+  <data name="Data and Excel(3)" xml:space="preserve">
+    <value>Veri ve Excel(3)</value>
+  </data>
+  <data name="DATA BITS" xml:space="preserve">
+    <value>VERİ BİTİ</value>
+  </data>
+  <data name="Flow" xml:space="preserve">
+    <value>    İzleme</value>
+    <comment>//monitoring</comment>
+  </data>
+  <data name="Guide" xml:space="preserve">
+    <value>Rehber</value>
+  </data>
+  <data name="Güncel maxScale" xml:space="preserve">
+    <value>Güncel maxScale</value>
+  </data>
+  <data name="Güncel minScale" xml:space="preserve">
+    <value>Güncel minScale</value>
+  </data>
+  <data name="Help" xml:space="preserve">
+    <value>Destek</value>
+  </data>
+  <data name="Indıcator" xml:space="preserve">
+    <value>Gösterge</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Dil</value>
+  </data>
+  <data name="maxScale" xml:space="preserve">
+    <value>maxÖlçek</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Mesaj</value>
+  </data>
+  <data name="minScale" xml:space="preserve">
+    <value>minÖlçek</value>
+  </data>
+  <data name="OPEN" xml:space="preserve">
+    <value>BAĞLAN</value>
+  </data>
+  <data name="PARITY" xml:space="preserve">
+    <value>PARİTE</value>
+  </data>
+  <data name="PREFERENCES" xml:space="preserve">
+    <value>TERCİHLER</value>
+  </data>
+  <data name="Pressure Unit" xml:space="preserve">
+    <value>Basınç Birimi</value>
+  </data>
+  <data name="Product Number(1)" xml:space="preserve">
+    <value>Ürün Numarası(1)</value>
+  </data>
+  <data name="Save Data(xsl)" xml:space="preserve">
+    <value>Veriyi Kaydet(xsl)</value>
+  </data>
+  <data name="Save Interval" xml:space="preserve">
+    <value>Zamanı Kaydet</value>
+  </data>
+  <data name="Save Product Number" xml:space="preserve">
+    <value>Ürün Numarasını Kaydet</value>
+  </data>
+  <data name="Scaling" xml:space="preserve">
+    <value>   Ölçeklendirme</value>
+  </data>
+  <data name="SEND" xml:space="preserve">
+    <value>GONDER</value>
+  </data>
+  <data name="SET" xml:space="preserve">
+    <value>AYARLA</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>   Ayarlar</value>
+  </data>
+  <data name="STOP BITS" xml:space="preserve">
+    <value>DURMA BİTİ</value>
+  </data>
+  <data name="Subject" xml:space="preserve">
+    <value>Konu</value>
+  </data>
+  <data name="Temperature Unit" xml:space="preserve">
+    <value>Sıcaklık Birimi</value>
+  </data>
+  <data name="İnterval(2)" xml:space="preserve">
+    <value>İzleme Aralığı(2)</value>
+  </data>
+</root>
