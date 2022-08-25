@@ -6,6 +6,7 @@ using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using static BASSCOMPORT.frrmMain;
 
+
 namespace BASSCOMPORT
 {
     public partial class FormSettings : Form
@@ -56,7 +57,18 @@ namespace BASSCOMPORT
 
         private void FormSettings_Load(object sender, EventArgs e)
         {
+
             
+            if (variables.numEN == 11)
+            {
+                progressBar1.CustomText = "Bekleniyor...";
+            }
+            else if (variables.numEN == 10)
+            {
+                progressBar1.CustomText = "Waiting...";
+            }
+            
+
             comboBox1.Items.AddRange(new object[] { "Türkçe", "English" });
             comboBox1.SelectedItem = null;
             comboBox1.SelectedIndex = 1;
@@ -143,18 +155,23 @@ namespace BASSCOMPORT
                     progressBar1.Value = 100;
                     if (variables.numEN == 11)
                     {
-                        label4.Text = "BAĞLANDI";
-                        label4.BackColor = System.Drawing.Color.ForestGreen;
                         
+                        progressBar1.CustomText = "BAĞLANDI";
+                        //label4.BackColor = System.Drawing.Color.Transparent;
+
+
+
                     }
                     else
                     {
-                        label4.Text = "CONNECTED";
-                        label4.BackColor = System.Drawing.Color.ForestGreen;
+                        
+                        progressBar1.CustomText = "CONNECTED";
+                        //label4.BackColor = System.Drawing.Color.Transparent;
+
                     }
 
                     progressBar1.Visible = true;
-                    progressBar1.BackColor = Color.Green;
+                    
 
                     btnOpen.Enabled = false;
                     btnClose.Enabled = true;
@@ -190,14 +207,18 @@ namespace BASSCOMPORT
                     progressBar1.Value = 0;
                     if (variables.numEN == 11)
                     {
-                        label4.Text = "KESİLDİ";
-                        label4.BackColor = System.Drawing.Color.Red;
+                        progressBar1.CustomText = "KESİLDİ";
+                        
+                        
+
 
                     }
                     else
                     {
-                        label4.Text = "DISCONNECTED";
-                        label4.BackColor = System.Drawing.Color.Red;
+                        progressBar1.CustomText = "DISCONNECTED";
+                        
+                        
+
                     }
                     btnOpen.Enabled = true;
                     btnClose.Enabled = false;
@@ -250,7 +271,9 @@ namespace BASSCOMPORT
             {
                 variables.numEN = 11;
                 variables.xx = true;
-                
+                variables.tryMe = false;
+
+
                 label1.Text = rm.GetString("Language");
                 label2.Text = rm.GetString("Temperature Unit");
                 label3.Text = rm.GetString("Pressure Unit");
@@ -286,6 +309,7 @@ namespace BASSCOMPORT
             }
             else if (comboBox1.SelectedItem.ToString() == "English")
             {
+                variables.tryMe = false;
                 variables.numEN = 10;
                 label1.Text = "Language";
                 label2.Text = "Temperature Unit";
@@ -406,7 +430,90 @@ namespace BASSCOMPORT
             }
 
         }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (variables.numEN == 11)
+            {
+                if (variables.status == 66)
+                {
+                    progressBar1.CustomText = "BAĞLANDI";
+                }
+                else 
+                {
+                    progressBar1.CustomText = "KESİLDİ";
+                }
+            }
+            else if (variables.numEN == 10)
+            {
+                if (variables.status == 66)
+                {
+                    progressBar1.CustomText = "CONNECTED";
+                }
+                else 
+                {
+                    progressBar1.CustomText = "DISCONNECTED";
+                }
+            }
+            if (!variables.comportx)
+            {
+                groupBox1.Enabled = true;
+
+            }
+            else if (variables.comportx)
+            {
+                groupBox1.Enabled = false;
+            }
+        }
+
+        public class MyLabel : Label
+        {
+            private bool fTransparent = false;
+            public bool Transparent
+            {
+                get { return fTransparent; }
+                set { fTransparent = value; }
+            }
+            public MyLabel() : base()
+            {
+            }
+            protected override CreateParams CreateParams
+            {
+                get
+                {
+                    if (fTransparent)
+                    {
+                        CreateParams cp = base.CreateParams;
+                        cp.ExStyle |= 0x00000020; //WS_EX_TRANSPARENT
+                        return cp;
+                    }
+                    else return base.CreateParams;
+                }
+            }
+            protected override void WndProc(ref Message m)
+            {
+                if (fTransparent)
+                {
+                    if (m.Msg != 0x14 /*WM_ERASEBKGND*/ && m.Msg != 0x0F /*WM_PAINT*/)
+                        base.WndProc(ref m);
+                    else
+                    {
+                        if (m.Msg == 0x0F) // WM_PAINT
+                            base.OnPaint(new PaintEventArgs(Graphics.FromHwnd(Handle), ClientRectangle));
+                        DefWndProc(ref m);
+                    }
+                }
+                else base.WndProc(ref m);
+            }
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
     }
+
+
 
 
 }

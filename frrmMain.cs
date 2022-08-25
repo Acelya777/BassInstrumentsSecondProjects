@@ -26,6 +26,7 @@ namespace BASSCOMPORT
         bool trying2 = false;
         bool trying3 = false;
         private Form activeForm;
+        
 
         FormSettings formSettings = new FormSettings();
         FormFlow formFlow = new FormFlow();
@@ -193,6 +194,7 @@ namespace BASSCOMPORT
             label12.Font = new System.Drawing.Font("Arial", 12F);
             label17.Font = new System.Drawing.Font("Arial", 12F);
             t.Abort();
+            variables.comportx = false;
 
             
 
@@ -273,11 +275,12 @@ namespace BASSCOMPORT
             timer1.Enabled = true;
             timer1.Interval = 1000;
             timer1.Start();
+            
 
             //ActivateButton(sender);
 
 
-            
+
             // OpenChildForm(new FormSettings(),  sender);
 
 

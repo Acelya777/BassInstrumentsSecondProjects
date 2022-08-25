@@ -30,7 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             this.label23 = new System.Windows.Forms.Label();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.label20 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
@@ -55,6 +54,8 @@
             this.comboBox3 = new System.Windows.Forms.ComboBox();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.progressBar1 = new BASSCOMPORT.TextProgressBar();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -63,27 +64,18 @@
             // 
             this.label23.AutoSize = true;
             this.label23.ForeColor = System.Drawing.Color.Black;
-            this.label23.Location = new System.Drawing.Point(39, 211);
+            this.label23.Location = new System.Drawing.Point(147, 257);
             this.label23.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(56, 16);
             this.label23.TabIndex = 22;
             this.label23.Text = "PARITY";
             // 
-            // progressBar1
-            // 
-            this.progressBar1.Location = new System.Drawing.Point(42, 328);
-            this.progressBar1.Margin = new System.Windows.Forms.Padding(4);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(347, 70);
-            this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
-            this.progressBar1.TabIndex = 17;
-            // 
             // label20
             // 
             this.label20.AutoSize = true;
             this.label20.ForeColor = System.Drawing.Color.Black;
-            this.label20.Location = new System.Drawing.Point(40, 169);
+            this.label20.Location = new System.Drawing.Point(148, 215);
             this.label20.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(77, 16);
@@ -94,7 +86,7 @@
             // 
             this.label19.AutoSize = true;
             this.label19.ForeColor = System.Drawing.Color.Black;
-            this.label19.Location = new System.Drawing.Point(41, 128);
+            this.label19.Location = new System.Drawing.Point(149, 174);
             this.label19.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(77, 16);
@@ -105,7 +97,7 @@
             // 
             this.label14.AutoSize = true;
             this.label14.ForeColor = System.Drawing.Color.Black;
-            this.label14.Location = new System.Drawing.Point(39, 88);
+            this.label14.Location = new System.Drawing.Point(147, 134);
             this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(85, 16);
@@ -116,7 +108,7 @@
             // 
             this.label13.AutoSize = true;
             this.label13.ForeColor = System.Drawing.Color.Black;
-            this.label13.Location = new System.Drawing.Point(40, 46);
+            this.label13.Location = new System.Drawing.Point(148, 92);
             this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(78, 16);
@@ -130,7 +122,7 @@
             this.cBoxParity.FormattingEnabled = true;
             this.cBoxParity.Items.AddRange(new object[] {
             "None"});
-            this.cBoxParity.Location = new System.Drawing.Point(216, 208);
+            this.cBoxParity.Location = new System.Drawing.Point(324, 254);
             this.cBoxParity.Margin = new System.Windows.Forms.Padding(4);
             this.cBoxParity.Name = "cBoxParity";
             this.cBoxParity.Size = new System.Drawing.Size(173, 24);
@@ -145,7 +137,7 @@
             "6",
             "7",
             "8"});
-            this.cBoxDataBits.Location = new System.Drawing.Point(216, 125);
+            this.cBoxDataBits.Location = new System.Drawing.Point(324, 171);
             this.cBoxDataBits.Margin = new System.Windows.Forms.Padding(4);
             this.cBoxDataBits.Name = "cBoxDataBits";
             this.cBoxDataBits.Size = new System.Drawing.Size(173, 24);
@@ -156,7 +148,7 @@
             this.btnOpen.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(86)))), ((int)(((byte)(149)))));
             this.btnOpen.Font = new System.Drawing.Font("Impact", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnOpen.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnOpen.Location = new System.Drawing.Point(42, 252);
+            this.btnOpen.Location = new System.Drawing.Point(150, 298);
             this.btnOpen.Margin = new System.Windows.Forms.Padding(4);
             this.btnOpen.Name = "btnOpen";
             this.btnOpen.Size = new System.Drawing.Size(174, 60);
@@ -170,7 +162,7 @@
             this.btnClose.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(86)))), ((int)(((byte)(149)))));
             this.btnClose.Font = new System.Drawing.Font("Impact", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClose.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnClose.Location = new System.Drawing.Point(216, 252);
+            this.btnClose.Location = new System.Drawing.Point(324, 298);
             this.btnClose.Margin = new System.Windows.Forms.Padding(4);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(174, 60);
@@ -187,7 +179,7 @@
             this.cBoxStopBits.Items.AddRange(new object[] {
             "One",
             "Two"});
-            this.cBoxStopBits.Location = new System.Drawing.Point(216, 166);
+            this.cBoxStopBits.Location = new System.Drawing.Point(324, 212);
             this.cBoxStopBits.Margin = new System.Windows.Forms.Padding(4);
             this.cBoxStopBits.Name = "cBoxStopBits";
             this.cBoxStopBits.Size = new System.Drawing.Size(173, 24);
@@ -208,7 +200,7 @@
             "38400",
             "57600",
             "115200"});
-            this.cBoxBaudRate.Location = new System.Drawing.Point(216, 85);
+            this.cBoxBaudRate.Location = new System.Drawing.Point(324, 131);
             this.cBoxBaudRate.Margin = new System.Windows.Forms.Padding(4);
             this.cBoxBaudRate.Name = "cBoxBaudRate";
             this.cBoxBaudRate.Size = new System.Drawing.Size(173, 24);
@@ -219,7 +211,7 @@
             this.cBoxCOMPORT.BackColor = System.Drawing.Color.White;
             this.cBoxCOMPORT.ForeColor = System.Drawing.Color.Black;
             this.cBoxCOMPORT.FormattingEnabled = true;
-            this.cBoxCOMPORT.Location = new System.Drawing.Point(216, 43);
+            this.cBoxCOMPORT.Location = new System.Drawing.Point(324, 89);
             this.cBoxCOMPORT.Margin = new System.Windows.Forms.Padding(4);
             this.cBoxCOMPORT.Name = "cBoxCOMPORT";
             this.cBoxCOMPORT.Size = new System.Drawing.Size(173, 24);
@@ -227,15 +219,14 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.groupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(244)))), ((int)(((byte)(244)))));
+            this.groupBox1.Controls.Add(this.progressBar1);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.btnClose);
             this.groupBox1.Controls.Add(this.label23);
             this.groupBox1.Controls.Add(this.cBoxCOMPORT);
-            this.groupBox1.Controls.Add(this.progressBar1);
             this.groupBox1.Controls.Add(this.cBoxBaudRate);
             this.groupBox1.Controls.Add(this.label20);
             this.groupBox1.Controls.Add(this.cBoxStopBits);
@@ -248,10 +239,11 @@
             this.groupBox1.ForeColor = System.Drawing.Color.Black;
             this.groupBox1.Location = new System.Drawing.Point(171, 129);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(468, 495);
+            this.groupBox1.Size = new System.Drawing.Size(618, 803);
             this.groupBox1.TabIndex = 23;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "COM PORT SETTINGS";
+            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // label4
             // 
@@ -262,14 +254,15 @@
             this.label4.BackColor = System.Drawing.Color.Transparent;
             this.label4.ForeColor = System.Drawing.Color.Black;
             this.label4.LiveSetting = System.Windows.Forms.Automation.AutomationLiveSetting.Polite;
-            this.label4.Location = new System.Drawing.Point(149, 347);
+            this.label4.Location = new System.Drawing.Point(275, 404);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(0, 16);
             this.label4.TabIndex = 23;
             // 
             // groupBox2
             // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(244)))), ((int)(((byte)(244)))));
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.label2);
@@ -281,9 +274,9 @@
             this.groupBox2.Controls.Add(this.comboBox2);
             this.groupBox2.Controls.Add(this.comboBox1);
             this.groupBox2.ForeColor = System.Drawing.Color.Black;
-            this.groupBox2.Location = new System.Drawing.Point(717, 129);
+            this.groupBox2.Location = new System.Drawing.Point(964, 129);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(572, 495);
+            this.groupBox2.Size = new System.Drawing.Size(722, 803);
             this.groupBox2.TabIndex = 24;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "PREFERENCES";
@@ -291,7 +284,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(29, 328);
+            this.label3.Location = new System.Drawing.Point(96, 351);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(87, 16);
             this.label3.TabIndex = 8;
@@ -300,7 +293,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(29, 229);
+            this.label2.Location = new System.Drawing.Point(96, 252);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(111, 16);
             this.label2.TabIndex = 7;
@@ -311,7 +304,7 @@
             this.button3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(86)))), ((int)(((byte)(149)))));
             this.button3.Font = new System.Drawing.Font("Impact", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button3.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.button3.Location = new System.Drawing.Point(403, 315);
+            this.button3.Location = new System.Drawing.Point(470, 338);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(145, 42);
             this.button3.TabIndex = 6;
@@ -324,7 +317,7 @@
             this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(86)))), ((int)(((byte)(149)))));
             this.button2.Font = new System.Drawing.Font("Impact", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button2.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.button2.Location = new System.Drawing.Point(403, 216);
+            this.button2.Location = new System.Drawing.Point(470, 239);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(145, 42);
             this.button2.TabIndex = 5;
@@ -335,7 +328,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(29, 138);
+            this.label1.Location = new System.Drawing.Point(96, 161);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(68, 16);
             this.label1.TabIndex = 4;
@@ -346,7 +339,7 @@
             this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(86)))), ((int)(((byte)(149)))));
             this.button1.Font = new System.Drawing.Font("Impact", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.button1.Location = new System.Drawing.Point(403, 125);
+            this.button1.Location = new System.Drawing.Point(470, 148);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(145, 42);
             this.button1.TabIndex = 3;
@@ -358,7 +351,7 @@
             // 
             this.comboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Location = new System.Drawing.Point(214, 325);
+            this.comboBox3.Location = new System.Drawing.Point(281, 348);
             this.comboBox3.Name = "comboBox3";
             this.comboBox3.Size = new System.Drawing.Size(145, 24);
             this.comboBox3.TabIndex = 2;
@@ -368,7 +361,7 @@
             // 
             this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(214, 226);
+            this.comboBox2.Location = new System.Drawing.Point(281, 249);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(145, 24);
             this.comboBox2.TabIndex = 1;
@@ -378,10 +371,28 @@
             // 
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(214, 133);
+            this.comboBox1.Location = new System.Drawing.Point(281, 156);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(145, 24);
             this.comboBox1.TabIndex = 0;
+            // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Interval = 2000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // progressBar1
+            // 
+            this.progressBar1.CustomText = "";
+            this.progressBar1.Location = new System.Drawing.Point(152, 376);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.ProgressColor = System.Drawing.Color.LimeGreen;
+            this.progressBar1.Size = new System.Drawing.Size(346, 58);
+            this.progressBar1.TabIndex = 24;
+            this.progressBar1.TextColor = System.Drawing.Color.Black;
+            this.progressBar1.TextFont = new System.Drawing.Font("Times New Roman", 11F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
+            this.progressBar1.VisualMode = BASSCOMPORT.ProgressBarDisplayMode.CustomText;
             // 
             // FormSettings
             // 
@@ -389,7 +400,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(33)))), ((int)(((byte)(74)))));
             this.BackgroundImage = global::BASSCOMPORT.Properties.Resources.Artboard_11;
-            this.ClientSize = new System.Drawing.Size(1425, 745);
+            this.ClientSize = new System.Drawing.Size(1782, 1053);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Name = "FormSettings";
@@ -407,7 +418,6 @@
         #endregion
 
         private System.Windows.Forms.Label label23;
-        private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label label14;
@@ -432,5 +442,7 @@
         private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Timer timer1;
+        private TextProgressBar progressBar1;
     }
 }

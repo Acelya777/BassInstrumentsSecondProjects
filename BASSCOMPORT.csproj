@@ -563,6 +563,9 @@
   <ItemGroup>
     <Compile Include="ChartValues.cs" />
     <Compile Include="ChartValues1.cs" />
+    <Compile Include="CustomProgressBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="en_local.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -615,6 +618,9 @@
     <Compile Include="ProgramBase.cs" />
     <Compile Include="ProgramBase1.cs" />
     <Compile Include="ProgramHelpers.cs" />
+    <Compile Include="ProgressBarSample.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="splashScreen.cs">
       <SubType>Form</SubType>
@@ -783,6 +789,9 @@
     <None Include="Resources\output-onlinegiftools.gif" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\LOGO1.png" />
+    <None Include="Resources\LOGO.png" />
+    <None Include="Resources\PNG.png" />
     <None Include="Resources\olceklendirme.png" />
     <None Include="Resources\settings.png" />
     <None Include="Resources\scaling.png" />
@@ -841,6 +850,23 @@
     <None Include="Resources\33.jpg" />
     <None Include="Resources\44.jpg" />
     <None Include="Resources\BANNER.png" />
+    <None Include="Resources\BANNER 2.jpg" />
+    <None Include="Resources\BANNER 3.jpg" />
+    <None Include="Resources\Artboard 1.png" />
+    <None Include="Resources\com1.png" />
+    <None Include="Resources\com2.png" />
+    <None Include="Resources\1.png" />
+    <None Include="Resources\11.png" />
+    <None Include="Resources\Artboard 15.jpg" />
+    <None Include="Resources\com3.png" />
+    <None Include="bin\Debug\Images\image1.png" />
+    <None Include="bin\Debug\Images\image2.png" />
+    <None Include="bin\Debug\Images\image3.png" />
+    <None Include="bin\Debug\Images\image4.png" />
+    <None Include="bin\Debug\Images\image6.png" />
+    <None Include="bin\Debug\Images\image7.png" />
+    <None Include="bin\Debug\Images\image8.png" />
+    <None Include="bin\Debug\Images\image9.png" />
     <Content Include="Resources\icons8-ok-80.png" />
     <None Include="Resources\signboard.png" />
     <None Include="Resources\right-arrow1.png" />

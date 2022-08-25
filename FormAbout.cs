@@ -13,6 +13,14 @@ namespace BASSCOMPORT
 {
     public partial class FormAbout : Form
     {
+        private Bitmap image1 = BASSCOMPORT.Properties.Resources.image1;
+        private Bitmap image2 = BASSCOMPORT.Properties.Resources.image2;
+        private Bitmap image3 = BASSCOMPORT.Properties.Resources.image3;
+        private Bitmap image4 = BASSCOMPORT.Properties.Resources.image4;
+        private Bitmap image6 = BASSCOMPORT.Properties.Resources.image6;
+        private Bitmap image7 = BASSCOMPORT.Properties.Resources.image7;
+        private Bitmap image8 = BASSCOMPORT.Properties.Resources.image8;
+        private Bitmap image9 = BASSCOMPORT.Properties.Resources.image9;
 
         [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
         private static extern IntPtr CreateRoundRectRgn
@@ -52,9 +60,9 @@ namespace BASSCOMPORT
             IntPtr ptr = CreateRoundRectRgn(0, 0, groupBox1.Width, groupBox1.Height, 15, 15);
             groupBox1.Region = System.Drawing.Region.FromHrgn(ptr);
             DeleteObject(ptr);
-            IntPtr ptr2 = CreateRoundRectRgn(0, 0, pictureBox1.Width, pictureBox1.Height, 30, 30);
-            pictureBox1.Region = System.Drawing.Region.FromHrgn(ptr2);
-            DeleteObject(ptr2);
+            /*IntPtr ptr2 = CreateRoundRectRgn(0, 0, pictureBox8.Width, pictureBox8.Height, 30, 30);
+            pictureBox8.Region = System.Drawing.Region.FromHrgn(ptr2);
+            DeleteObject(ptr2);*/
 
             //pictureBox1.Image = home;
             /*pictureBox2.Image = instagram;
@@ -64,7 +72,7 @@ namespace BASSCOMPORT
         }
 
         private int imageno = 1;
-        private int imageno2 = 5;
+        private int imageno2 = 6;
 
         private void loadimage()
         {
@@ -75,25 +83,26 @@ namespace BASSCOMPORT
                 
             }
             
-            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox1.ImageLocation = string.Format(@"Images\1.png", imageno);
+            //pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox8.ImageLocation = string.Format(@"Images\{0}.png", imageno);
 
             imageno++;
         }
         private void loadimage2()
         {
 
-            if (imageno == 8)
+            if (imageno2 == 9)
             {
-                imageno = 5;
+                imageno2 = 6;
 
             }
 
-            pictureBox5.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox5.ImageLocation = string.Format(@"Images\5.png", imageno);
+            //pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox8.ImageLocation = string.Format(@"Images\{0}.png", imageno2);
 
-            imageno++;
+            imageno2++;
         }
+
         private Color SelectThemeColor()
         {
             int index = random.Next(ThemeColor.ColorList.Count);
@@ -107,7 +116,17 @@ namespace BASSCOMPORT
         }
         private void FormAbout_Load(object sender, EventArgs e)
         {
-           
+            if (variables.numEN == 11)
+            {
+                pictureBox5.Image = BASSCOMPORT.Properties.Resources.com2;
+                pictureBox8.Image = image1;
+            }
+            else if (variables.numEN == 10)
+            {
+                pictureBox5.Image = BASSCOMPORT.Properties.Resources.com3;
+                pictureBox8.Image = image6;
+            }
+            variables.comportx = true;
 
 
         }
@@ -289,13 +308,55 @@ namespace BASSCOMPORT
         {
             System.Diagnostics.Process.Start("https://tr.linkedin.com/company/bass-%C3%B6l%C3%A7me-enstr%C3%BCmanlar%C4%B1-ltd-%C5%9Fti");
         }
-
+        
         private void timer1_Tick(object sender, EventArgs e)
         {
-            //loadimage();
-            //loadimage2();
             if (variables.numEN == 11)
             {
+                pictureBox5.Image = BASSCOMPORT.Properties.Resources.com2;
+                if (pictureBox8.Image == image1)
+                {
+                    pictureBox8.Image = image2;
+                }
+                else if (pictureBox8.Image == image2)
+                {
+                    pictureBox8.Image = image3;
+                }
+                else if (pictureBox8.Image == image3)
+                {
+                    pictureBox8.Image = image4;
+                }
+                else if(pictureBox8.Image == image4)
+                {
+                    pictureBox8.Image = image1;
+                }
+
+            }
+            else if (variables.numEN == 10)
+            {
+                pictureBox5.Image = BASSCOMPORT.Properties.Resources.com3;
+                if (pictureBox8.Image == image6)
+                {
+                    pictureBox8.Image = image7;
+                }
+                else if (pictureBox8.Image == image7)
+                {
+                    pictureBox8.Image = image8;
+                }
+                else if (pictureBox8.Image == image8)
+                {
+                    pictureBox8.Image = image9;
+                }
+                else if (pictureBox8.Image == image9)
+                {
+                    pictureBox8.Image = image6;
+                }
+            }
+            
+            if (variables.numEN == 11)
+            {
+                
+                
                 if (trying2 == false)
                 {
                     subjectLabel.Text = rm.GetString("Subject");
@@ -312,6 +373,7 @@ namespace BASSCOMPORT
             }
             else if (variables.numEN == 10)
             {
+                
                 subjectLabel.Text = "Subject";
                 messageLabel.Text = "Message";
                 attachLabel.Text = "File";
@@ -351,19 +413,18 @@ namespace BASSCOMPORT
 
         }
 
-        public static Image OvalImage(Image img)
+       
+
+        private void pictureBox8_Click(object sender, EventArgs e)
         {
-            Bitmap bmp = new Bitmap(img.Width, img.Height);
-            using (GraphicsPath gp = new GraphicsPath())
+            if (variables.numEN == 11)
             {
-                gp.AddEllipse(0, 0, img.Width, img.Height);
-                using (Graphics gr = Graphics.FromImage(bmp))
-                {
-                    gr.SetClip(gp);
-                    gr.DrawImage(img, Point.Empty);
-                }
+                System.Diagnostics.Process.Start("https://bass.com.tr/urunler");
             }
-            return bmp;
+            else if (variables.numEN == 10)
+            {
+                System.Diagnostics.Process.Start("https://bass.com.tr/en/products");
+            }
         }
     }
     

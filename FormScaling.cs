@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Drawing;
 using System.IO.Ports;
 using System.Linq;
 using System.Reflection;
@@ -11,6 +12,8 @@ namespace BASSCOMPORT
 {
     public partial class FormScaling : Form
     {
+
+        
 
         [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
         private static extern IntPtr CreateRoundRectRgn
@@ -234,10 +237,11 @@ namespace BASSCOMPORT
         private void FormScaling_Load(object sender, EventArgs e)
         {
 
+
             serialPort1 = new SerialPort();
             serialPort1 = variables.serialPort;
             //serialPort1.DataReceived += new SerialDataReceivedEventHandler(sp_DataReceived);
-            progressBar1.Maximum = 100;
+            progressBar1.Maximum = 130;
             //metroSetDivider1.ForeColor = System.Drawing.Color.White;
             //metroSetDivider2.ForeColor = System.Drawing.Color.White;
 
@@ -929,12 +933,12 @@ namespace BASSCOMPORT
             else
             {
                 pictureBox1.Image = BASSCOMPORT.Properties.Resources.output_onlinegiftools;
-                pictureBox4.Image = BASSCOMPORT.Properties.Resources.output_onlinegiftools;
-                progressBar1.Value += 10;
+                pictureBox2.Image = BASSCOMPORT.Properties.Resources.output_onlinegiftools;
+                progressBar1.Value += 13;
                 if(progressBar1.Value == progressBar1.Maximum)
                 {
                     pictureBox1.Image = BASSCOMPORT.Properties.Resources.ok;
-                    pictureBox4.Image = BASSCOMPORT.Properties.Resources.ok;
+                    pictureBox2.Image = BASSCOMPORT.Properties.Resources.ok;
                 }
 
             }
@@ -1172,7 +1176,7 @@ namespace BASSCOMPORT
             {
                 progressBar1.Value = 0;
                 pictureBox1.Image = null;
-                pictureBox4.Image = null;
+                pictureBox2.Image = null;
                 timer1.Stop(); 
                 if (minScaleSetTextBox.Text.Trim() == string.Empty || maxScaleSetTextBox.Text.Trim() == string.Empty)
                 {

@@ -7,7 +7,9 @@ using System.Linq;
 namespace BASSCOMPORT
 {
     public static class variables
-    {
+    {   
+        public static int exportBut2 { get; set; }
+        public static bool comportx { get; set; } // for comport
         public static bool xx { get; set; } // for exportbutton
         public static bool tryMe { get; set; }
         public static double minscale { get; set; }

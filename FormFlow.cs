@@ -236,6 +236,7 @@ namespace BASSCOMPORT
 
         private void FormFlow_Load(object sender, EventArgs e)
         {
+            variables.comportx = true;
 
             if (variables.numT == 12)
             {
@@ -2271,7 +2272,7 @@ namespace BASSCOMPORT
         {
             if (serialPort1.IsOpen)// && variables.connection
             {
-                if (variables.exportBut == false)
+                if (!variables.exportBut)
                 {
                     if (variables.numEN == 11)
                     {
@@ -2281,6 +2282,7 @@ namespace BASSCOMPORT
                         saveDataButton.Enabled = true;
                         variables.exportBut = true;
                         timer2.Start();
+                        variables.comportx = true;
                         //exportButton.Enabled = false;
                     }
                     else if (variables.numEN == 10)
@@ -2291,6 +2293,7 @@ namespace BASSCOMPORT
                         exportButton.Text = "Stop Collecting Data";
                         variables.exportBut = true;
                         timer2.Start();
+                        variables.exportBut = true;
                         //exportButton.Enabled = false;
                     }
                 }
@@ -2539,13 +2542,23 @@ namespace BASSCOMPORT
 
                 if (variables.numEN == 11)
                 {
+                    intervalNumber.Items.Clear();
+                    intervalKind.Items.Clear();
                     intervalNumber.Items.AddRange(new object[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60 });
                     intervalKind.Items.AddRange(new object[] { "saniye", "dakika", "saat" });
+                    intervalNumber.SelectedItem = null;
+                    intervalNumber.SelectedIndex = 0;
+                    intervalKind.SelectedIndex = 0;
                 }
                 else if (variables.numEN == 10)
                 {
+                    intervalNumber.Items.Clear();
+                    intervalKind.Items.Clear();
                     intervalNumber.Items.AddRange(new object[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60 });
                     intervalKind.Items.AddRange(new object[] { "second", "minute", "hour" });
+                     intervalNumber.SelectedItem = null;
+            intervalNumber.SelectedIndex = 0;
+            intervalKind.SelectedIndex = 0;
                 }
 
 
@@ -2869,11 +2882,15 @@ namespace BASSCOMPORT
             {
                 intervalButton.Text = rm.GetString("Save Interval");
 
-                if (variables.xx == true)
+                /* if (variables.xx == true)
+                 {
+                     exportButton.Text = "Veri Topla ";
+                     variables.xx = false;
+                 } */
+                if (!variables.exportBut)
                 {
-                    exportButton.Text = "Veri Topla ";
-                    variables.xx = false;
-                } 
+                    exportButton.Text = "Veri Topla";
+                }
                 saveDataButton.Text = rm.GetString("Save Data(xsl)");
                 productButton.Text = rm.GetString("Save Product Number");
                 productGroup.Text = rm.GetString("Product Number(1)");
@@ -2885,7 +2902,11 @@ namespace BASSCOMPORT
             else if (variables.numEN == 10)
             {
                 intervalButton.Text = "Save Interval";
-                exportButton.Text = "Collect Data";
+                // exportButton.Text = "Collect Data";
+                if (!variables.exportBut)
+                {
+                    exportButton.Text = "Collect Data";
+                }
                 saveDataButton.Text ="Save Data(xsl)";
                 productButton.Text = "Save Product Number";
                 productGroup.Text = "Product Number(1)";
@@ -2966,6 +2987,8 @@ namespace BASSCOMPORT
 
 
         }
+
+       
 
         public void serialPort1_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {

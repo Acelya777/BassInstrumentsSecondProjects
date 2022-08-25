@@ -45,20 +45,20 @@
             this.messageLabel = new System.Windows.Forms.Label();
             this.firmLabel = new System.Windows.Forms.Label();
             this.subjectLabel = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox5 = new System.Windows.Forms.PictureBox();
+            this.pictureBox8 = new System.Windows.Forms.PictureBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
             this.SuspendLayout();
             // 
             // timer1
             // 
             this.timer1.Enabled = true;
-            this.timer1.Interval = 3500;
+            this.timer1.Interval = 5000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // btnTest
@@ -66,7 +66,7 @@
             this.btnTest.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(86)))), ((int)(((byte)(149)))));
             this.btnTest.Font = new System.Drawing.Font("Impact", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnTest.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnTest.Location = new System.Drawing.Point(179, 537);
+            this.btnTest.Location = new System.Drawing.Point(179, 526);
             this.btnTest.Name = "btnTest";
             this.btnTest.Size = new System.Drawing.Size(200, 48);
             this.btnTest.TabIndex = 5;
@@ -76,6 +76,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(244)))), ((int)(((byte)(244)))));
             this.groupBox1.Controls.Add(this.telText);
             this.groupBox1.Controls.Add(this.telLabel);
@@ -92,9 +93,9 @@
             this.groupBox1.Controls.Add(this.subjectLabel);
             this.groupBox1.Controls.Add(this.btnTest);
             this.groupBox1.ForeColor = System.Drawing.Color.Black;
-            this.groupBox1.Location = new System.Drawing.Point(1114, 33);
+            this.groupBox1.Location = new System.Drawing.Point(1138, 164);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(425, 723);
+            this.groupBox1.Size = new System.Drawing.Size(425, 715);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Help";
@@ -120,7 +121,7 @@
             // 
             this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox2.Image = global::BASSCOMPORT.Properties.Resources.İ;
-            this.pictureBox2.Location = new System.Drawing.Point(102, 615);
+            this.pictureBox2.Location = new System.Drawing.Point(102, 607);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(53, 51);
             this.pictureBox2.TabIndex = 1;
@@ -131,7 +132,7 @@
             // 
             this.pictureBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox3.Image = global::BASSCOMPORT.Properties.Resources.Asset_34;
-            this.pictureBox3.Location = new System.Drawing.Point(200, 615);
+            this.pictureBox3.Location = new System.Drawing.Point(200, 607);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(55, 51);
             this.pictureBox3.TabIndex = 2;
@@ -142,7 +143,7 @@
             // 
             this.pictureBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox4.Image = global::BASSCOMPORT.Properties.Resources.Y;
-            this.pictureBox4.Location = new System.Drawing.Point(302, 615);
+            this.pictureBox4.Location = new System.Drawing.Point(302, 607);
             this.pictureBox4.Name = "pictureBox4";
             this.pictureBox4.Size = new System.Drawing.Size(56, 51);
             this.pictureBox4.TabIndex = 3;
@@ -218,20 +219,6 @@
             this.subjectLabel.TabIndex = 6;
             this.subjectLabel.Text = "Subject";
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox1.Image = global::BASSCOMPORT.Properties.Resources.BANNER;
-            this.pictureBox1.Location = new System.Drawing.Point(82, 33);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(997, 619);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 7;
-            this.pictureBox1.TabStop = false;
-            // 
             // pictureBox5
             // 
             this.pictureBox5.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -241,8 +228,24 @@
             this.pictureBox5.Location = new System.Drawing.Point(82, 533);
             this.pictureBox5.Name = "pictureBox5";
             this.pictureBox5.Size = new System.Drawing.Size(997, 312);
+            this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox5.TabIndex = 8;
             this.pictureBox5.TabStop = false;
+            // 
+            // pictureBox8
+            // 
+            this.pictureBox8.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox8.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox8.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.pictureBox8.Location = new System.Drawing.Point(82, 28);
+            this.pictureBox8.Name = "pictureBox8";
+            this.pictureBox8.Size = new System.Drawing.Size(997, 625);
+            this.pictureBox8.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox8.TabIndex = 9;
+            this.pictureBox8.TabStop = false;
+            this.pictureBox8.Click += new System.EventHandler(this.pictureBox8_Click);
             // 
             // FormAbout
             // 
@@ -251,9 +254,10 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(33)))), ((int)(((byte)(74)))));
             this.BackgroundImage = global::BASSCOMPORT.Properties.Resources.Artboard_14;
             this.ClientSize = new System.Drawing.Size(1575, 891);
+            this.Controls.Add(this.pictureBox8);
             this.Controls.Add(this.pictureBox5);
-            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.groupBox1);
+            this.MaximizeBox = false;
             this.Name = "FormAbout";
             this.Text = "FormAbout";
             this.Load += new System.EventHandler(this.FormAbout_Load);
@@ -262,8 +266,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -285,7 +289,7 @@
         private System.Windows.Forms.Label telLabel;
         private System.Windows.Forms.TextBox firmText;
         private System.Windows.Forms.Label firmLabel;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox pictureBox5;
+        private System.Windows.Forms.PictureBox pictureBox8;
     }
 }

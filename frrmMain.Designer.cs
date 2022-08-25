@@ -133,7 +133,7 @@ namespace BASSCOMPORT
             this.panel2.Location = new System.Drawing.Point(0, 752);
             this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1707, 70);
+            this.panel2.Size = new System.Drawing.Size(1936, 70);
             this.panel2.TabIndex = 13;
             this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
             // 
@@ -143,7 +143,7 @@ namespace BASSCOMPORT
             this.closeSerialButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(86)))), ((int)(((byte)(149)))));
             this.closeSerialButton.Font = new System.Drawing.Font("Impact", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.closeSerialButton.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.closeSerialButton.Location = new System.Drawing.Point(987, 15);
+            this.closeSerialButton.Location = new System.Drawing.Point(1045, 14);
             this.closeSerialButton.Name = "closeSerialButton";
             this.closeSerialButton.Size = new System.Drawing.Size(305, 46);
             this.closeSerialButton.TabIndex = 17;
@@ -156,7 +156,7 @@ namespace BASSCOMPORT
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.label17.ForeColor = System.Drawing.Color.Black;
-            this.label17.Location = new System.Drawing.Point(1570, 30);
+            this.label17.Location = new System.Drawing.Point(1749, 30);
             this.label17.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(38, 20);
@@ -168,7 +168,7 @@ namespace BASSCOMPORT
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.label12.ForeColor = System.Drawing.Color.Black;
-            this.label12.Location = new System.Drawing.Point(1406, 30);
+            this.label12.Location = new System.Drawing.Point(1581, 29);
             this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(67, 20);
@@ -252,18 +252,18 @@ namespace BASSCOMPORT
             this.panelLogo.Location = new System.Drawing.Point(0, 0);
             this.panelLogo.Margin = new System.Windows.Forms.Padding(4);
             this.panelLogo.Name = "panelLogo";
-            this.panelLogo.Size = new System.Drawing.Size(1707, 822);
+            this.panelLogo.Size = new System.Drawing.Size(1936, 822);
             this.panelLogo.TabIndex = 13;
             this.panelLogo.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // panelDesktopPanel
             // 
-            this.panelDesktopPanel.BackgroundImage = global::BASSCOMPORT.Properties.Resources.Artboard_1;
+            this.panelDesktopPanel.BackColor = System.Drawing.Color.Transparent;
             this.panelDesktopPanel.Controls.Add(this.panelMenu);
             this.panelDesktopPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelDesktopPanel.Location = new System.Drawing.Point(0, 0);
             this.panelDesktopPanel.Name = "panelDesktopPanel";
-            this.panelDesktopPanel.Size = new System.Drawing.Size(1707, 752);
+            this.panelDesktopPanel.Size = new System.Drawing.Size(1936, 752);
             this.panelDesktopPanel.TabIndex = 53;
             this.panelDesktopPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.panelDesktopPanel_Paint);
             // 
@@ -323,7 +323,8 @@ namespace BASSCOMPORT
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::BASSCOMPORT.Properties.Resources.Asset_114;
+            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox1.Image = global::BASSCOMPORT.Properties.Resources.LOGO1;
             this.pictureBox1.Location = new System.Drawing.Point(0, 0);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(158, 166);
@@ -336,7 +337,7 @@ namespace BASSCOMPORT
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(33)))), ((int)(((byte)(74)))));
-            this.ClientSize = new System.Drawing.Size(1707, 822);
+            this.ClientSize = new System.Drawing.Size(1936, 822);
             this.Controls.Add(this.panelLogo);
             this.ForeColor = System.Drawing.SystemColors.ActiveBorder;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -348,7 +349,7 @@ namespace BASSCOMPORT
             this.Name = "frrmMain";
             this.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "BASS INSTRUMENTS SERIAL COMMUNICATOR";
+            this.Text = "SERIAL CONTROLLER";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frrmMain_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.panel2.ResumeLayout(false);

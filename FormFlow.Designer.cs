@@ -127,7 +127,8 @@ namespace BASSCOMPORT
             // 
             // solidGauge1
             // 
-            this.solidGauge1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.solidGauge1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.solidGauge1.BackColor = System.Drawing.Color.Transparent;
             this.solidGauge1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.solidGauge1.ForeColor = System.Drawing.Color.WhiteSmoke;
@@ -141,6 +142,8 @@ namespace BASSCOMPORT
             // 
             // solidGauge2
             // 
+            this.solidGauge2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.solidGauge2.BackColor = System.Drawing.Color.Transparent;
             this.solidGauge2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.solidGauge2.ForeColor = System.Drawing.Color.WhiteSmoke;
@@ -293,8 +296,8 @@ namespace BASSCOMPORT
             this.intervalButton.BadgeAlignment = MetroSet_UI.Enums.BadgeAlign.TopRight;
             this.intervalButton.BadgeText = "2";
             this.intervalButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
-            this.intervalButton.DisabledBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
-            this.intervalButton.DisabledForeColor = System.Drawing.Color.Black;
+            this.intervalButton.DisabledBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(155)))), ((int)(((byte)(155)))));
+            this.intervalButton.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(136)))), ((int)(((byte)(136)))), ((int)(((byte)(136)))));
             this.intervalButton.Font = new System.Drawing.Font("Impact", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.intervalButton.HoverBadgeColor = System.Drawing.Color.FromArgb(((int)(((byte)(85)))), ((int)(((byte)(187)))), ((int)(((byte)(245)))));
             this.intervalButton.HoverBadgeTextColor = System.Drawing.Color.White;
@@ -306,9 +309,9 @@ namespace BASSCOMPORT
             this.intervalButton.Name = "intervalButton";
             this.intervalButton.NormalBadgeColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
             this.intervalButton.NormalBadgeTextColor = System.Drawing.Color.White;
-            this.intervalButton.NormalBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(86)))), ((int)(((byte)(149)))));
-            this.intervalButton.NormalColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(86)))), ((int)(((byte)(149)))));
-            this.intervalButton.NormalTextColor = System.Drawing.SystemColors.ButtonFace;
+            this.intervalButton.NormalBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
+            this.intervalButton.NormalColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(238)))), ((int)(((byte)(238)))));
+            this.intervalButton.NormalTextColor = System.Drawing.Color.Black;
             this.intervalButton.PressBadgeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(147)))), ((int)(((byte)(205)))));
             this.intervalButton.PressBadgeTextColor = System.Drawing.Color.White;
             this.intervalButton.PressBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
@@ -343,8 +346,8 @@ namespace BASSCOMPORT
             this.productButton.BadgeAlignment = MetroSet_UI.Enums.BadgeAlign.TopRight;
             this.productButton.BadgeText = "1";
             this.productButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
-            this.productButton.DisabledBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
-            this.productButton.DisabledForeColor = System.Drawing.Color.Black;
+            this.productButton.DisabledBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(155)))), ((int)(((byte)(155)))));
+            this.productButton.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(136)))), ((int)(((byte)(136)))), ((int)(((byte)(136)))));
             this.productButton.Font = new System.Drawing.Font("Impact", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.productButton.HoverBadgeColor = System.Drawing.Color.FromArgb(((int)(((byte)(85)))), ((int)(((byte)(187)))), ((int)(((byte)(245)))));
             this.productButton.HoverBadgeTextColor = System.Drawing.Color.White;
@@ -356,9 +359,9 @@ namespace BASSCOMPORT
             this.productButton.Name = "productButton";
             this.productButton.NormalBadgeColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
             this.productButton.NormalBadgeTextColor = System.Drawing.Color.White;
-            this.productButton.NormalBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(86)))), ((int)(((byte)(149)))));
-            this.productButton.NormalColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(86)))), ((int)(((byte)(149)))));
-            this.productButton.NormalTextColor = System.Drawing.SystemColors.ButtonFace;
+            this.productButton.NormalBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
+            this.productButton.NormalColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(238)))), ((int)(((byte)(238)))));
+            this.productButton.NormalTextColor = System.Drawing.Color.Black;
             this.productButton.PressBadgeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(147)))), ((int)(((byte)(205)))));
             this.productButton.PressBadgeTextColor = System.Drawing.Color.White;
             this.productButton.PressBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
@@ -393,8 +396,8 @@ namespace BASSCOMPORT
             this.exportButton.BadgeAlignment = MetroSet_UI.Enums.BadgeAlign.TopRight;
             this.exportButton.BadgeText = "3";
             this.exportButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
-            this.exportButton.DisabledBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
-            this.exportButton.DisabledForeColor = System.Drawing.Color.Black;
+            this.exportButton.DisabledBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(155)))), ((int)(((byte)(155)))));
+            this.exportButton.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(136)))), ((int)(((byte)(136)))), ((int)(((byte)(136)))));
             this.exportButton.Font = new System.Drawing.Font("Impact", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.exportButton.HoverBadgeColor = System.Drawing.Color.FromArgb(((int)(((byte)(85)))), ((int)(((byte)(187)))), ((int)(((byte)(245)))));
             this.exportButton.HoverBadgeTextColor = System.Drawing.Color.White;
@@ -406,9 +409,9 @@ namespace BASSCOMPORT
             this.exportButton.Name = "exportButton";
             this.exportButton.NormalBadgeColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
             this.exportButton.NormalBadgeTextColor = System.Drawing.Color.White;
-            this.exportButton.NormalBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(86)))), ((int)(((byte)(149)))));
-            this.exportButton.NormalColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(86)))), ((int)(((byte)(149)))));
-            this.exportButton.NormalTextColor = System.Drawing.SystemColors.ButtonFace;
+            this.exportButton.NormalBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
+            this.exportButton.NormalColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(238)))), ((int)(((byte)(238)))));
+            this.exportButton.NormalTextColor = System.Drawing.Color.Black;
             this.exportButton.PressBadgeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(147)))), ((int)(((byte)(205)))));
             this.exportButton.PressBadgeTextColor = System.Drawing.Color.White;
             this.exportButton.PressBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
@@ -429,8 +432,8 @@ namespace BASSCOMPORT
             this.saveDataButton.BadgeAlignment = MetroSet_UI.Enums.BadgeAlign.TopRight;
             this.saveDataButton.BadgeText = "4";
             this.saveDataButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
-            this.saveDataButton.DisabledBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
-            this.saveDataButton.DisabledForeColor = System.Drawing.Color.Black;
+            this.saveDataButton.DisabledBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(155)))), ((int)(((byte)(155)))));
+            this.saveDataButton.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(136)))), ((int)(((byte)(136)))), ((int)(((byte)(136)))));
             this.saveDataButton.Font = new System.Drawing.Font("Impact", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.saveDataButton.HoverBadgeColor = System.Drawing.Color.FromArgb(((int)(((byte)(85)))), ((int)(((byte)(187)))), ((int)(((byte)(245)))));
             this.saveDataButton.HoverBadgeTextColor = System.Drawing.Color.White;
@@ -442,9 +445,9 @@ namespace BASSCOMPORT
             this.saveDataButton.Name = "saveDataButton";
             this.saveDataButton.NormalBadgeColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
             this.saveDataButton.NormalBadgeTextColor = System.Drawing.Color.White;
-            this.saveDataButton.NormalBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(86)))), ((int)(((byte)(149)))));
-            this.saveDataButton.NormalColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(86)))), ((int)(((byte)(149)))));
-            this.saveDataButton.NormalTextColor = System.Drawing.SystemColors.ButtonFace;
+            this.saveDataButton.NormalBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
+            this.saveDataButton.NormalColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(238)))), ((int)(((byte)(238)))));
+            this.saveDataButton.NormalTextColor = System.Drawing.Color.Black;
             this.saveDataButton.PressBadgeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(147)))), ((int)(((byte)(205)))));
             this.saveDataButton.PressBadgeTextColor = System.Drawing.Color.White;
             this.saveDataButton.PressBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));

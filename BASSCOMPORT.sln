@@ -9,6 +9,8 @@ Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "BASS SERIAL TERMINAL", "..\
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "..\Setup\Setup.vdproj", "{D18DB4CF-B255-46E7-BB17-DB97CB48F799}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "BassController", "..\BassController\BassController.vdproj", "{6D4CB8D0-E1DA-4ECE-A897-00A61B636702}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +25,8 @@ Global
 		{FB4D396F-D680-45C1-AB13-83478B6ABA79}.Release|Any CPU.ActiveCfg = Release
 		{D18DB4CF-B255-46E7-BB17-DB97CB48F799}.Debug|Any CPU.ActiveCfg = Debug
 		{D18DB4CF-B255-46E7-BB17-DB97CB48F799}.Release|Any CPU.ActiveCfg = Release
+		{6D4CB8D0-E1DA-4ECE-A897-00A61B636702}.Debug|Any CPU.ActiveCfg = Debug
+		{6D4CB8D0-E1DA-4ECE-A897-00A61B636702}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
