@@ -124,7 +124,7 @@ namespace BASSCOMPORT {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to DEĞİŞTİR.
+        ///   Looks up a localized string similar to KALİBRE ET.
         /// </summary>
         internal static string CHANGE {
             get {

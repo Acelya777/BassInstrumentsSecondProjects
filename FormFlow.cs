@@ -29,8 +29,9 @@ namespace BASSCOMPORT
         private string txtname;
         private string path;
         
-        double temp = 0, pressure = 0, minScale = 0, maxScale = 0;
+        double temp = 0, pressure = 0, minScale = 0, maxScale = 0,identify =0,range=0;
         bool updateData = false;
+        bool updateData2 = false;
         double duration, durationn;
         
         SerialPort myPort;
@@ -2227,11 +2228,51 @@ namespace BASSCOMPORT
 
         void sp_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-
             string data_In = serialPort1.ReadTo("^");
+            string data_identify = serialPort1.ReadTo("*");
+            Data_Identify(data_identify);
             Data_TempPres(data_In);
             this.BeginInvoke(new EventHandler(Show_Data));
+        }
+        public void Data_Identify(string data)
+        {
+            sbyte indexOf_startDataCharx = (sbyte)data.IndexOf("?");
+            sbyte indexOfXx = (sbyte)data.IndexOf("!");
+            sbyte indexOfYx = (sbyte)data.IndexOf("%");
 
+            if (indexOf_startDataCharx != -1 && indexOfYx != -1 && indexOfXx != -1)
+            {
+                try
+                {
+                    string str_identify = data.Substring(indexOf_startDataCharx + 1, (indexOfXx - indexOf_startDataCharx) - 1);
+                    string str_range = data.Substring(indexOfXx + 1, (indexOfYx - indexOfXx) - 1);
+                    identify = Convert.ToDouble(str_identify);
+                    if (identify == 0)
+                    {
+                        variables.data_identify = 10; // mA
+                    }
+                    else if (identify == 1)
+                    {
+                        variables.data_identify = 11; // V
+                    }
+                    string[] tokens = str_range.Split('-');
+                    double lowRangeDouble = Convert.ToDouble(tokens[0]);
+                    double upperRangeDouble = Convert.ToDouble(tokens[1]);
+                    variables.lowRange = lowRangeDouble;
+                    variables.upperRange = upperRangeDouble;
+                    updateData2 = true;
+
+                }
+                catch (Exception error)
+                {
+                    MessageBox.Show(error.Message);
+                }
+            }
+
+            else
+            {
+                updateData2 = false;
+            }
         }
 
         public void Data_TempPres(string data)

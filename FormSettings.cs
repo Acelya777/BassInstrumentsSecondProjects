@@ -9,6 +9,7 @@ using static BASSCOMPORT.frrmMain;
 
 namespace BASSCOMPORT
 {
+    
     public partial class FormSettings : Form
     {
         [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
@@ -27,7 +28,10 @@ namespace BASSCOMPORT
 
         bool tryMe = false;
         public int enNumber = 0;
-       
+        SerialPort myPort;
+        private bool updateData2 = false;
+        double identify = 0, empty = 0;
+
 
         public FormSettings()
         {
@@ -52,6 +56,9 @@ namespace BASSCOMPORT
             groupBox2.Font = new System.Drawing.Font("Arial", 12F);
 
             label4.Font = new System.Drawing.Font("Arial", 12F);
+           
+
+         
 
         }
 
@@ -130,7 +137,9 @@ namespace BASSCOMPORT
             }
 
         }
+        
 
+        
         private void btnOpen_Click(object sender, EventArgs e)
         {
 
@@ -151,7 +160,7 @@ namespace BASSCOMPORT
                     variables.serialPort.Open();
                     variables.status = 66;
                     //variables.connection2 = true;
-
+                    
                     progressBar1.Value = 100;
                     if (variables.numEN == 11)
                     {
@@ -264,7 +273,7 @@ namespace BASSCOMPORT
 
         private void button1_Click(object sender, EventArgs e)
         {
-
+            pictureBox1.Image = BASSCOMPORT.Properties.Resources.ok2;
             //variables.numEN = 11;
 
             if (comboBox1.SelectedItem.ToString() == "Türkçe")
@@ -272,6 +281,7 @@ namespace BASSCOMPORT
                 variables.numEN = 11;
                 variables.xx = true;
                 variables.tryMe = false;
+                variables.trP = false;
 
 
                 label1.Text = rm.GetString("Language");
@@ -311,6 +321,7 @@ namespace BASSCOMPORT
             {
                 variables.tryMe = false;
                 variables.numEN = 10;
+                variables.enP = false;
                 label1.Text = "Language";
                 label2.Text = "Temperature Unit";
                 label3.Text = "Pressure Unit";
@@ -344,7 +355,7 @@ namespace BASSCOMPORT
 
         private void button2_Click(object sender, EventArgs e)
         {
-
+            pictureBox2.Image = BASSCOMPORT.Properties.Resources.ok2;
             if (comboBox2.SelectedItem.ToString() == "Kelvin(K)")
             {
                 variables.numT = 12;
@@ -372,7 +383,7 @@ namespace BASSCOMPORT
 
         private void button3_Click(object sender, EventArgs e)
         {   // "mBar", "Bar","Pa", "kg/s2","mmh2o","mh2o","mmHg","psi","kPa","MPa"
-
+            pictureBox3.Image = BASSCOMPORT.Properties.Resources.ok2;
             if (comboBox3.SelectedItem.ToString() == "Bar")
             {
                 variables.numP = 14;
@@ -511,6 +522,23 @@ namespace BASSCOMPORT
         {
 
         }
+
+        private void pictureBox3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+       
     }
 
 

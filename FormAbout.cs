@@ -51,6 +51,7 @@ namespace BASSCOMPORT
         public System.Net.NetworkCredential smtpCreds = new System.Net.NetworkCredential("mail", "password");
         MailMessage message = new MailMessage();
         SmtpClient smtp = new SmtpClient();
+        
 
         public FormAbout()
         {
@@ -314,6 +315,11 @@ namespace BASSCOMPORT
             if (variables.numEN == 11)
             {
                 pictureBox5.Image = BASSCOMPORT.Properties.Resources.com2;
+                if (variables.trP == false)
+                {
+                    pictureBox8.Image = image1;
+                    variables.trP = true;
+                }
                 if (pictureBox8.Image == image1)
                 {
                     pictureBox8.Image = image2;
@@ -335,6 +341,12 @@ namespace BASSCOMPORT
             else if (variables.numEN == 10)
             {
                 pictureBox5.Image = BASSCOMPORT.Properties.Resources.com3;
+                if (variables.enP == false)
+                {
+                    pictureBox8.Image = image6;
+                    variables.enP = true;
+                }
+
                 if (pictureBox8.Image == image6)
                 {
                     pictureBox8.Image = image7;

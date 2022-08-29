@@ -629,6 +629,9 @@
       <DependentUpon>splashScreen.cs</DependentUpon>
     </Compile>
     <Compile Include="ThemeColor.cs" />
+    <Compile Include="ToggleButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="tr_local.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -789,6 +792,7 @@
     <None Include="Resources\output-onlinegiftools.gif" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\ok2.png" />
     <None Include="Resources\LOGO1.png" />
     <None Include="Resources\LOGO.png" />
     <None Include="Resources\PNG.png" />

@@ -8,6 +8,12 @@ namespace BASSCOMPORT
 {
     public static class variables
     {   
+
+        public static double lowRange { get; set; }
+        public static double upperRange { get; set; }
+        public static double data_identify { get; set; }// is it voltage?
+        public static bool enP { get; set; }// about page english photo
+        public static bool trP { get; set; }// about page tr photo
         public static int exportBut2 { get; set; }
         public static bool comportx { get; set; } // for comport
         public static bool xx { get; set; } // for exportbutton

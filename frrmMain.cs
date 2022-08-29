@@ -272,6 +272,7 @@ namespace BASSCOMPORT
             button5.Enabled = false;
             variables.numT = 1;
             variables.numP = 2;
+            
             timer1.Enabled = true;
             timer1.Interval = 1000;
             timer1.Start();

@@ -29,18 +29,10 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.maxScaleTextBox = new System.Windows.Forms.TextBox();
             this.minScaleTextBox = new System.Windows.Forms.TextBox();
-            this.minScaleSetTextBox = new System.Windows.Forms.TextBox();
-            this.maxScaleSetTextBox = new System.Windows.Forms.TextBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.setButton = new MetroSet_UI.Controls.MetroSetBadge();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.scaleButton = new MetroSet_UI.Controls.MetroSetBadge();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -52,38 +44,24 @@
             this.progressBar1 = new MetroSet_UI.Controls.MetroSetProgressBar();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.groupBox1.SuspendLayout();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.groupBox2.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.ForeColor = System.Drawing.Color.Black;
-            this.label10.Location = new System.Drawing.Point(52, 113);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(67, 16);
-            this.label10.TabIndex = 70;
-            this.label10.Text = "maxScale";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.ForeColor = System.Drawing.Color.Black;
-            this.label11.Location = new System.Drawing.Point(52, 56);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(63, 16);
-            this.label11.TabIndex = 69;
-            this.label11.Text = "minScale";
             // 
             // label18
             // 
             this.label18.AutoSize = true;
             this.label18.ForeColor = System.Drawing.Color.Black;
-            this.label18.Location = new System.Drawing.Point(68, 109);
+            this.label18.Location = new System.Drawing.Point(62, 120);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(67, 16);
             this.label18.TabIndex = 65;
@@ -93,7 +71,7 @@
             // 
             this.label16.AutoSize = true;
             this.label16.ForeColor = System.Drawing.Color.Black;
-            this.label16.Location = new System.Drawing.Point(68, 56);
+            this.label16.Location = new System.Drawing.Point(62, 51);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(63, 16);
             this.label16.TabIndex = 64;
@@ -103,7 +81,7 @@
             // 
             this.maxScaleTextBox.BackColor = System.Drawing.Color.White;
             this.maxScaleTextBox.ForeColor = System.Drawing.Color.Black;
-            this.maxScaleTextBox.Location = new System.Drawing.Point(358, 103);
+            this.maxScaleTextBox.Location = new System.Drawing.Point(352, 114);
             this.maxScaleTextBox.Name = "maxScaleTextBox";
             this.maxScaleTextBox.Size = new System.Drawing.Size(84, 22);
             this.maxScaleTextBox.TabIndex = 66;
@@ -112,109 +90,16 @@
             // 
             this.minScaleTextBox.BackColor = System.Drawing.Color.White;
             this.minScaleTextBox.ForeColor = System.Drawing.Color.Black;
-            this.minScaleTextBox.Location = new System.Drawing.Point(358, 53);
+            this.minScaleTextBox.Location = new System.Drawing.Point(352, 48);
             this.minScaleTextBox.Name = "minScaleTextBox";
             this.minScaleTextBox.Size = new System.Drawing.Size(84, 22);
             this.minScaleTextBox.TabIndex = 67;
-            // 
-            // minScaleSetTextBox
-            // 
-            this.minScaleSetTextBox.BackColor = System.Drawing.Color.White;
-            this.minScaleSetTextBox.ForeColor = System.Drawing.Color.Black;
-            this.minScaleSetTextBox.Location = new System.Drawing.Point(358, 53);
-            this.minScaleSetTextBox.Name = "minScaleSetTextBox";
-            this.minScaleSetTextBox.Size = new System.Drawing.Size(84, 22);
-            this.minScaleSetTextBox.TabIndex = 72;
-            this.minScaleSetTextBox.TextChanged += new System.EventHandler(this.minScaleSetTextBox_TextChanged_1);
-            // 
-            // maxScaleSetTextBox
-            // 
-            this.maxScaleSetTextBox.BackColor = System.Drawing.Color.White;
-            this.maxScaleSetTextBox.ForeColor = System.Drawing.Color.Black;
-            this.maxScaleSetTextBox.Location = new System.Drawing.Point(358, 110);
-            this.maxScaleSetTextBox.Name = "maxScaleSetTextBox";
-            this.maxScaleSetTextBox.Size = new System.Drawing.Size(84, 22);
-            this.maxScaleSetTextBox.TabIndex = 71;
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(244)))), ((int)(((byte)(244)))));
-            this.groupBox1.Controls.Add(this.setButton);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.label10);
-            this.groupBox1.Controls.Add(this.maxScaleSetTextBox);
-            this.groupBox1.Controls.Add(this.minScaleSetTextBox);
-            this.groupBox1.Controls.Add(this.label11);
-            this.groupBox1.ForeColor = System.Drawing.Color.Black;
-            this.groupBox1.Location = new System.Drawing.Point(159, 39);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(605, 272);
-            this.groupBox1.TabIndex = 74;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
-            // 
-            // setButton
-            // 
-            this.setButton.BackColor = System.Drawing.Color.Transparent;
-            this.setButton.BadgeAlignment = MetroSet_UI.Enums.BadgeAlign.TopRight;
-            this.setButton.BadgeText = "1";
-            this.setButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
-            this.setButton.DisabledBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(155)))), ((int)(((byte)(155)))));
-            this.setButton.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(136)))), ((int)(((byte)(136)))), ((int)(((byte)(136)))));
-            this.setButton.Font = new System.Drawing.Font("Impact", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.setButton.HoverBadgeColor = System.Drawing.Color.FromArgb(((int)(((byte)(85)))), ((int)(((byte)(187)))), ((int)(((byte)(245)))));
-            this.setButton.HoverBadgeTextColor = System.Drawing.Color.White;
-            this.setButton.HoverBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(102)))), ((int)(((byte)(102)))));
-            this.setButton.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(102)))), ((int)(((byte)(102)))));
-            this.setButton.HoverTextColor = System.Drawing.Color.White;
-            this.setButton.IsDerivedStyle = true;
-            this.setButton.Location = new System.Drawing.Point(55, 147);
-            this.setButton.Name = "setButton";
-            this.setButton.NormalBadgeColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
-            this.setButton.NormalBadgeTextColor = System.Drawing.Color.White;
-            this.setButton.NormalBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
-            this.setButton.NormalColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(238)))), ((int)(((byte)(238)))));
-            this.setButton.NormalTextColor = System.Drawing.Color.Black;
-            this.setButton.PressBadgeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(147)))), ((int)(((byte)(205)))));
-            this.setButton.PressBadgeTextColor = System.Drawing.Color.White;
-            this.setButton.PressBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
-            this.setButton.PressColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
-            this.setButton.PressTextColor = System.Drawing.Color.White;
-            this.setButton.Size = new System.Drawing.Size(501, 74);
-            this.setButton.Style = MetroSet_UI.Enums.Style.Light;
-            this.setButton.StyleManager = null;
-            this.setButton.TabIndex = 78;
-            this.setButton.Text = "SET";
-            this.setButton.ThemeAuthor = "Narwin";
-            this.setButton.ThemeName = "MetroLite";
-            this.setButton.Click += new System.EventHandler(this.setButton_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(489, 113);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(67, 16);
-            this.label1.TabIndex = 75;
-            this.label1.Text = "maxScale";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.ForeColor = System.Drawing.Color.Black;
-            this.label2.Location = new System.Drawing.Point(489, 56);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(63, 16);
-            this.label2.TabIndex = 74;
-            this.label2.Text = "minScale";
             // 
             // scaleButton
             // 
             this.scaleButton.BackColor = System.Drawing.Color.Transparent;
             this.scaleButton.BadgeAlignment = MetroSet_UI.Enums.BadgeAlign.TopRight;
-            this.scaleButton.BadgeText = "2";
+            this.scaleButton.BadgeText = "1";
             this.scaleButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
             this.scaleButton.DisabledBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
             this.scaleButton.DisabledForeColor = System.Drawing.Color.Black;
@@ -225,7 +110,7 @@
             this.scaleButton.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(102)))), ((int)(((byte)(102)))));
             this.scaleButton.HoverTextColor = System.Drawing.Color.White;
             this.scaleButton.IsDerivedStyle = true;
-            this.scaleButton.Location = new System.Drawing.Point(71, 154);
+            this.scaleButton.Location = new System.Drawing.Point(65, 176);
             this.scaleButton.Name = "scaleButton";
             this.scaleButton.NormalBadgeColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
             this.scaleButton.NormalBadgeTextColor = System.Drawing.Color.White;
@@ -250,7 +135,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.ForeColor = System.Drawing.Color.Black;
-            this.label3.Location = new System.Drawing.Point(489, 109);
+            this.label3.Location = new System.Drawing.Point(483, 120);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(67, 16);
             this.label3.TabIndex = 77;
@@ -260,7 +145,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.ForeColor = System.Drawing.Color.Black;
-            this.label4.Location = new System.Drawing.Point(489, 56);
+            this.label4.Location = new System.Drawing.Point(483, 54);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(63, 16);
             this.label4.TabIndex = 76;
@@ -349,11 +234,76 @@
             this.groupBox2.Controls.Add(this.minScaleTextBox);
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.ForeColor = System.Drawing.Color.Black;
-            this.groupBox2.Location = new System.Drawing.Point(159, 341);
+            this.groupBox2.Location = new System.Drawing.Point(159, 335);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(605, 272);
+            this.groupBox2.Size = new System.Drawing.Size(605, 278);
             this.groupBox2.TabIndex = 82;
             this.groupBox2.TabStop = false;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(244)))), ((int)(((byte)(244)))));
+            this.groupBox1.Controls.Add(this.label7);
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.label5);
+            this.groupBox1.Controls.Add(this.label6);
+            this.groupBox1.ForeColor = System.Drawing.Color.Black;
+            this.groupBox1.Location = new System.Drawing.Point(159, 39);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(605, 278);
+            this.groupBox1.TabIndex = 83;
+            this.groupBox1.TabStop = false;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.Color.Black;
+            this.label1.Location = new System.Drawing.Point(62, 74);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(63, 16);
+            this.label1.TabIndex = 64;
+            this.label1.Text = "minScale";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.ForeColor = System.Drawing.Color.Black;
+            this.label2.Location = new System.Drawing.Point(62, 137);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(67, 16);
+            this.label2.TabIndex = 65;
+            this.label2.Text = "maxScale";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.ForeColor = System.Drawing.Color.Black;
+            this.label5.Location = new System.Drawing.Point(285, 137);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(67, 16);
+            this.label5.TabIndex = 77;
+            this.label5.Text = "maxScale";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.ForeColor = System.Drawing.Color.Black;
+            this.label6.Location = new System.Drawing.Point(285, 74);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(63, 16);
+            this.label6.TabIndex = 76;
+            this.label6.Text = "minScale";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.ForeColor = System.Drawing.Color.Black;
+            this.label7.Location = new System.Drawing.Point(422, 137);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(67, 16);
+            this.label7.TabIndex = 78;
+            this.label7.Text = "maxScale";
             // 
             // FormScaling
             // 
@@ -362,51 +312,48 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(33)))), ((int)(((byte)(74)))));
             this.BackgroundImage = global::BASSCOMPORT.Properties.Resources.Artboard_12;
             this.ClientSize = new System.Drawing.Size(1428, 719);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.groupBox1);
             this.ForeColor = System.Drawing.Color.White;
             this.Name = "FormScaling";
             this.Text = "FormScaling";
             this.Load += new System.EventHandler(this.FormScaling_Load);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.TextBox maxScaleTextBox;
         private System.Windows.Forms.TextBox minScaleTextBox;
-        private System.Windows.Forms.TextBox minScaleSetTextBox;
-        private System.Windows.Forms.TextBox maxScaleSetTextBox;
-        private System.Windows.Forms.GroupBox groupBox1;
         private System.IO.Ports.SerialPort serialPort1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Timer timer2;
         private MetroSet_UI.Controls.MetroSetBadge scaleButton;
-        private MetroSet_UI.Controls.MetroSetBadge setButton;
         private MetroSet_UI.Controls.MetroSetProgressBar progressBar1;
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
     }
 }
