@@ -141,6 +141,9 @@
   <data name="CHANGE" xml:space="preserve">
     <value>KALİBRE ET</value>
   </data>
+  <data name="CHANGE2" xml:space="preserve">
+    <value>AYARLA</value>
+  </data>
   <data name="CLOSE" xml:space="preserve">
     <value>KAPAT</value>
   </data>

@@ -43,6 +43,7 @@
             this.cBoxCOMPORT = new System.Windows.Forms.ComboBox();
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.progressBar1 = new BASSCOMPORT.TextProgressBar();
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
@@ -58,7 +59,6 @@
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.progressBar1 = new BASSCOMPORT.TextProgressBar();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -222,6 +222,11 @@
             this.cBoxCOMPORT.Name = "cBoxCOMPORT";
             this.cBoxCOMPORT.Size = new System.Drawing.Size(173, 24);
             this.cBoxCOMPORT.TabIndex = 10;
+            this.cBoxCOMPORT.DropDown += new System.EventHandler(this.cBoxCOMPORT_DropDown);
+            // 
+            // serialPort1
+            // 
+            this.serialPort1.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPort1_DataReceived);
             // 
             // groupBox1
             // 
@@ -250,6 +255,18 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "COM PORT SETTINGS";
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
+            // 
+            // progressBar1
+            // 
+            this.progressBar1.CustomText = "";
+            this.progressBar1.Location = new System.Drawing.Point(152, 376);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.ProgressColor = System.Drawing.Color.LimeGreen;
+            this.progressBar1.Size = new System.Drawing.Size(346, 58);
+            this.progressBar1.TabIndex = 24;
+            this.progressBar1.TextColor = System.Drawing.Color.Black;
+            this.progressBar1.TextFont = new System.Drawing.Font("Times New Roman", 11F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
+            this.progressBar1.VisualMode = BASSCOMPORT.ProgressBarDisplayMode.CustomText;
             // 
             // label4
             // 
@@ -418,20 +435,8 @@
             // timer1
             // 
             this.timer1.Enabled = true;
-            this.timer1.Interval = 2000;
+            this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // progressBar1
-            // 
-            this.progressBar1.CustomText = "";
-            this.progressBar1.Location = new System.Drawing.Point(152, 376);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.ProgressColor = System.Drawing.Color.LimeGreen;
-            this.progressBar1.Size = new System.Drawing.Size(346, 58);
-            this.progressBar1.TabIndex = 24;
-            this.progressBar1.TextColor = System.Drawing.Color.Black;
-            this.progressBar1.TextFont = new System.Drawing.Font("Times New Roman", 11F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
-            this.progressBar1.VisualMode = BASSCOMPORT.ProgressBarDisplayMode.CustomText;
             // 
             // FormSettings
             // 

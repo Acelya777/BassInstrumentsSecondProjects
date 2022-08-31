@@ -45,8 +45,6 @@ namespace BASSCOMPORT
             this.gridControl1 = new System.Windows.Forms.DataGridView();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
-            this.timer3 = new System.Windows.Forms.Timer(this.components);
-            this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.intervalNumber = new System.Windows.Forms.ComboBox();
             this.intervalKind = new System.Windows.Forms.ComboBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -238,15 +236,6 @@ namespace BASSCOMPORT
             // 
             this.timer2.Interval = 3000;
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
-            // 
-            // timer3
-            // 
-            this.timer3.Interval = 3000;
-            this.timer3.Tick += new System.EventHandler(this.timer3_Tick);
-            // 
-            // serialPort1
-            // 
-            this.serialPort1.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPort1_DataReceived);
             // 
             // intervalNumber
             // 
@@ -535,8 +524,6 @@ namespace BASSCOMPORT
         private System.Windows.Forms.DataGridView gridControl1;
         public System.Windows.Forms.Timer timer1;
         public System.Windows.Forms.Timer timer2;
-        private System.Windows.Forms.Timer timer3;
-        private System.IO.Ports.SerialPort serialPort1;
         private System.Windows.Forms.ComboBox intervalNumber;
         private System.Windows.Forms.ComboBox intervalKind;
         private System.Windows.Forms.TextBox textBox1;

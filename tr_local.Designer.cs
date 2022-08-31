@@ -133,6 +133,15 @@ namespace BASSCOMPORT {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to AYARLA.
+        /// </summary>
+        internal static string CHANGE2 {
+            get {
+                return ResourceManager.GetString("CHANGE2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to KAPAT.
         /// </summary>
         internal static string CLOSE {

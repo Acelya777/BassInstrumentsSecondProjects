@@ -6,6 +6,8 @@ using System.Linq;
 using System.Reflection;
 using System.Resources;
 using System.Runtime.InteropServices;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace BASSCOMPORT
@@ -28,10 +30,11 @@ namespace BASSCOMPORT
 
         [DllImport("gdi32.dll", EntryPoint = "DeleteObject")]
         private static extern bool DeleteObject(System.IntPtr hObject);
-
-        string dataminScale, datamaxScale, dataminSetScale, datamaxSetScale;
+        string dataminScale, datamaxScale;
         public static ResourceManager rm = new ResourceManager("BASSCOMPORT.tr_local", Assembly.GetExecutingAssembly());
         public static FormScaling client;
+        public bool check = false;
+        
         public FormScaling()
         {
             InitializeComponent();
@@ -207,36 +210,19 @@ namespace BASSCOMPORT
         {
 
 
-            serialPort1 = new SerialPort();
-            serialPort1 = variables.serialPort;
-            //serialPort1.DataReceived += new SerialDataReceivedEventHandler(sp_DataReceived);
-            progressBar1.Maximum = 130;
-            //metroSetDivider1.ForeColor = System.Drawing.Color.White;
-            //metroSetDivider2.ForeColor = System.Drawing.Color.White;
-
-            /*if (variables.numEN == 11)
-            {
-                richTextBox2.Text = "Sonra ölçeklendirmek istediğiniz minimum ve maksimum değerleri giriniz ve DEĞİŞTİR butonuna tıklayınız. Lütfen 'OK' işaretini görene kadar bekleyiniz.";
-                richTextBox1.Text = "Lütfen ürün etiketi üzerinde bulunan ölçeklendirme aralığını kontrol ediniz. Ardından minimum ve maksimum değerleri belirtilen kutucuklara giriniz ve AYARLA butonuna tıklayınız. Bu şekilde cihaza referans ölçeklendirme aralığı vermiş oluyoruz. ";
-            }
-            else if ( variables.numEN == 10)
-            {
-               
-                richTextBox2.Text = "After that, enter the minimum and maximum values you want to scale, click the CHANGE button . Please wait until you see the 'OK' tick.";
-                richTextBox1.Text = "Please check the scaling range on product label. Then enter the minimum and maximum values and click to SET button. In this way, we are saying the device that what's its reference scaling range.";
-            }*/
-
-
-            
-            minScaleTextBox.Enabled = false;
-            maxScaleTextBox.Enabled = false;
+           
+            progressBar1.Maximum = 130;      
             variables.comportx = true;
         }
 
+       
+       
+
         private void scaleButton_Click(object sender, EventArgs e)
         {
-            if (serialPort1.IsOpen)
-            {
+            
+            if (variables.status == 66)
+            {   
                 if (minScaleTextBox.Text.Trim() == string.Empty || maxScaleTextBox.Text.Trim() == string.Empty)
                 {
                     MessageBox.Show("Please enter something in the textbox");
@@ -272,7 +258,7 @@ namespace BASSCOMPORT
 
                             {
 
-
+                                variables.timerScaling = true;
 
                                 tempMinn = minScaleTextBox.Text;
                                 tempMaxx = maxScaleTextBox.Text;
@@ -289,7 +275,7 @@ namespace BASSCOMPORT
                                 label3.Text = maxScaleTextBox.Text;
                                 label4.Text = minScaleTextBox.Text;
 
-                                serialPort1.WriteLine("?" + dataminScale + "?" + datamaxScale + "?");
+                                variables.serialPort.WriteLine("?" + dataminScale + "?" + datamaxScale + "?");
 
 
                                 timer1.Interval = 1000;//1 second
@@ -328,7 +314,7 @@ namespace BASSCOMPORT
 
                             {
 
-                               
+                                variables.timerScaling = true;
 
                                 tempMinn = minScaleTextBox.Text;
                                 tempMaxx = maxScaleTextBox.Text;
@@ -345,7 +331,7 @@ namespace BASSCOMPORT
                                 label3.Text = maxScaleTextBox.Text;
                                 label4.Text = minScaleTextBox.Text;
 
-                                serialPort1.WriteLine("?" + dataminScale + "?" + datamaxScale + "?");
+                                variables.serialPort.WriteLine("?" + dataminScale + "?" + datamaxScale + "?");
 
                                 timer1.Interval = 1000;//1 second
                                 timer1.Tick += new System.EventHandler(timer1_Tick);
@@ -383,8 +369,8 @@ namespace BASSCOMPORT
                             if (MessageBox.Show("Please confirm before proceed" + "\n" + "Do you want to Continue ?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
 
                             {
+                                variables.timerScaling = true;
 
-                                
                                 tempMinn = minScaleTextBox.Text;
                                 tempMaxx = maxScaleTextBox.Text;
 
@@ -400,7 +386,7 @@ namespace BASSCOMPORT
                                 label3.Text = maxScaleTextBox.Text;
                                 label4.Text = minScaleTextBox.Text;
 
-                                serialPort1.WriteLine("?" + dataminScale + "?" + datamaxScale + "?");
+                                variables.serialPort.WriteLine("?" + dataminScale + "?" + datamaxScale + "?");
 
                                 timer1.Interval = 1000;//1 second
                                 timer1.Tick += new System.EventHandler(timer1_Tick);
@@ -438,8 +424,8 @@ namespace BASSCOMPORT
                             if (MessageBox.Show("Please confirm before proceed" + "\n" + "Do you want to Continue ?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
 
                             {
+                                variables.timerScaling = true;
 
-                                
 
                                 tempMinn = minScaleTextBox.Text;
                                 tempMaxx = maxScaleTextBox.Text;
@@ -456,7 +442,7 @@ namespace BASSCOMPORT
                                 label3.Text = maxScaleTextBox.Text;
                                 label4.Text = minScaleTextBox.Text;
 
-                                serialPort1.WriteLine("?" + dataminScale + "?" + datamaxScale + "?");
+                                variables.serialPort.WriteLine("?" + dataminScale + "?" + datamaxScale + "?");
 
                                 timer1.Interval = 1000;//1 second
                                 timer1.Tick += new System.EventHandler(timer1_Tick);
@@ -493,8 +479,8 @@ namespace BASSCOMPORT
                             if (MessageBox.Show("Please confirm before proceed" + "\n" + "Do you want to Continue ?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
 
                             {
+                                variables.timerScaling = true;
 
-                               
 
                                 tempMinn = minScaleTextBox.Text;
                                 tempMaxx = maxScaleTextBox.Text;
@@ -511,7 +497,7 @@ namespace BASSCOMPORT
                                 label3.Text = maxScaleTextBox.Text;
                                 label4.Text = minScaleTextBox.Text;
 
-                                serialPort1.WriteLine("?" + dataminScale + "?" + datamaxScale + "?");
+                                variables.serialPort.WriteLine("?" + dataminScale + "?" + datamaxScale + "?");
 
                                 timer1.Interval = 1000;//1 second
                                 timer1.Tick += new System.EventHandler(timer1_Tick);
@@ -549,7 +535,7 @@ namespace BASSCOMPORT
 
                             {
 
-                               
+                                variables.timerScaling = true;
 
                                 tempMinn = minScaleTextBox.Text;
                                 tempMaxx = maxScaleTextBox.Text;
@@ -566,7 +552,7 @@ namespace BASSCOMPORT
                                 label3.Text = maxScaleTextBox.Text;
                                 label4.Text = minScaleTextBox.Text;
 
-                                serialPort1.WriteLine("?" + dataminScale + "?" + datamaxScale + "?");
+                                variables.serialPort.WriteLine("?" + dataminScale + "?" + datamaxScale + "?");
 
                                 timer1.Interval = 1000;//1 second
                                 timer1.Tick += new System.EventHandler(timer1_Tick);
@@ -604,7 +590,7 @@ namespace BASSCOMPORT
 
                             {
 
-                                
+                                variables.timerScaling = true;
 
                                 tempMinn = minScaleTextBox.Text;
                                 tempMaxx = maxScaleTextBox.Text;
@@ -621,7 +607,7 @@ namespace BASSCOMPORT
                                 label3.Text = maxScaleTextBox.Text;
                                 label4.Text = minScaleTextBox.Text;
 
-                                serialPort1.WriteLine("?" + dataminScale + "?" + datamaxScale + "?");
+                                variables.serialPort.WriteLine("?" + dataminScale + "?" + datamaxScale + "?");
 
                                 timer1.Interval = 1000;//1 second
                                 timer1.Tick += new System.EventHandler(timer1_Tick);
@@ -659,7 +645,7 @@ namespace BASSCOMPORT
 
                             {
 
-                                
+                                variables.timerScaling = true;
 
                                 tempMinn = minScaleTextBox.Text;
                                 tempMaxx = maxScaleTextBox.Text;
@@ -676,7 +662,7 @@ namespace BASSCOMPORT
                                 label3.Text = maxScaleTextBox.Text;
                                 label4.Text = minScaleTextBox.Text;
 
-                                serialPort1.WriteLine("?" + dataminScale + "?" + datamaxScale + "?");
+                                variables.serialPort.WriteLine("?" + dataminScale + "?" + datamaxScale + "?");
 
                                 timer1.Interval = 1000;//1 second
                                 timer1.Tick += new System.EventHandler(timer1_Tick);
@@ -714,8 +700,8 @@ namespace BASSCOMPORT
 
                             {
 
-                                
 
+                                variables.timerScaling = true;
                                 tempMinn = minScaleTextBox.Text;
                                 tempMaxx = maxScaleTextBox.Text;
 
@@ -731,7 +717,7 @@ namespace BASSCOMPORT
                                 label3.Text = maxScaleTextBox.Text;
                                 label4.Text = minScaleTextBox.Text;
 
-                                serialPort1.WriteLine("?" + dataminScale + "?" + datamaxScale + "?");
+                                variables.serialPort.WriteLine("?" + dataminScale + "?" + datamaxScale + "?");
 
                                 timer1.Interval = 1000;//1 second
                                 timer1.Tick += new System.EventHandler(timer1_Tick);
@@ -770,7 +756,7 @@ namespace BASSCOMPORT
                             {
 
 
-
+                                variables.timerScaling = true;
                                 tempMinn = minScaleTextBox.Text;
                                 tempMaxx = maxScaleTextBox.Text;
 
@@ -786,7 +772,7 @@ namespace BASSCOMPORT
                                 label3.Text = maxScaleTextBox.Text;
                                 label4.Text = minScaleTextBox.Text;
 
-                                serialPort1.WriteLine("?" + dataminScale + "?" + datamaxScale + "?");
+                                variables.serialPort.WriteLine("?" + dataminScale + "?" + datamaxScale + "?");
 
                                 timer1.Interval = 1000;//1 second
                                 timer1.Tick += new System.EventHandler(timer1_Tick);
@@ -825,7 +811,7 @@ namespace BASSCOMPORT
 
                             {
 
-                                
+                                variables.timerScaling = true;
 
                                 dataminScale = minScaleTextBox.Text;
                                 datamaxScale = maxScaleTextBox.Text;
@@ -835,7 +821,7 @@ namespace BASSCOMPORT
                                 label3.Text = maxScaleTextBox.Text;
                                 label4.Text = minScaleTextBox.Text;
 
-                                serialPort1.WriteLine("?" + dataminScale + "?" + datamaxScale + "?");
+                                variables.serialPort.WriteLine("?" + dataminScale + "?" + datamaxScale + "?");
 
                                 timer1.Interval = 1000;//1 second
                                 timer1.Tick += new System.EventHandler(timer1_Tick);
@@ -854,8 +840,6 @@ namespace BASSCOMPORT
                     }
 
                     
-                    minScaleTextBox.Enabled = false;
-                    maxScaleTextBox.Enabled = false;
 
                 }
 
@@ -879,143 +863,138 @@ namespace BASSCOMPORT
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (progressBar1.Value == progressBar1.Maximum)
-            {
-                timer1.Stop();
-            }
 
-            else
+            if (variables.timerScaling)
             {
                 pictureBox1.Image = BASSCOMPORT.Properties.Resources.output_onlinegiftools;
                 pictureBox2.Image = BASSCOMPORT.Properties.Resources.output_onlinegiftools;
                 progressBar1.Value += 13;
-                if(progressBar1.Value == progressBar1.Maximum)
+                if (progressBar1.Value == progressBar1.Maximum)
                 {
+                    progressBar1.Value = 0;
                     pictureBox1.Image = BASSCOMPORT.Properties.Resources.ok;
                     pictureBox2.Image = BASSCOMPORT.Properties.Resources.ok;
+                    variables.timerScaling = false;
                 }
-
             }
-
-                
-            
-
         }
-
+        
         private void timer2_Tick(object sender, EventArgs e)
         {
-            if (serialPort1.IsOpen)
+            if (variables.status ==66)
             {
-                if (variables.lowRange != 0 && variables.upperRange != 0)
-                {
-                    if (variables.numP == 14)
+               
+                    if (variables.lowRange != 0 && variables.upperRange != 0)
                     {
+                        
+                        if (variables.numP == 14)
+                        {
 
-                        label5.Text = variables.lowRange.ToString();
-                        label7.Text = variables.upperRange.ToString();
+                            label5.Text = variables.lowRange.ToString()+" Bar";
+                            label7.Text = variables.upperRange.ToString() + " Bar";
 
+                        }
+                        else if (variables.numP == 15)
+                        {
+                            double lowRange = variables.lowRange * 100000;
+                            double upperRange = variables.upperRange * 100000;
+
+                            label5.Text = lowRange.ToString() + " Pa";
+                            label7.Text = upperRange.ToString() + " Pa";
+
+                        }
+                        else if (variables.numP == 16)
+                        {
+                            double lowRange = variables.lowRange * 1.02;
+                            double upperRange = variables.upperRange * 1.02;
+
+                            label5.Text = lowRange.ToString() + " kg/cm2";
+                            label7.Text = upperRange.ToString() + " kg/cm2";
+
+
+                        }
+                        else if (variables.numP == 17)
+                        {
+                            double lowRange = variables.lowRange / 0.0000980665;
+                            double upperRange = variables.upperRange / 0.0000980665;
+
+                            label5.Text = lowRange.ToString() + " mmh2o";
+                            label7.Text = upperRange.ToString() + " mmh2o";
+
+
+                        }
+                        else if (variables.numP == 18)
+                        {
+
+                            double lowRange = variables.lowRange / 0.0980665;
+                            double upperRange = variables.upperRange / 0.0980665;
+
+                            label5.Text = lowRange.ToString() + " mh2o";
+                            label7.Text = upperRange.ToString() + " mh2o";
+
+                        }
+                        else if (variables.numP == 19)
+                        {
+                            double lowRange = variables.lowRange * 750.061;
+                            double upperRange = variables.upperRange * 750.061;
+
+                            label5.Text = lowRange.ToString() + " mmHg";
+                            label7.Text = upperRange.ToString() + " mmHg";
+
+
+                        }
+                        else if (variables.numP == 20)
+                        {
+                            double lowRange = variables.lowRange * 14.5037738;
+                            double upperRange = variables.upperRange * 14.5037738;
+
+                            label5.Text = lowRange.ToString() + " psi";
+                            label7.Text = upperRange.ToString() + " psi";
+
+
+                        }
+                        else if (variables.numP == 21)
+                        {
+                            double lowRange = variables.lowRange * 100;
+                            double upperRange = variables.upperRange * 100;
+
+                            label5.Text = lowRange.ToString() + " kPa";
+                            label7.Text = upperRange.ToString() + " kPa";
+
+
+                        }
+                        else if (variables.numP == 22)
+                        {
+                            double lowRange = variables.lowRange * 0.1;
+                            double upperRange = variables.upperRange * 0.1;
+
+                            label5.Text = lowRange.ToString() + " MPa";
+                            label7.Text = upperRange.ToString() + " MPa";
+
+                        }
+                        else if (variables.numP == 23)
+                        {
+                            double lowRange = variables.lowRange * 401.325981;
+                            double upperRange = variables.upperRange * 401.325981;
+
+                            label5.Text = lowRange.ToString() + " inch water";
+                            label7.Text = upperRange.ToString() + " inch water";
+
+
+                        }
+
+                        else if (variables.numP == 2)
+                        {
+                            double lowRange = variables.lowRange * 1000;
+                            double upperRange = variables.upperRange * 1000;
+
+                            label5.Text = lowRange.ToString() + " mBar";
+                            label7.Text = upperRange.ToString() + " mBar";
+
+
+                        }
                     }
-                    else if (variables.numP == 15)
-                    {
-                        double lowRange = variables.lowRange * 100000;
-                        double upperRange = variables.upperRange * 100000;
-
-                        label5.Text = lowRange.ToString();
-                        label7.Text = upperRange.ToString();
-
-                    }
-                    else if (variables.numP == 16)
-                    {
-                        double lowRange = variables.lowRange * 1.02;
-                        double upperRange = variables.upperRange * 1.02;
-
-                        label5.Text = lowRange.ToString();
-                        label7.Text = upperRange.ToString();
-
-
-                    }
-                    else if (variables.numP == 17)
-                    {
-                        double lowRange = variables.lowRange / 0.0000980665;
-                        double upperRange = variables.upperRange / 0.0000980665;
-
-                        label5.Text = lowRange.ToString();
-                        label7.Text = upperRange.ToString();
-
-
-                    }
-                    else if (variables.numP == 18)
-                    {
-
-                        double lowRange = variables.lowRange / 0.0980665;
-                        double upperRange = variables.upperRange / 0.0980665;
-
-                        label5.Text = lowRange.ToString();
-                        label7.Text = upperRange.ToString();
-
-                    }
-                    else if (variables.numP == 19)
-                    {
-                        double lowRange = variables.lowRange * 750.061;
-                        double upperRange = variables.upperRange * 750.061;
-
-                        label5.Text = lowRange.ToString();
-                        label7.Text = upperRange.ToString();
-
-
-                    }
-                    else if (variables.numP == 20)
-                    {
-                        double lowRange = variables.lowRange * 14.5037738;
-                        double upperRange = variables.upperRange * 14.5037738;
-
-                        label5.Text = lowRange.ToString();
-                        label7.Text = upperRange.ToString();
-
-
-                    }
-                    else if (variables.numP == 21)
-                    {
-                        double lowRange = variables.lowRange * 100;
-                        double upperRange = variables.upperRange * 100;
-
-                        label5.Text = lowRange.ToString();
-                        label7.Text = upperRange.ToString();
-
-
-                    }
-                    else if (variables.numP == 22)
-                    {
-                        double lowRange = variables.lowRange * 0.1;
-                        double upperRange = variables.upperRange * 0.1;
-
-                        label5.Text = lowRange.ToString();
-                        label7.Text = upperRange.ToString();
-
-                    }
-                    else if (variables.numP == 23)
-                    {
-                        double lowRange = variables.lowRange * 401.325981;
-                        double upperRange = variables.upperRange * 401.325981;
-
-                        label5.Text = lowRange.ToString();
-                        label7.Text = upperRange.ToString();
-
-
-                    }
-
-                    else if (variables.numP == 2)
-                    {
-                        double lowRange = variables.lowRange * 1000;
-                        double upperRange = variables.upperRange * 1000;
-
-                        label5.Text = lowRange.ToString();
-                        label7.Text = upperRange.ToString();
-
-
-                    }
-                }
-                
+               
             }
 
             
@@ -1031,11 +1010,11 @@ namespace BASSCOMPORT
                 // richTextBox2.Text = "Sonra ölçeklendirmek istediğiniz minimum ve maksimum değerleri giriniz ve DEĞİŞTİR butonuna tıklayınız. Lütfen 'OK' işaretini görene kadar bekleyiniz.";
                 //richTextBox1.Text = "Lütfen ürün etiketi üzerinde bulunan ölçeklendirme aralığını kontrol ediniz. Ardından minimum ve maksimum değerleri belirtilen kutucuklara giriniz ve AYARLA butonuna tıklayınız. Bu şekilde cihaza referans ölçeklendirme aralığı vermiş oluyoruz. ";
 
-                if (variables.data_identify == 0)
+                if (variables.data_identify == 10)
                 {
                     label6.Text = "4-20mA";
                 }
-                else if (variables.data_identify == 1)
+                else if (variables.data_identify == 11)
                 {
                     label6.Text = "0-10V";
                 }
@@ -1113,17 +1092,16 @@ namespace BASSCOMPORT
 
             else if (variables.numEN == 10)
             {
-                if (variables.data_identify == 0)
+                if (variables.data_identify == 10)
                 {
                     label6.Text = "4-20mA";
                 }
-                else if (variables.data_identify == 1)
+                else if (variables.data_identify == 11)
                 {
                     label6.Text = "0-10V";
                 }
 
-                label5.Text = variables.lowRange.ToString();
-                label7.Text = variables.upperRange.ToString();
+               
 
                 label1.Text = "Output :";
                 label2.Text = "Range :";
@@ -1205,10 +1183,7 @@ namespace BASSCOMPORT
 
         }
 
-        private void richTextBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
+        
 
         private void maxScaleSetTextBox_TextChanged(object sender, EventArgs e)
         {

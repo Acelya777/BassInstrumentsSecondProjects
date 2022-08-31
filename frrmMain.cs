@@ -806,6 +806,7 @@ namespace BASSCOMPORT
         {
             if (variables.status ==66)
             {
+                
                 ActivateButton(sender);
 
 

@@ -8,7 +8,9 @@ namespace BASSCOMPORT
 {
     public static class variables
     {   
-
+        public static bool updateData { get; set; }
+        public static bool flowOpen { get; set; }
+        public static bool timerScaling { get; set; }
         public static double lowRange { get; set; }
         public static double upperRange { get; set; }
         public static double data_identify { get; set; }// is it voltage?
@@ -29,8 +31,8 @@ namespace BASSCOMPORT
         public static float InstantFlow { get; set; }
         public static float TotalFlow { get; set; }
         public static float Density { get; set; }
-        public static float Temperature { get; set; }
-        public static float Pressure { get; set; }
+        public static double Temperature { get; set; }
+        public static double Pressure { get; set; }
         public static float Today { get; set; }
         public static DataTable records { get; set; }
         public static bool recordstate { get; set; }
@@ -41,10 +43,7 @@ namespace BASSCOMPORT
         public static Parity parity { get; set; }
         public static SerialPort serialPort { get; set; }
         public static int databits { get; set; }
-        public static byte slaveAdress { get; set; }
-        public static ushort startAdress { get; set; }
-        public static ushort numberofpoitns { get; set; }
-        public static bool login { get; set; }
+       
         public static Dictionary<string, int> recordtime { get; set; }
 
         public static float[] UshortFloat(ushort[] parameters)

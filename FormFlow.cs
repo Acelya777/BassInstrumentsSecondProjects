@@ -29,16 +29,312 @@ namespace BASSCOMPORT
         private string txtname;
         private string path;
         
-        double temp = 0, pressure = 0, minScale = 0, maxScale = 0,identify =0,range=0;
+      
         bool updateData = false;
         bool updateData2 = false;
-        double duration, durationn;
-        
+        double duration,durationn;
+        String trY = "," + "Sıcaklık" + "," + "Basınç" + "," + "Tarih";
+        String enY = "," + "Temperature" + "," + "Pressure" + "," + "Date";
+
+
         SerialPort myPort;
         FormSettings formS = new FormSettings();
         private delegate void SetTextDeleg(string text);
         String productNumber = "";
 
+        private void loadGaugeInit()
+        {
+            if (variables.numP == 14)
+            {
+                solidGauge2.Uses360Mode = true;
+                solidGauge2.To = 1000;
+                solidGauge2.From = -1;
+                solidGauge2.Value = 0;
+            }
+
+            else if (variables.numP == 15)
+            {
+                solidGauge2.Uses360Mode = true;
+                solidGauge2.To = 100000000;
+                solidGauge2.From = -100000;
+                solidGauge2.Value = 0;
+
+            }
+            else if (variables.numP == 16)
+            {
+                solidGauge2.Uses360Mode = true;
+                solidGauge2.To = 1019;
+                solidGauge2.From = -1;
+                solidGauge2.Value = 0;
+
+            }
+            else if (variables.numP == 17)
+            {
+                solidGauge2.Uses360Mode = true;
+                solidGauge2.To = 10197162;
+                solidGauge2.From = -10197;
+                solidGauge2.Value = 0;
+
+            }
+            else if (variables.numP == 18)
+            {
+                solidGauge2.Uses360Mode = true;
+                solidGauge2.To = 10197;
+                solidGauge2.From = -10;
+                solidGauge2.Value = 0;
+
+            }
+            else if (variables.numP == 19)
+            {
+                solidGauge2.Uses360Mode = true;
+                solidGauge2.To = 750061;
+                solidGauge2.From = -750;
+                solidGauge2.Value = 0;
+
+            }
+            else if (variables.numP == 20)
+            {
+                solidGauge2.Uses360Mode = true;
+                solidGauge2.To = 14500;
+                solidGauge2.From = -15;
+                solidGauge2.Value = 0;
+
+            }
+            else if (variables.numP == 21)
+            {
+                solidGauge2.Uses360Mode = true;
+                solidGauge2.To = 100000;
+                solidGauge2.From = -100;
+                solidGauge2.Value = 0;
+
+            }
+            else if (variables.numP == 22)
+            {
+                solidGauge2.Uses360Mode = true;
+                solidGauge2.To = 100;
+                solidGauge2.From = -0.1;
+                solidGauge2.Value = 0;
+            }
+            else if (variables.numP == 23)
+            {
+                solidGauge2.Uses360Mode = true;
+                solidGauge2.To = 401464;
+                solidGauge2.From = -402;
+                solidGauge2.Value = 0;
+            }
+            else if ( variables.numP ==2)
+            {
+                solidGauge2.Uses360Mode = true;
+                solidGauge2.To = 1000000;
+                solidGauge2.From = -1000;
+                solidGauge2.Value = 0;
+            }
+        }
+
+        private void showDataInit()
+        {
+            if (variables.numP == 14)
+            {
+                double example = variables.Pressure / 1000;
+                solidGauge2.Value = ((double)((int)(example * 1000.0))) / 1000.0;
+            }
+            else if (variables.numP == 15)
+            {
+                double example = variables.Pressure * 100;
+                solidGauge2.Value = ((double)((int)(example * 1000.0))) / 1000.0;
+
+            }
+            else if (variables.numP == 16)
+            {
+                double example = variables.Pressure * 0.00102;
+                solidGauge2.Value = ((double)((int)(example * 1000.0))) / 1000.0;
+
+
+            }
+            else if (variables.numP == 17)
+            {
+                double example = variables.Pressure / 0.0980665;
+                solidGauge2.Value = ((double)((int)(example * 1000.0))) / 1000.0;
+
+
+            }
+            else if (variables.numP == 18)
+            {
+                double example = variables.Pressure / 98.0665;
+                solidGauge2.Value = Math.Truncate(example * 1000) / 1000;
+
+            }
+            else if (variables.numP == 19)
+            {
+                double example = variables.Pressure * 0.750062;
+                solidGauge2.Value = Math.Truncate(example * 1000) / 1000;
+
+
+            }
+            else if (variables.numP == 20)
+            {
+                double example = variables.Pressure * 0.0145037738;
+                solidGauge2.Value = Math.Truncate(example * 1000) / 1000;
+
+
+            }
+            else if (variables.numP == 21)
+            {
+                double example = variables.Pressure / 10;
+                solidGauge2.Value = Math.Truncate(example * 1000) / 1000;
+
+
+            }
+            else if (variables.numP == 22)
+            {
+                double example = variables.Pressure / 10000;
+                solidGauge2.Value = Math.Truncate(example * 1000) / 1000;
+
+            }
+            else if (variables.numP == 23)
+            {
+                double example = variables.Pressure / 2.490889;
+                solidGauge2.Value = Math.Truncate(example * 1000) / 1000;
+
+
+            }
+
+            else if (variables.numP == 2)
+            {
+                solidGauge2.Value = Math.Truncate(variables.Pressure * 1000) / 1000;
+
+            }
+        }
+
+        private void excelKelvinInitDivide(double x,String y) // y = "," + "Sıcaklık" + "," + "Basınç" + "," + "Tarih" // y = "," + "Temperature" + "," + "Pressure" + "," + "Date"
+        {
+            double kelvinS = 273.15;
+            double kelvin = (variables.Temperature + kelvinS);
+            variables.records.Rows.Add(productNumber, kelvin, variables.Pressure/ x, DateTime.Now);
+
+            using (var tw = new StreamWriter(path, true))
+            {
+                if (!firstrecord)
+                {
+                    tw.WriteLine(productNumber + y);
+                    firstrecord = true;
+                }
+
+                gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
+                tw.WriteLine(productNumber + kelvin.ToString() + "," + (variables.Pressure /x).ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
+                tw.Close();
+            }
+
+
+            gridControl1.Update();
+        }
+        private void excelKelvinInitMultiple(double x,String y)
+        {
+            double kelvinS = 273.15;
+            double kelvin = (variables.Temperature + kelvinS);
+            double fahrenheit = ((variables.Temperature * 1.8) + 32);
+            variables.records.Rows.Add(productNumber, kelvin, variables.Pressure * x, DateTime.Now);
+
+            using (var tw = new StreamWriter(path, true))
+            {
+                if (!firstrecord)
+                {
+                    tw.WriteLine(productNumber + y);
+                    firstrecord = true;
+                }
+
+                gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
+                tw.WriteLine(productNumber + kelvin.ToString() + "," + (variables.Pressure * x).ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
+                tw.Close();
+            }
+
+
+            gridControl1.Update();
+        }
+
+        private void excelFahrenheitInitDivide(double x,String y)
+        {
+            double fahrenheit = ((variables.Temperature * 1.8) + 32);
+            variables.records.Rows.Add(productNumber, fahrenheit, variables.Pressure / x, DateTime.Now);
+
+            using (var tw = new StreamWriter(path, true))
+            {
+                if (!firstrecord)
+                {
+                    tw.WriteLine(productNumber + y);
+                    firstrecord = true;
+                }
+
+                gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
+                tw.WriteLine(productNumber + fahrenheit.ToString() + "," + (variables.Pressure / x).ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
+                tw.Close();
+            }
+
+
+            gridControl1.Update();
+        }
+        private void excelFahrenheitInitMultiple(double x,String y)
+        {
+            double fahrenheit = ((variables.Temperature * 1.8) + 32);
+            variables.records.Rows.Add(productNumber, fahrenheit, variables.Pressure * x, DateTime.Now);
+
+            using (var tw = new StreamWriter(path, true))
+            {
+                if (!firstrecord)
+                {
+                    tw.WriteLine(productNumber + y);
+                    firstrecord = true;
+                }
+
+                gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
+                tw.WriteLine(productNumber + fahrenheit.ToString() + "," + (variables.Pressure * x).ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
+                tw.Close();
+            }
+
+
+            gridControl1.Update();
+        }
+
+        private void excelCelciusInitMultiple(double x,String y)
+        {
+            variables.records.Rows.Add(productNumber, variables.Temperature, variables.Pressure * x, DateTime.Now);
+
+            using (var tw = new StreamWriter(path, true))
+            {
+                if (!firstrecord)
+                {
+                    tw.WriteLine(productNumber + y);
+                    firstrecord = true;
+                }
+                gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
+
+                tw.WriteLine(productNumber + variables.Temperature.ToString() + "," + (variables.Pressure * x).ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
+                tw.Close();
+            }
+
+
+            gridControl1.Update();
+        }
+        private void excelCelciusInitDivide(double x,String y)
+        {
+            variables.records.Rows.Add(productNumber, variables.Temperature, variables.Pressure / x, DateTime.Now);
+
+            using (var tw = new StreamWriter(path, true))
+            {
+                if (!firstrecord)
+                {
+                    tw.WriteLine(productNumber + y);
+                    firstrecord = true;
+                }
+                gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
+
+                tw.WriteLine(productNumber + variables.Temperature.ToString() + "," + (variables.Pressure / x).ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
+                tw.Close();
+            }
+
+
+            gridControl1.Update();
+        }
 
 
 
@@ -47,8 +343,9 @@ namespace BASSCOMPORT
         public FormFlow()
         {
 
-
+           
             InitializeComponent();
+            
             productGroup.Font = new System.Drawing.Font("Arial", 8F);
             dataGroup.Font = new System.Drawing.Font("Arial", 8F);
             intervalGroup.Font = new System.Drawing.Font("Arial", 8F);
@@ -237,8 +534,9 @@ namespace BASSCOMPORT
 
         private void FormFlow_Load(object sender, EventArgs e)
         {
+            variables.flowOpen = true;
             variables.comportx = true;
-
+           
             if (variables.numT == 12)
             {
                 tunitLabel.Text = "°K";
@@ -311,32 +609,15 @@ namespace BASSCOMPORT
                 intervalKind.Items.AddRange(new object[] { "second", "minute", "hour" });
             }
 
-
-
-
             intervalNumber.SelectedItem = null;
             intervalNumber.SelectedIndex = 0;
             intervalKind.SelectedIndex = 0;
-            
-
 
             saveDataButton.Enabled = false;
             exportButton.Enabled = false;
 
 
-            myPort = new SerialPort();
-            myPort = variables.serialPort;
-            serialPort1 = new SerialPort();
-            serialPort1 = myPort;
-            serialPort1.DataReceived += new SerialDataReceivedEventHandler(sp_DataReceived);
-
-
-
-
-
-
-
-            if (serialPort1.IsOpen)
+            if (variables.status == 66)
             {
 
                 Enabled = true;
@@ -344,9 +625,6 @@ namespace BASSCOMPORT
                 timer2.Interval = 3000;
                 timer2.Enabled = true;
                 timer1.Start();
-                //timer3.Start();
-
-
 
             }
 
@@ -361,91 +639,8 @@ namespace BASSCOMPORT
                     solidGauge1.Uses360Mode = true;
                     solidGauge2.Value = 0;
 
-                    if (variables.numP == 14)
-                    {
-                        solidGauge2.Uses360Mode = true;
-                        solidGauge2.To = 1000;
-                        solidGauge2.From = -1;
-                        solidGauge2.Value = 0;
-                    }
+                    loadGaugeInit();
 
-                    else if (variables.numP == 15)
-                    {
-                        solidGauge2.Uses360Mode = true;
-                        solidGauge2.To = 100000000;
-                        solidGauge2.From = -100000;
-                        solidGauge2.Value = 0;
-
-                    }
-                    else if (variables.numP == 16)
-                    {
-                        solidGauge2.Uses360Mode = true;
-                        solidGauge2.To = 1019;
-                        solidGauge2.From = -1;
-                        solidGauge2.Value = 0;
-
-                    }
-                    else if (variables.numP == 17)
-                    {
-                        solidGauge2.Uses360Mode = true;
-                        solidGauge2.To = 10197162;
-                        solidGauge2.From = -10197;
-                        solidGauge2.Value = 0;
-
-                    }
-                    else if (variables.numP == 18)
-                    {
-                        solidGauge2.Uses360Mode = true;
-                        solidGauge2.To = 10197;
-                        solidGauge2.From = -10;
-                        solidGauge2.Value = 0;
-
-                    }
-                    else if (variables.numP == 19)
-                    {
-                        solidGauge2.Uses360Mode = true;
-                        solidGauge2.To = 750061;
-                        solidGauge2.From = -750;
-                        solidGauge2.Value = 0;
-
-                    }
-                    else if (variables.numP == 20)
-                    {
-                        solidGauge2.Uses360Mode = true;
-                        solidGauge2.To = 14500;
-                        solidGauge2.From = -15;
-                        solidGauge2.Value = 0;
-
-                    }
-                    else if (variables.numP == 21)
-                    {
-                        solidGauge2.Uses360Mode = true;
-                        solidGauge2.To = 100000;
-                        solidGauge2.From = -100;
-                        solidGauge2.Value = 0;
-
-                    }
-                    else if (variables.numP == 22)
-                    {
-                        solidGauge2.Uses360Mode = true;
-                        solidGauge2.To = 100;
-                        solidGauge2.From = -0.1;
-                        solidGauge2.Value = 0;
-                    }
-                    else if (variables.numP == 23)
-                    {
-                        solidGauge2.Uses360Mode = true;
-                        solidGauge2.To = 401464;
-                        solidGauge2.From = -402;
-                        solidGauge2.Value = 0;
-                    }
-                    else
-                    {
-                        solidGauge2.Uses360Mode = true;
-                        solidGauge2.To = 1000000;
-                        solidGauge2.From = -1000;
-                        solidGauge2.Value = 0;
-                    }
                 }
 
                 else if (variables.numT == 13) // fahrenheit
@@ -455,91 +650,7 @@ namespace BASSCOMPORT
                     solidGauge1.Uses360Mode = true;
                     solidGauge2.Value = 0;
 
-                    if (variables.numP == 14)
-                    {
-                        solidGauge2.Uses360Mode = true;
-                        solidGauge2.To = 1000;
-                        solidGauge2.From = -1;
-                        solidGauge2.Value = 0;
-                    }
-
-                    else if (variables.numP == 15)
-                    {
-                        solidGauge2.Uses360Mode = true;
-                        solidGauge2.To = 100000000;
-                        solidGauge2.From = -100000;
-                        solidGauge2.Value = 0;
-
-                    }
-                    else if (variables.numP == 16)
-                    {
-                        solidGauge2.Uses360Mode = true;
-                        solidGauge2.To = 1019;
-                        solidGauge2.From = -1;
-                        solidGauge2.Value = 0;
-
-                    }
-                    else if (variables.numP == 17)
-                    {
-                        solidGauge2.Uses360Mode = true;
-                        solidGauge2.To = 10197162;
-                        solidGauge2.From = -10197;
-                        solidGauge2.Value = 0;
-
-                    }
-                    else if (variables.numP == 18)
-                    {
-                        solidGauge2.Uses360Mode = true;
-                        solidGauge2.To = 10197;
-                        solidGauge2.From = -10;
-                        solidGauge2.Value = 0;
-
-                    }
-                    else if (variables.numP == 19)
-                    {
-                        solidGauge2.Uses360Mode = true;
-                        solidGauge2.To = 750061;
-                        solidGauge2.From = -750;
-                        solidGauge2.Value = 0;
-
-                    }
-                    else if (variables.numP == 20)
-                    {
-                        solidGauge2.Uses360Mode = true;
-                        solidGauge2.To = 14500;
-                        solidGauge2.From = -15;
-                        solidGauge2.Value = 0;
-
-                    }
-                    else if (variables.numP == 21)
-                    {
-                        solidGauge2.Uses360Mode = true;
-                        solidGauge2.To = 100000;
-                        solidGauge2.From = -100;
-                        solidGauge2.Value = 0;
-
-                    }
-                    else if (variables.numP == 22)
-                    {
-                        solidGauge2.Uses360Mode = true;
-                        solidGauge2.To = 100;
-                        solidGauge2.From = -0.1;
-                        solidGauge2.Value = 0;
-                    }
-                    else if (variables.numP == 23)
-                    {
-                        solidGauge2.Uses360Mode = true;
-                        solidGauge2.To = 401464;
-                        solidGauge2.From = -402;
-                        solidGauge2.Value = 0;
-                    }
-                    else
-                    {
-                        solidGauge2.Uses360Mode = true;
-                        solidGauge2.To = 1000000;
-                        solidGauge2.From = -1000;
-                        solidGauge2.Value = 0;
-                    }
+                    loadGaugeInit();
                 }
 
                 else if (variables.numT == 1) // celcius
@@ -549,91 +660,7 @@ namespace BASSCOMPORT
                     solidGauge1.Uses360Mode = true;
                     solidGauge2.Value = -20;
 
-                    if (variables.numP == 14)
-                    {
-                        solidGauge2.Uses360Mode = true;
-                        solidGauge2.To = 1000;
-                        solidGauge2.From = -1;
-                        solidGauge2.Value = 0;
-                    }
-
-                    else if (variables.numP == 15)
-                    {
-                        solidGauge2.Uses360Mode = true;
-                        solidGauge2.To = 100000000;
-                        solidGauge2.From = -100000;
-                        solidGauge2.Value = 0;
-
-                    }
-                    else if (variables.numP == 16)
-                    {
-                        solidGauge2.Uses360Mode = true;
-                        solidGauge2.To = 1019;
-                        solidGauge2.From = -1;
-                        solidGauge2.Value = 0;
-
-                    }
-                    else if (variables.numP == 17)
-                    {
-                        solidGauge2.Uses360Mode = true;
-                        solidGauge2.To = 10197162;
-                        solidGauge2.From = -10197;
-                        solidGauge2.Value = 0;
-
-                    }
-                    else if (variables.numP == 18)
-                    {
-                        solidGauge2.Uses360Mode = true;
-                        solidGauge2.To = 10197;
-                        solidGauge2.From = -10;
-                        solidGauge2.Value = 0;
-
-                    }
-                    else if (variables.numP == 19)
-                    {
-                        solidGauge2.Uses360Mode = true;
-                        solidGauge2.To = 750061;
-                        solidGauge2.From = -750;
-                        solidGauge2.Value = 0;
-
-                    }
-                    else if (variables.numP == 20)
-                    {
-                        solidGauge2.Uses360Mode = true;
-                        solidGauge2.To = 14500;
-                        solidGauge2.From = -15;
-                        solidGauge2.Value = 0;
-
-                    }
-                    else if (variables.numP == 21)
-                    {
-                        solidGauge2.Uses360Mode = true;
-                        solidGauge2.To = 100000;
-                        solidGauge2.From = -100;
-                        solidGauge2.Value = 0;
-
-                    }
-                    else if (variables.numP == 22)
-                    {
-                        solidGauge2.Uses360Mode = true;
-                        solidGauge2.To = 100;
-                        solidGauge2.From = -0.1;
-                        solidGauge2.Value = 0;
-                    }
-                    else if (variables.numP == 23)
-                    {
-                        solidGauge2.Uses360Mode = true;
-                        solidGauge2.To = 401464;
-                        solidGauge2.From = -402;
-                        solidGauge2.Value = 0;
-                    }
-                    else if (variables.numP == 2)
-                    {
-                        solidGauge2.Uses360Mode = true;
-                        solidGauge2.To = 1000000;
-                        solidGauge2.From = -1000;
-                        solidGauge2.Value = 0;
-                    }
+                    loadGaugeInit();
                 }
                 /*solidGauge1.From = -20;
                 solidGauge1.To = 150;
@@ -672,8 +699,9 @@ namespace BASSCOMPORT
         bool firstrecord = false;
         private void timer2_Tick(object sender, EventArgs e)
         {
-            if (serialPort1.IsOpen)
+            if (variables.status == 66)
             {
+                
                 if (variables.numEN == 11) //for TR
                 {
                     if (variables.recordstate == true)
@@ -682,238 +710,58 @@ namespace BASSCOMPORT
                         {
                             if (variables.numP == 14) // for Bar
                             {
-                                double kelvinS = 273.15;
-                                double kelvin = (temp + kelvinS);
-                                variables.records.Rows.Add(productNumber, kelvin, pressure / 1000, DateTime.Now);
-
-                                using (var tw = new StreamWriter(path, true))
-                                {
-                                    if (!firstrecord)
-                                    {
-                                        tw.WriteLine(productNumber + "," + "Sıcaklık" + "," + "Basınç" + "," + "Tarih");
-                                        firstrecord = true;
-                                    }
-
-                                    gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
-                                    tw.WriteLine(productNumber + kelvin.ToString() + "," + (pressure / 1000).ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
-                                    tw.Close();
-                                }
-
-
-                                gridControl1.Update();
+                                excelKelvinInitDivide(1000,trY);
                             }
 
                             else if (variables.numP == 15) // for Pa
                             {
-                                double kelvinS = 273.15;
-                                double kelvin = (temp + kelvinS);
-                                variables.records.Rows.Add(productNumber, kelvin, pressure * 100, DateTime.Now);
-
-                                using (var tw = new StreamWriter(path, true))
-                                {
-                                    if (!firstrecord)
-                                    {
-                                        tw.WriteLine(productNumber + "," + "Sıcaklık" + "," + "Basınç" + "," + "Tarih");
-                                        firstrecord = true;
-                                    }
-                                    gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
-
-                                    tw.WriteLine(productNumber + kelvin.ToString() + "," + (pressure * 100).ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
-                                    tw.Close();
-                                }
-
-
-                                gridControl1.Update();
+                                excelKelvinInitMultiple(100, trY);
                             }
 
                             else if (variables.numP == 16) // for kg/cm2
                             {
-                                double kelvinS = 273.15;
-                                double kelvin = (temp + kelvinS);
-                                variables.records.Rows.Add(productNumber, kelvin, pressure * 0.00102, DateTime.Now);
-
-                                using (var tw = new StreamWriter(path, true))
-                                {
-                                    if (!firstrecord)
-                                    {
-                                        tw.WriteLine(productNumber + "," + "Sıcaklık" + "," + "Basınç" + "," + "Tarih");
-                                        firstrecord = true;
-                                    }
-
-                                    gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
-                                    tw.WriteLine(productNumber + kelvin.ToString() + "," + (pressure * 0.00102).ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
-                                    tw.Close();
-                                }
-
-
-                                gridControl1.Update();
+                                excelKelvinInitMultiple(0.00102, trY);
                             }
 
                             else if (variables.numP == 17) // for mmh2o
                             {
-                                double kelvinS = 273.15;
-                                double kelvin = (temp + kelvinS);
-                                variables.records.Rows.Add(productNumber, kelvin, pressure / 0.0980665, DateTime.Now);
-
-                                using (var tw = new StreamWriter(path, true))
-                                {
-                                    if (!firstrecord)
-                                    {
-                                        tw.WriteLine(productNumber + "," + "Sıcaklık" + "," + "Basınç" + "," + "Tarih");
-                                        firstrecord = true;
-                                    }
-
-                                    gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
-                                    tw.WriteLine(productNumber + kelvin.ToString() + "," + (pressure / 0.0980665).ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
-                                    tw.Close();
-                                }
-
-
-                                gridControl1.Update();
+                                excelKelvinInitDivide(0.0980665, trY);
                             }
 
                             else if (variables.numP == 18) // for mh2o
                             {
-                                double kelvinS = 273.15;
-                                double kelvin = (temp + kelvinS);
-                                variables.records.Rows.Add(productNumber, kelvin, pressure / 98.0665, DateTime.Now);
-
-                                using (var tw = new StreamWriter(path, true))
-                                {
-                                    if (!firstrecord)
-                                    {
-                                        tw.WriteLine(productNumber + "," + "Sıcaklık" + "," + "Basınç" + "," + "Tarih");
-                                        firstrecord = true;
-                                    }
-
-                                    gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
-                                    tw.WriteLine(productNumber + kelvin.ToString() + "," + (pressure / 98.0665).ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
-                                    tw.Close();
-                                }
-
-
-                                gridControl1.Update();
+                                excelKelvinInitDivide(98.0665, trY);
                             }
 
                             else if (variables.numP == 19) // for mmHg
                             {
-                                double kelvinS = 273.15;
-                                double kelvin = (temp + kelvinS);
-                                variables.records.Rows.Add(productNumber, kelvin, pressure * 0.750062, DateTime.Now);
-
-                                using (var tw = new StreamWriter(path, true))
-                                {
-                                    if (!firstrecord)
-                                    {
-                                        tw.WriteLine(productNumber + "," + "Sıcaklık" + "," + "Basınç" + "," + "Tarih");
-                                        firstrecord = true;
-                                    }
-
-                                    gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
-                                    tw.WriteLine(productNumber + kelvin.ToString() + "," + (pressure * 0.750062).ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
-                                    tw.Close();
-                                }
-
-
-                                gridControl1.Update();
+                                excelKelvinInitMultiple(0.75006, trY);
                             }
 
                             else if (variables.numP == 20) // for psi
                             {
-                                double kelvinS = 273.15;
-                                double kelvin = (temp + kelvinS);
-                                variables.records.Rows.Add(productNumber, kelvin, pressure * 0.0145037738, DateTime.Now);
-
-                                using (var tw = new StreamWriter(path, true))
-                                {
-                                    if (!firstrecord)
-                                    {
-                                        tw.WriteLine(productNumber + "," + "Sıcaklık" + "," + "Basınç" + "," + "Tarih");
-                                        firstrecord = true;
-                                    }
-
-                                    gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
-                                    tw.WriteLine(productNumber + kelvin.ToString() + "," + (pressure * 0.0145037738).ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
-                                    tw.Close();
-                                }
-
-
-                                gridControl1.Update();
+                                excelKelvinInitMultiple(0.0145037738, trY);
                             }
 
                             else if (variables.numP == 21) // for kPa
                             {
-                                double kelvinS = 273.15;
-                                double kelvin = (temp + kelvinS);
-                                variables.records.Rows.Add(productNumber, kelvin, pressure /10, DateTime.Now);
-
-                                using (var tw = new StreamWriter(path, true))
-                                {
-                                    if (!firstrecord)
-                                    {
-                                        tw.WriteLine(productNumber + "," + "Sıcaklık" + "," + "Basınç" + "," + "Tarih");
-                                        firstrecord = true;
-                                    }
-
-                                    gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
-                                    tw.WriteLine(productNumber + kelvin.ToString() + "," + (pressure /10).ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
-                                    tw.Close();
-                                }
-
-
-                                gridControl1.Update();
+                                excelKelvinInitDivide(10, trY);
                             }
 
                             else if (variables.numP == 22) // for MPa
                             {
-                                double kelvinS = 273.15;
-                                double kelvin = (temp + kelvinS);
-                                variables.records.Rows.Add(productNumber, kelvin, pressure /10000, DateTime.Now);
-
-                                using (var tw = new StreamWriter(path, true))
-                                {
-                                    if (!firstrecord)
-                                    {
-                                        tw.WriteLine(productNumber + "," + "Sıcaklık" + "," + "Basınç" + "," + "Tarih");
-                                        firstrecord = true;
-                                    }
-
-                                    gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
-                                    tw.WriteLine(productNumber + kelvin.ToString() + "," + (pressure / 10000).ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
-                                    tw.Close();
-                                }
-
-
-                                gridControl1.Update();
+                                excelKelvinInitDivide(10000, trY);
                             }
                             else if (variables.numP == 23) // for iwg
                             {
-                                double kelvinS = 273.15;
-                                double kelvin = (temp + kelvinS);
-                                variables.records.Rows.Add(productNumber, kelvin, pressure / 2.490889, DateTime.Now);
-
-                                using (var tw = new StreamWriter(path, true))
-                                {
-                                    if (!firstrecord)
-                                    {
-                                        tw.WriteLine(productNumber + "," + "Sıcaklık" + "," + "Basınç" + "," + "Tarih");
-                                        firstrecord = true;
-                                    }
-
-                                    gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
-                                    tw.WriteLine(productNumber + kelvin.ToString() + "," + (pressure / 2.490889).ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
-                                    tw.Close();
-                                }
-
-
-                                gridControl1.Update();
+                                excelKelvinInitDivide(2.490889, trY);
                             }
 
                             else if (variables.numP == 2) // for mbar
                             {
                                 double kelvinS = 273.15;
-                                double kelvin = (temp + kelvinS);
-                                variables.records.Rows.Add(productNumber, kelvin, pressure, DateTime.Now);
+                                double kelvin = (variables.Temperature + kelvinS);
+                                variables.records.Rows.Add(productNumber, kelvin, variables.Pressure, DateTime.Now);
 
                                 using (var tw = new StreamWriter(path, true))
                                 {
@@ -924,7 +772,7 @@ namespace BASSCOMPORT
                                     }
 
                                     gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
-                                    tw.WriteLine(productNumber + kelvin.ToString() + "," + pressure.ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
+                                    tw.WriteLine(productNumber + kelvin.ToString() + "," + variables.Pressure.ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
                                     tw.Close();
                                 }
 
@@ -937,247 +785,59 @@ namespace BASSCOMPORT
                         }
                         else if (variables.numT == 13) // for Fahrenheit
                         {
-                            /*double fahrenheit = ((temp * 18) + 32);
-                            variables.records.Rows.Add(productNumber, fahrenheit, pressure, DateTime.Now);
-
-                            using (var tw = new StreamWriter(path, true))
-                            {
-                                if (!firstrecord)
-                                {
-                                    tw.WriteLine(productNumber + "," + "Temperature" + "," + "Pressure" + "," + "Date");
-                                    firstrecord = true;
-                                }
-                                
-                                tw.WriteLine(productNumber + fahrenheit.ToString() + "," + pressure.ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
-                                tw.Close();
-                            }
-
-
-                            gridControl1.Update();*/
-
                             if (variables.numP == 14) // for Bar
                             {
-                                double fahrenheit = ((temp * 1.8) + 32);
-                                variables.records.Rows.Add(productNumber, fahrenheit, pressure / 1000, DateTime.Now);
-
-                                using (var tw = new StreamWriter(path, true))
-                                {
-                                    if (!firstrecord)
-                                    {
-                                        tw.WriteLine(productNumber + "," + "Sıcaklık" + "," + "Basınç" + "," + "Tarih");
-                                        firstrecord = true;
-                                    }
-
-                                    gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
-                                    tw.WriteLine(productNumber + fahrenheit.ToString() + "," + (pressure / 1000).ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
-                                    tw.Close();
-                                }
-
-
-                                gridControl1.Update();
+                                excelFahrenheitInitDivide(1000, trY);
                             }
 
                             else if (variables.numP == 15) // for Pa
                             {
-                                double fahrenheit = ((temp * 1.8) + 32);
-                                variables.records.Rows.Add(productNumber, fahrenheit, pressure * 100, DateTime.Now);
-
-                                using (var tw = new StreamWriter(path, true))
-                                {
-                                    if (!firstrecord)
-                                    {
-                                        tw.WriteLine(productNumber + "," + "Sıcaklık" + "," + "Basınç" + "," + "Tarih");
-                                        firstrecord = true;
-                                    }
-                                    gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
-
-                                    tw.WriteLine(productNumber + fahrenheit.ToString() + "," + (pressure * 100).ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
-                                    tw.Close();
-                                }
-
-
-                                gridControl1.Update();
+                                excelFahrenheitInitMultiple(100, trY);
                             }
 
                             else if (variables.numP == 16) // for kg/cm2
                             {
-                                double fahrenheit = ((temp * 1.8) + 32);
-                                variables.records.Rows.Add(productNumber, fahrenheit, pressure * 0.00102, DateTime.Now);
-
-                                using (var tw = new StreamWriter(path, true))
-                                {
-                                    if (!firstrecord)
-                                    {
-                                        tw.WriteLine(productNumber + "," + "Sıcaklık" + "," + "Basınç" + "," + "Tarih");
-                                        firstrecord = true;
-                                    }
-
-                                    gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
-                                    tw.WriteLine(productNumber + fahrenheit.ToString() + "," + (pressure * 0.00102).ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
-                                    tw.Close();
-                                }
-
-
-                                gridControl1.Update();
+                                excelFahrenheitInitMultiple(0.00102, trY);
                             }
 
                             else if (variables.numP == 17) // for mmh2o
                             {
-                                double fahrenheit = ((temp * 1.8) + 32);
-                                variables.records.Rows.Add(productNumber, fahrenheit, pressure / 0.0980665, DateTime.Now);
-
-                                using (var tw = new StreamWriter(path, true))
-                                {
-                                    if (!firstrecord)
-                                    {
-                                        tw.WriteLine(productNumber + "," + "Sıcaklık" + "," + "Basınç" + "," + "Tarih");
-                                        firstrecord = true;
-                                    }
-
-                                    gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
-                                    tw.WriteLine(productNumber + fahrenheit.ToString() + "," + (pressure / 0.0980665).ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
-                                    tw.Close();
-                                }
-
-
-                                gridControl1.Update();
+                                excelFahrenheitInitDivide(0.0980665, trY);
                             }
 
                             else if (variables.numP == 18) // for mh2o
                             {
-                                double fahrenheit = ((temp * 1.8) + 32);
-                                variables.records.Rows.Add(productNumber, fahrenheit, pressure / 98.0665, DateTime.Now);
-
-                                using (var tw = new StreamWriter(path, true))
-                                {
-                                    if (!firstrecord)
-                                    {
-                                        tw.WriteLine(productNumber + "," + "Sıcaklık" + "," + "Basınç" + "," + "Tarih");
-                                        firstrecord = true;
-                                    }
-
-                                    gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
-                                    tw.WriteLine(productNumber + fahrenheit.ToString() + "," + (pressure / 98.0665).ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
-                                    tw.Close();
-                                }
-
-
-                                gridControl1.Update();
+                                excelFahrenheitInitDivide(98.0665, trY);
                             }
 
                             else if (variables.numP == 19) // for mmHg
                             {
-                                double fahrenheit = ((temp * 1.8) + 32);
-                                variables.records.Rows.Add(productNumber, fahrenheit, pressure * 0.750062, DateTime.Now);
-
-                                using (var tw = new StreamWriter(path, true))
-                                {
-                                    if (!firstrecord)
-                                    {
-                                        tw.WriteLine(productNumber + "," + "Sıcaklık" + "," + "Basınç" + "," + "Tarih");
-                                        firstrecord = true;
-                                    }
-
-                                    gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
-                                    tw.WriteLine(productNumber + fahrenheit.ToString() + "," + (pressure * 0.750062).ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
-                                    tw.Close();
-                                }
-
-
-                                gridControl1.Update();
+                                excelFahrenheitInitMultiple(0.75006, trY);
                             }
 
                             else if (variables.numP == 20) // for psi
                             {
-                                double fahrenheit = ((temp * 1.8) + 32);
-                                variables.records.Rows.Add(productNumber, fahrenheit, pressure * 0.0145037738, DateTime.Now);
-
-                                using (var tw = new StreamWriter(path, true))
-                                {
-                                    if (!firstrecord)
-                                    {
-                                        tw.WriteLine(productNumber + "," + "Sıcaklık" + "," + "Basınç" + "," + "Tarih");
-                                        firstrecord = true;
-                                    }
-
-                                    gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
-                                    tw.WriteLine(productNumber + fahrenheit.ToString() + "," + (pressure * 0.0145037738).ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
-                                    tw.Close();
-                                }
-
-
-                                gridControl1.Update();
+                                excelFahrenheitInitMultiple(0.0145037738, trY);
                             }
 
                             else if (variables.numP == 21) // for kPa
                             {
-                                double fahrenheit = ((temp * 1.8) + 32);
-                                variables.records.Rows.Add(productNumber, fahrenheit, pressure / 10, DateTime.Now);
-
-                                using (var tw = new StreamWriter(path, true))
-                                {
-                                    if (!firstrecord)
-                                    {
-                                        tw.WriteLine(productNumber + "," + "Sıcaklık" + "," + "Basınç" + "," + "Tarih");
-                                        firstrecord = true;
-                                    }
-
-                                    gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
-                                    tw.WriteLine(productNumber + fahrenheit.ToString() + "," + (pressure / 10).ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
-                                    tw.Close();
-                                }
-
-
-                                gridControl1.Update();
+                                excelFahrenheitInitDivide(10, trY);
                             }
 
                             else if (variables.numP == 22) // for MPa
                             {
-                                double fahrenheit = ((temp * 1.8) + 32);
-                                variables.records.Rows.Add(productNumber, fahrenheit, pressure / 10000, DateTime.Now);
-
-                                using (var tw = new StreamWriter(path, true))
-                                {
-                                    if (!firstrecord)
-                                    {
-                                        tw.WriteLine(productNumber + "," + "Sıcaklık" + "," + "Basınç" + "," + "Tarih");
-                                        firstrecord = true;
-                                    }
-
-                                    gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
-                                    tw.WriteLine(productNumber + fahrenheit.ToString() + "," + (pressure / 10000).ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
-                                    tw.Close();
-                                }
-
-
-                                gridControl1.Update();
+                                excelFahrenheitInitDivide(10000, trY);
                             }
                             else if (variables.numP == 23) // for iwg
                             {
-                                double fahrenheit = ((temp * 1.8) + 32);
-                                variables.records.Rows.Add(productNumber, fahrenheit, pressure / 2.490889, DateTime.Now);
-
-                                using (var tw = new StreamWriter(path, true))
-                                {
-                                    if (!firstrecord)
-                                    {
-                                        tw.WriteLine(productNumber + "," + "Sıcaklık" + "," + "Basınç" + "," + "Tarih");
-                                        firstrecord = true;
-                                    }
-                                    gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
-
-                                    tw.WriteLine(productNumber + fahrenheit.ToString() + "," + (pressure / 2.490889).ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
-                                    tw.Close();
-                                }
-
-
-                                gridControl1.Update();
+                                excelFahrenheitInitDivide(2.490889, trY);
                             }
 
                             else if (variables.numP == 2) // for mbar
                             {
-                                double fahrenheit = ((temp * 1.8) + 32);
-                                variables.records.Rows.Add(productNumber, fahrenheit, pressure, DateTime.Now);
+                                double fahrenheit = ((variables.Temperature * 1.8) + 32);
+                                variables.records.Rows.Add(productNumber, fahrenheit, variables.Pressure, DateTime.Now);
 
                                 using (var tw = new StreamWriter(path, true))
                                 {
@@ -1188,7 +848,7 @@ namespace BASSCOMPORT
                                     }
 
                                     gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
-                                    tw.WriteLine(productNumber + fahrenheit.ToString() + "," + pressure.ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
+                                    tw.WriteLine(productNumber + fahrenheit.ToString() + "," + variables.Pressure.ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
                                     tw.Close();
                                 }
 
@@ -1198,232 +858,60 @@ namespace BASSCOMPORT
                         }
                         else if (variables.numT == 1) // for Celcius
                         {
-
-
                             if (variables.numP == 14) // for Bar
                             {
-
-                                variables.records.Rows.Add(productNumber, temp, pressure / 1000, DateTime.Now);
-
-                                using (var tw = new StreamWriter(path, true))
-                                {
-                                    if (!firstrecord)
-                                    {
-                                        tw.WriteLine(productNumber + "," + "Sıcaklık" + "," + "Basınç" + "," + "Tarih");
-                                        firstrecord = true;
-                                    }
-                                    gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
-
-                                    tw.WriteLine(productNumber + temp.ToString() + "," + (pressure / 1000).ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
-                                    tw.Close();
-                                }
-
-
-                                gridControl1.Update();
+                                excelCelciusInitDivide(1000, trY);  
                             }
 
                             else if (variables.numP == 15) // for Pa
                             {
-
-                                variables.records.Rows.Add(productNumber, temp, pressure * 100, DateTime.Now);
-
-                                using (var tw = new StreamWriter(path, true))
-                                {
-                                    if (!firstrecord)
-                                    {
-                                        tw.WriteLine(productNumber + "," + "Sıcaklık" + "," + "Basınç" + "," + "Tarih");
-                                        firstrecord = true;
-                                    }
-
-                                    gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
-                                    tw.WriteLine(productNumber + temp.ToString() + "," + (pressure * 100).ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
-                                    tw.Close();
-                                }
-
-
-                                gridControl1.Update();
+                                excelCelciusInitMultiple(100, trY);
                             }
 
                             else if (variables.numP == 16) // for kg/cm2
                             {
-
-                                variables.records.Rows.Add(productNumber, temp, pressure * 0.00102, DateTime.Now);
-
-                                using (var tw = new StreamWriter(path, true))
-                                {
-                                    if (!firstrecord)
-                                    {
-                                        tw.WriteLine(productNumber + "," + "Sıcaklık" + "," + "Basınç" + "," + "Tarih");
-                                        firstrecord = true;
-                                    }
-
-                                    gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
-                                    tw.WriteLine(productNumber + temp.ToString() + "," + (pressure * 0.00102).ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
-                                    tw.Close();
-                                }
-
-
-                                gridControl1.Update();
+                                excelCelciusInitMultiple(0.00102, trY);
                             }
 
                             else if (variables.numP == 17) // for mmh2o
                             {
-
-                                variables.records.Rows.Add(productNumber, temp, pressure / 0.0980665, DateTime.Now);
-
-                                using (var tw = new StreamWriter(path, true))
-                                {
-                                    if (!firstrecord)
-                                    {
-                                        tw.WriteLine(productNumber + "," + "Sıcaklık" + "," + "Basınç" + "," + "Tarih");
-                                        firstrecord = true;
-                                    }
-
-                                    gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
-                                    tw.WriteLine(productNumber + temp.ToString() + "," + (pressure / 0.0980665).ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
-                                    tw.Close();
-                                }
-
-
-                                gridControl1.Update();
+                                excelCelciusInitDivide(0.0980665, trY);
                             }
 
                             else if (variables.numP == 18) // for mh2o
                             {
-
-                                variables.records.Rows.Add(productNumber, temp, pressure / 98.0665, DateTime.Now);
-
-                                using (var tw = new StreamWriter(path, true))
-                                {
-                                    if (!firstrecord)
-                                    {
-                                        tw.WriteLine(productNumber + "," + "Sıcaklık" + "," + "Basınç" + "," + "Tarih");
-                                        firstrecord = true;
-                                    }
-
-                                    gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
-                                    tw.WriteLine(productNumber + temp.ToString() + "," + (pressure / 98.0665).ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
-                                    tw.Close();
-                                }
-
-
-                                gridControl1.Update();
+                                excelCelciusInitDivide(98.0665, trY);
                             }
 
                             else if (variables.numP == 19) // for mmHg
                             {
-
-                                variables.records.Rows.Add(productNumber, temp, pressure * 0.750062, DateTime.Now);
-
-                                using (var tw = new StreamWriter(path, true))
-                                {
-                                    if (!firstrecord)
-                                    {
-                                        tw.WriteLine(productNumber + "," + "Sıcaklık" + "," + "Basınç" + "," + "Tarih");
-                                        firstrecord = true;
-                                    }
-
-                                    gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
-                                    tw.WriteLine(productNumber + temp.ToString() + "," + (pressure * 0.750062).ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
-                                    tw.Close();
-                                }
-
-
-                                gridControl1.Update();
+                                excelCelciusInitMultiple(0.750062, trY);
                             }
 
                             else if (variables.numP == 20) // for psi
                             {
-
-                                variables.records.Rows.Add(productNumber, temp, pressure * 0.0145037738, DateTime.Now);
-
-                                using (var tw = new StreamWriter(path, true))
-                                {
-                                    if (!firstrecord)
-                                    {
-                                        tw.WriteLine(productNumber + "," + "Sıcaklık" + "," + "Basınç" + "," + "Tarih");
-                                        firstrecord = true;
-                                    }
-
-                                    gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
-                                    tw.WriteLine(productNumber + temp.ToString() + "," + (pressure * 0.0145037738).ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
-                                    tw.Close();
-                                }
-
-
-                                gridControl1.Update();
+                                excelCelciusInitMultiple(0.0145037738, trY);
                             }
 
                             else if (variables.numP == 21) // for kPa
                             {
-
-                                variables.records.Rows.Add(productNumber, temp, pressure / 10, DateTime.Now);
-
-                                using (var tw = new StreamWriter(path, true))
-                                {
-                                    if (!firstrecord)
-                                    {
-                                        tw.WriteLine(productNumber + "," + "Sıcaklık" + "," + "Basınç" + "," + "Tarih");
-                                        firstrecord = true;
-                                    }
-
-                                    gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
-                                    tw.WriteLine(productNumber + temp.ToString() + "," + (pressure / 10).ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
-                                    tw.Close();
-                                }
-
-
-                                gridControl1.Update();
+                                excelCelciusInitDivide(10, trY);
                             }
 
                             else if (variables.numP == 22) // for MPa
                             {
-
-                                variables.records.Rows.Add(productNumber, temp, pressure / 10000, DateTime.Now);
-
-                                using (var tw = new StreamWriter(path, true))
-                                {
-                                    if (!firstrecord)
-                                    {
-                                        tw.WriteLine(productNumber + "," + "Sıcaklık" + "," + "Basınç" + "," + "Tarih");
-                                        firstrecord = true;
-                                    }
-                                    gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
-
-                                    tw.WriteLine(productNumber + temp.ToString() + "," + (pressure / 10000).ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
-                                    tw.Close();
-                                }
-
-
-                                gridControl1.Update();
+                                excelCelciusInitDivide(10000, trY);
                             }
 
                             else if (variables.numP == 23) // for iwg
                             {
-
-                                variables.records.Rows.Add(productNumber, temp, pressure / 2.490889, DateTime.Now);
-
-                                using (var tw = new StreamWriter(path, true))
-                                {
-                                    if (!firstrecord)
-                                    {
-                                        tw.WriteLine(productNumber + "," + "Sıcaklık" + "," + "Basınç" + "," + "Tarih");
-                                        firstrecord = true;
-                                    }
-                                    gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
-
-                                    tw.WriteLine(productNumber + temp.ToString() + "," + (pressure / 2.490889).ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
-                                    tw.Close();
-                                }
-
-
-                                gridControl1.Update();
+                                excelCelciusInitDivide(2.490889, trY);
                             }
 
                             else if (variables.numP == 2) // for mbar
                             {
 
-                                variables.records.Rows.Add(productNumber, temp, pressure, DateTime.Now);
+                                variables.records.Rows.Add(productNumber, variables.Temperature, variables.Pressure, DateTime.Now);
 
                                 using (var tw = new StreamWriter(path, true))
                                 {
@@ -1434,7 +922,7 @@ namespace BASSCOMPORT
                                     }
                                     gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
 
-                                    tw.WriteLine(productNumber + temp.ToString() + "," + pressure.ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
+                                    tw.WriteLine(productNumber + variables.Temperature.ToString() + "," + variables.Pressure.ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
                                     tw.Close();
                                 }
 
@@ -1457,236 +945,58 @@ namespace BASSCOMPORT
                         {
                             if (variables.numP == 14) // for Bar
                             {
-                                double kelvinS = 273.15;
-                                double kelvin = (temp + kelvinS);
-                                variables.records.Rows.Add(productNumber, kelvin, pressure / 1000, DateTime.Now);
-                                using (var tw = new StreamWriter(path, true))
-                                {
-                                    if (!firstrecord)
-                                    {
-                                        tw.WriteLine(productNumber + "," + "Temperature" + "," + "Pressure" + "," + "Date");
-                                        firstrecord = true;
-                                    }
-
-                                    gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
-                                    tw.WriteLine(productNumber + kelvin.ToString() + "," + (pressure / 1000).ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
-                                    tw.Close();
-                                }
-
-
-                                gridControl1.Update();
+                                excelKelvinInitDivide(1000, enY);
                             }
 
                             else if (variables.numP == 15) // for Pa
                             {
-                                double kelvinS = 273.15;
-                                double kelvin = (temp + kelvinS);
-                                variables.records.Rows.Add(productNumber, kelvin, pressure * 100, DateTime.Now);
-
-                                using (var tw = new StreamWriter(path, true))
-                                {
-                                    if (!firstrecord)
-                                    {
-                                        tw.WriteLine(productNumber + "," + "Temperature" + "," + "Pressure" + "," + "Date");
-                                        firstrecord = true;
-                                    }
-
-                                    gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
-                                    tw.WriteLine(productNumber + kelvin.ToString() + "," + (pressure * 100).ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
-                                    tw.Close();
-                                }
-
-
-                                gridControl1.Update();
+                                excelKelvinInitMultiple(100, enY);
                             }
 
                             else if (variables.numP == 16) // for kg/cm2
                             {
-                                double kelvinS = 273.15;
-                                double kelvin = (temp + kelvinS);
-                                variables.records.Rows.Add(productNumber, kelvin, pressure * 0.00102, DateTime.Now);
-
-                                using (var tw = new StreamWriter(path, true))
-                                {
-                                    if (!firstrecord)
-                                    {
-                                        tw.WriteLine(productNumber + "," + "Temperature" + "," + "Pressure" + "," + "Date");
-                                        firstrecord = true;
-                                    }
-
-                                    gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
-                                    tw.WriteLine(productNumber + kelvin.ToString() + "," + (pressure * 0.00102).ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
-                                    tw.Close();
-                                }
-
-
-                                gridControl1.Update();
+                                excelKelvinInitMultiple(0.00102, enY);
                             }
 
                             else if (variables.numP == 17) // for mmh2o
                             {
-                                double kelvinS = 273.15;
-                                double kelvin = (temp + kelvinS);
-                                variables.records.Rows.Add(productNumber, kelvin, pressure / 0.0980665, DateTime.Now);
-
-                                using (var tw = new StreamWriter(path, true))
-                                {
-                                    if (!firstrecord)
-                                    {
-                                        tw.WriteLine(productNumber + "," + "Temperature" + "," + "Pressure" + "," + "Date");
-                                        firstrecord = true;
-                                    }
-
-                                    gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
-                                    tw.WriteLine(productNumber + kelvin.ToString() + "," + (pressure / 0.0980665).ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
-                                    tw.Close();
-                                }
-
-
-                                gridControl1.Update();
+                                excelKelvinInitDivide(0.0980665, enY);
                             }
 
                             else if (variables.numP == 18) // for mh2o
                             {
-                                double kelvinS = 273.15;
-                                double kelvin = (temp + kelvinS);
-                                variables.records.Rows.Add(productNumber, kelvin, pressure / 98.0665, DateTime.Now);
-
-                                using (var tw = new StreamWriter(path, true))
-                                {
-                                    if (!firstrecord)
-                                    {
-                                        tw.WriteLine(productNumber + "," + "Temperature" + "," + "Pressure" + "," + "Date");
-                                        firstrecord = true;
-                                    }
-
-                                    gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
-                                    tw.WriteLine(productNumber + kelvin.ToString() + "," + (pressure / 98.0665).ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
-                                    tw.Close();
-                                }
-
-
-                                gridControl1.Update();
+                                excelKelvinInitDivide(98.0665, enY);
                             }
 
                             else if (variables.numP == 19) // for mmHg
                             {
-                                double kelvinS = 273.15;
-                                double kelvin = (temp + kelvinS);
-                                variables.records.Rows.Add(productNumber, kelvin, pressure * 0.750062, DateTime.Now);
-
-                                using (var tw = new StreamWriter(path, true))
-                                {
-                                    if (!firstrecord)
-                                    {
-                                        tw.WriteLine(productNumber + "," + "Temperature" + "," + "Pressure" + "," + "Date");
-                                        firstrecord = true;
-                                    }
-
-                                    gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
-                                    tw.WriteLine(productNumber + kelvin.ToString() + "," + (pressure * 0.750062).ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
-                                    tw.Close();
-                                }
-
-
-                                gridControl1.Update();
+                                excelKelvinInitMultiple(0.75006, enY);
                             }
 
                             else if (variables.numP == 20) // for psi
                             {
-                                double kelvinS = 273.15;
-                                double kelvin = (temp + kelvinS);
-                                variables.records.Rows.Add(productNumber, kelvin, pressure * 0.0145037738, DateTime.Now);
-
-                                using (var tw = new StreamWriter(path, true))
-                                {
-                                    if (!firstrecord)
-                                    {
-                                        tw.WriteLine(productNumber + "," + "Temperature" + "," + "Pressure" + "," + "Date");
-                                        firstrecord = true;
-                                    }
-
-                                    gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
-                                    tw.WriteLine(productNumber + kelvin.ToString() + "," + (pressure * 0.0145037738).ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
-                                    tw.Close();
-                                }
-
-
-                                gridControl1.Update();
+                                excelKelvinInitMultiple(0.0145037738, enY);
                             }
 
                             else if (variables.numP == 21) // for kPa
                             {
-                                double kelvinS = 273.15;
-                                double kelvin = (temp + kelvinS);
-                                variables.records.Rows.Add(productNumber, kelvin, pressure / 10, DateTime.Now);
-
-                                using (var tw = new StreamWriter(path, true))
-                                {
-                                    if (!firstrecord)
-                                    {
-                                        tw.WriteLine(productNumber + "," + "Temperature" + "," + "Pressure" + "," + "Date");
-                                        firstrecord = true;
-                                    }
-
-                                    gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
-                                    tw.WriteLine(productNumber + kelvin.ToString() + "," + (pressure / 10).ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
-                                    tw.Close();
-                                }
-
-
-                                gridControl1.Update();
+                                excelKelvinInitDivide(10, enY);
                             }
 
                             else if (variables.numP == 22) // for MPa
                             {
-                                double kelvinS = 273.15;
-                                double kelvin = (temp + kelvinS);
-                                variables.records.Rows.Add(productNumber, kelvin, pressure / 10000, DateTime.Now);
-
-                                using (var tw = new StreamWriter(path, true))
-                                {
-                                    if (!firstrecord)
-                                    {
-                                        tw.WriteLine(productNumber + "," + "Temperature" + "," + "Pressure" + "," + "Date");
-                                        firstrecord = true;
-                                    }
-                                    gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
-                                    tw.WriteLine(productNumber + kelvin.ToString() + "," + (pressure / 10000).ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
-                                    tw.Close();
-                                }
-
-
-                                gridControl1.Update();
+                                excelKelvinInitDivide(10000, enY);
                             }
-
                             else if (variables.numP == 23) // for iwg
                             {
-                                double kelvinS = 273.15;
-                                double kelvin = (temp + kelvinS);
-                                variables.records.Rows.Add(productNumber, kelvin, pressure / 2.490889, DateTime.Now);
-
-                                using (var tw = new StreamWriter(path, true))
-                                {
-                                    if (!firstrecord)
-                                    {
-                                        tw.WriteLine(productNumber + "," + "Temperature" + "," + "Pressure" + "," + "Date");
-                                        firstrecord = true;
-                                    }
-                                    gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
-                                    tw.WriteLine(productNumber + kelvin.ToString() + "," + (pressure / 2.490889).ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
-                                    tw.Close();
-                                }
-
-
-                                gridControl1.Update();
+                                excelKelvinInitDivide(2.490889, enY);
                             }
 
                             else if (variables.numP == 2) // for mbar
                             {
                                 double kelvinS = 273.15;
-                                double kelvin = (temp + kelvinS);
-                                variables.records.Rows.Add(productNumber, kelvin, pressure, DateTime.Now);
+                                double kelvin = (variables.Temperature + kelvinS);
+                                variables.records.Rows.Add(productNumber, kelvin, variables.Pressure, DateTime.Now);
 
                                 using (var tw = new StreamWriter(path, true))
                                 {
@@ -1697,7 +1007,7 @@ namespace BASSCOMPORT
                                     }
 
                                     gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
-                                    tw.WriteLine(productNumber + kelvin.ToString() + "," + pressure.ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
+                                    tw.WriteLine(productNumber + kelvin.ToString() + "," + variables.Pressure.ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
                                     tw.Close();
                                 }
 
@@ -1710,247 +1020,59 @@ namespace BASSCOMPORT
                         }
                         else if (variables.numT == 13) // for Fahrenheit
                         {
-                            /*double fahrenheit = ((temp * 18) + 32);
-                            variables.records.Rows.Add(productNumber, fahrenheit, pressure, DateTime.Now);
-
-                            using (var tw = new StreamWriter(path, true))
-                            {
-                                if (!firstrecord)
-                                {
-                                    tw.WriteLine(productNumber + "," + "Temperature" + "," + "Pressure" + "," + "Date");
-                                    firstrecord = true;
-                                }
-                                
-                                tw.WriteLine(productNumber + fahrenheit.ToString() + "," + pressure.ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
-                                tw.Close();
-                            }
-
-
-                            gridControl1.Update();*/
-
                             if (variables.numP == 14) // for Bar
                             {
-                                double fahrenheit = ((temp * 1.8) + 32);
-                                variables.records.Rows.Add(productNumber, fahrenheit, pressure / 1000, DateTime.Now);
-
-                                using (var tw = new StreamWriter(path, true))
-                                {
-                                    if (!firstrecord)
-                                    {
-                                        tw.WriteLine(productNumber + "," + "Temperature" + "," + "Pressure" + "," + "Date");
-                                        firstrecord = true;
-                                    }
-
-                                    gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
-                                    tw.WriteLine(productNumber + fahrenheit.ToString() + "," + (pressure / 1000).ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
-                                    tw.Close();
-                                }
-
-
-                                gridControl1.Update();
+                                excelFahrenheitInitDivide(1000, enY);
                             }
 
                             else if (variables.numP == 15) // for Pa
                             {
-                                double fahrenheit = ((temp * 1.8) + 32);
-                                variables.records.Rows.Add(productNumber, fahrenheit, pressure * 100, DateTime.Now);
-
-                                using (var tw = new StreamWriter(path, true))
-                                {
-                                    if (!firstrecord)
-                                    {
-                                        tw.WriteLine(productNumber + "," + "Temperature" + "," + "Pressure" + "," + "Date");
-                                        firstrecord = true;
-                                    }
-
-                                    gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
-                                    tw.WriteLine(productNumber + fahrenheit.ToString() + "," + (pressure * 100).ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
-                                    tw.Close();
-                                }
-
-
-                                gridControl1.Update();
+                                excelFahrenheitInitMultiple(100, enY);
                             }
 
                             else if (variables.numP == 16) // for kg/cm2
                             {
-                                double fahrenheit = ((temp * 1.8) + 32);
-                                variables.records.Rows.Add(productNumber, fahrenheit, pressure * 0.00102, DateTime.Now);
-
-                                using (var tw = new StreamWriter(path, true))
-                                {
-                                    if (!firstrecord)
-                                    {
-                                        tw.WriteLine(productNumber + "," + "Temperature" + "," + "Pressure" + "," + "Date");
-                                        firstrecord = true;
-                                    }
-
-                                    gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
-                                    tw.WriteLine(productNumber + fahrenheit.ToString() + "," + (pressure * 0.00102).ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
-                                    tw.Close();
-                                }
-
-
-                                gridControl1.Update();
+                                excelFahrenheitInitMultiple(0.00102, enY);
                             }
 
                             else if (variables.numP == 17) // for mmh2o
                             {
-                                double fahrenheit = ((temp * 1.8) + 32);
-                                variables.records.Rows.Add(productNumber, fahrenheit, pressure / 0.0980665, DateTime.Now);
-
-                                using (var tw = new StreamWriter(path, true))
-                                {
-                                    if (!firstrecord)
-                                    {
-                                        tw.WriteLine(productNumber + "," + "Temperature" + "," + "Pressure" + "," + "Date");
-                                        firstrecord = true;
-                                    }
-
-                                    gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
-                                    tw.WriteLine(productNumber + fahrenheit.ToString() + "," + (pressure / 0.0980665).ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
-                                    tw.Close();
-                                }
-
-
-                                gridControl1.Update();
+                                excelFahrenheitInitDivide(0.0980665, enY);
                             }
 
                             else if (variables.numP == 18) // for mh2o
                             {
-                                double fahrenheit = ((temp * 1.8) + 32);
-                                variables.records.Rows.Add(productNumber, fahrenheit, pressure / 98.0665, DateTime.Now);
-
-                                using (var tw = new StreamWriter(path, true))
-                                {
-                                    if (!firstrecord)
-                                    {
-                                        tw.WriteLine(productNumber + "," + "Temperature" + "," + "Pressure" + "," + "Date");
-                                        firstrecord = true;
-                                    }
-
-                                    gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
-                                    tw.WriteLine(productNumber + fahrenheit.ToString() + "," + (pressure * 98.0665).ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
-                                    tw.Close();
-                                }
-
-
-                                gridControl1.Update();
+                                excelFahrenheitInitDivide(98.0665, enY);
                             }
 
                             else if (variables.numP == 19) // for mmHg
                             {
-                                double fahrenheit = ((temp * 1.8) + 32);
-                                variables.records.Rows.Add(productNumber, fahrenheit, pressure * 0.750062, DateTime.Now);
-
-                                using (var tw = new StreamWriter(path, true))
-                                {
-                                    if (!firstrecord)
-                                    {
-                                        tw.WriteLine(productNumber + "," + "Temperature" + "," + "Pressure" + "," + "Date");
-                                        firstrecord = true;
-                                    }
-                                    gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
-
-                                    tw.WriteLine(productNumber + fahrenheit.ToString() + "," + (pressure * 0.750062).ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
-                                    tw.Close();
-                                }
-
-
-                                gridControl1.Update();
+                                excelFahrenheitInitMultiple(0.75006, enY);
                             }
 
                             else if (variables.numP == 20) // for psi
                             {
-                                double fahrenheit = ((temp * 1.8) + 32);
-                                variables.records.Rows.Add(productNumber, fahrenheit, pressure * 0.0145037738, DateTime.Now);
-
-                                using (var tw = new StreamWriter(path, true))
-                                {
-                                    if (!firstrecord)
-                                    {
-                                        tw.WriteLine(productNumber + "," + "Temperature" + "," + "Pressure" + "," + "Date");
-                                        firstrecord = true;
-                                    }
-                                    gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
-
-                                    tw.WriteLine(productNumber + fahrenheit.ToString() + "," + (pressure * 0.0145037738).ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
-                                    tw.Close();
-                                }
-
-
-                                gridControl1.Update();
+                                excelFahrenheitInitMultiple(0.0145037738, enY);
                             }
 
                             else if (variables.numP == 21) // for kPa
                             {
-                                double fahrenheit = ((temp * 1.8) + 32);
-                                variables.records.Rows.Add(productNumber, fahrenheit, pressure / 10, DateTime.Now);
-
-                                using (var tw = new StreamWriter(path, true))
-                                {
-                                    if (!firstrecord)
-                                    {
-                                        tw.WriteLine(productNumber + "," + "Temperature" + "," + "Pressure" + "," + "Date");
-                                        firstrecord = true;
-                                    }
-
-                                    gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
-                                    tw.WriteLine(productNumber + fahrenheit.ToString() + "," + (pressure / 10).ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
-                                    tw.Close();
-                                }
-
-
-                                gridControl1.Update();
+                                excelFahrenheitInitDivide(10, enY);
                             }
 
                             else if (variables.numP == 22) // for MPa
                             {
-                                double fahrenheit = ((temp * 1.8) + 32);
-                                variables.records.Rows.Add(productNumber, fahrenheit, pressure / 10000, DateTime.Now);
-
-                                using (var tw = new StreamWriter(path, true))
-                                {
-                                    if (!firstrecord)
-                                    {
-                                        tw.WriteLine(productNumber + "," + "Temperature" + "," + "Pressure" + "," + "Date");
-                                        firstrecord = true;
-                                    }
-
-                                    gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
-                                    tw.WriteLine(productNumber + fahrenheit.ToString() + "," + (pressure / 10000).ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
-                                    tw.Close();
-                                }
-
-
-                                gridControl1.Update();
+                                excelFahrenheitInitDivide(10000, enY);
                             }
                             else if (variables.numP == 23) // for iwg
                             {
-                                double fahrenheit = ((temp * 1.8) + 32);
-                                variables.records.Rows.Add(productNumber, fahrenheit, pressure / 2.490889, DateTime.Now);
-
-                                using (var tw = new StreamWriter(path, true))
-                                {
-                                    if (!firstrecord)
-                                    {
-                                        tw.WriteLine(productNumber + "," + "Temperature" + "," + "Pressure" + "," + "Date");
-                                        firstrecord = true;
-                                    }
-
-                                    gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
-                                    tw.WriteLine(productNumber + fahrenheit.ToString() + "," + (pressure / 2.490889).ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
-                                    tw.Close();
-                                }
-
-
-                                gridControl1.Update();
+                                excelFahrenheitInitDivide(2.490889, enY);
                             }
 
                             else if (variables.numP == 2) // for mbar
                             {
-                                double fahrenheit = ((temp * 1.8) + 32);
-                                variables.records.Rows.Add(productNumber, fahrenheit, pressure, DateTime.Now);
+                                double fahrenheit = ((variables.Temperature * 1.8) + 32);
+                                variables.records.Rows.Add(productNumber, fahrenheit, variables.Pressure, DateTime.Now);
 
                                 using (var tw = new StreamWriter(path, true))
                                 {
@@ -1961,7 +1083,7 @@ namespace BASSCOMPORT
                                     }
 
                                     gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
-                                    tw.WriteLine(productNumber + fahrenheit.ToString() + "," + pressure.ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
+                                    tw.WriteLine(productNumber + fahrenheit.ToString() + "," + variables.Pressure.ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
                                     tw.Close();
                                 }
 
@@ -1971,232 +1093,61 @@ namespace BASSCOMPORT
                         }
                         else if (variables.numT == 1) // for Celcius
                         {
-
-
                             if (variables.numP == 14) // for Bar
                             {
-
-                                variables.records.Rows.Add(productNumber, temp, pressure / 1000, DateTime.Now);
-
-                                using (var tw = new StreamWriter(path, true))
-                                {
-                                    if (!firstrecord)
-                                    {
-                                        tw.WriteLine(productNumber + "," + "Temperature" + "," + "Pressure" + "," + "Date");
-                                        firstrecord = true;
-                                    }
-
-                                    gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
-                                    tw.WriteLine(productNumber + temp.ToString() + "," + (pressure / 1000).ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
-                                    tw.Close();
-                                }
-
-
-                                gridControl1.Update();
+                                excelCelciusInitDivide(1000, enY);
                             }
 
                             else if (variables.numP == 15) // for Pa
                             {
-
-                                variables.records.Rows.Add(productNumber, temp, pressure * 100, DateTime.Now);
-
-                                using (var tw = new StreamWriter(path, true))
-                                {
-                                    if (!firstrecord)
-                                    {
-                                        tw.WriteLine(productNumber + "," + "Temperature" + "," + "Pressure" + "," + "Date");
-                                        firstrecord = true;
-                                    }
-                                    gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
-
-                                    tw.WriteLine(productNumber + temp.ToString() + "," + (pressure * 100).ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
-                                    tw.Close();
-                                }
-
-
-                                gridControl1.Update();
+                                excelCelciusInitMultiple(100, enY);
                             }
 
                             else if (variables.numP == 16) // for kg/cm2
                             {
-
-                                variables.records.Rows.Add(productNumber, temp, pressure * 0.00102, DateTime.Now);
-
-                                using (var tw = new StreamWriter(path, true))
-                                {
-                                    if (!firstrecord)
-                                    {
-                                        tw.WriteLine(productNumber + "," + "Temperature" + "," + "Pressure" + "," + "Date");
-                                        firstrecord = true;
-                                    }
-
-                                    gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
-                                    tw.WriteLine(productNumber + temp.ToString() + "," + (pressure * 0.00102).ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
-                                    tw.Close();
-                                }
-
-
-                                gridControl1.Update();
+                                excelCelciusInitMultiple(0.00102, enY);
                             }
 
                             else if (variables.numP == 17) // for mmh2o
                             {
-
-                                variables.records.Rows.Add(productNumber, temp, pressure / 0.0980665, DateTime.Now);
-
-                                using (var tw = new StreamWriter(path, true))
-                                {
-                                    if (!firstrecord)
-                                    {
-                                        tw.WriteLine(productNumber + "," + "Temperature" + "," + "Pressure" + "," + "Date");
-                                        firstrecord = true;
-                                    }
-                                    gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
-
-                                    tw.WriteLine(productNumber + temp.ToString() + "," + (pressure / 0.0980665).ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
-                                    tw.Close();
-                                }
-
-
-                                gridControl1.Update();
+                                excelCelciusInitDivide(0.0980665, enY);
                             }
 
                             else if (variables.numP == 18) // for mh2o
                             {
-
-                                variables.records.Rows.Add(productNumber, temp, pressure / 98.0665, DateTime.Now);
-
-                                using (var tw = new StreamWriter(path, true))
-                                {
-                                    if (!firstrecord)
-                                    {
-                                        tw.WriteLine(productNumber + "," + "Temperature" + "," + "Pressure" + "," + "Date");
-                                        firstrecord = true;
-                                    }
-
-                                    gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
-                                    tw.WriteLine(productNumber + temp.ToString() + "," + (pressure / 98.0665).ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
-                                    tw.Close();
-                                }
-
-
-                                gridControl1.Update();
+                                excelCelciusInitDivide(98.0665, enY);
                             }
 
                             else if (variables.numP == 19) // for mmHg
                             {
-
-                                variables.records.Rows.Add(productNumber, temp, pressure * 0.750062, DateTime.Now);
-
-                                using (var tw = new StreamWriter(path, true))
-                                {
-                                    if (!firstrecord)
-                                    {
-                                        tw.WriteLine(productNumber + "," + "Temperature" + "," + "Pressure" + "," + "Date");
-                                        firstrecord = true;
-                                    }
-
-                                    gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
-                                    tw.WriteLine(productNumber + temp.ToString() + "," + (pressure * 0.750062).ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
-                                    tw.Close();
-                                }
-
-
-                                gridControl1.Update();
+                                excelCelciusInitMultiple(0.750062, enY);
                             }
 
                             else if (variables.numP == 20) // for psi
                             {
-
-                                variables.records.Rows.Add(productNumber, temp, pressure * 0.0145037738, DateTime.Now);
-
-                                using (var tw = new StreamWriter(path, true))
-                                {
-                                    if (!firstrecord)
-                                    {
-                                        tw.WriteLine(productNumber + "," + "Temperature" + "," + "Pressure" + "," + "Date");
-                                        firstrecord = true;
-                                    }
-
-                                    gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
-                                    tw.WriteLine(productNumber + temp.ToString() + "," + (pressure * 0.0145037738).ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
-                                    tw.Close();
-                                }
-
-
-                                gridControl1.Update();
+                                excelCelciusInitMultiple(0.0145037738, enY);
                             }
 
                             else if (variables.numP == 21) // for kPa
                             {
-
-                                variables.records.Rows.Add(productNumber, temp, pressure / 10, DateTime.Now);
-
-                                using (var tw = new StreamWriter(path, true))
-                                {
-                                    if (!firstrecord)
-                                    {
-                                        tw.WriteLine(productNumber + "," + "Temperature" + "," + "Pressure" + "," + "Date");
-                                        firstrecord = true;
-                                    }
-
-                                    gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
-                                    tw.WriteLine(productNumber + temp.ToString() + "," + (pressure / 10).ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
-                                    tw.Close();
-                                }
-
-
-                                gridControl1.Update();
+                                excelCelciusInitDivide(10, enY);
                             }
 
                             else if (variables.numP == 22) // for MPa
                             {
-
-                                variables.records.Rows.Add(productNumber, temp, pressure / 10000, DateTime.Now);
-
-                                using (var tw = new StreamWriter(path, true))
-                                {
-                                    if (!firstrecord)
-                                    {
-                                        tw.WriteLine(productNumber + "," + "Temperature" + "," + "Pressure" + "," + "Date");
-                                        firstrecord = true;
-                                    }
-
-                                    gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
-                                    tw.WriteLine(productNumber + temp.ToString() + "," + (pressure / 10000).ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
-                                    tw.Close();
-                                }
-
-
-                                gridControl1.Update();
+                                excelCelciusInitDivide(10000, enY);
                             }
 
                             else if (variables.numP == 23) // for iwg
                             {
-
-                                variables.records.Rows.Add(productNumber, temp, pressure / 2.490889, DateTime.Now);
-
-                                using (var tw = new StreamWriter(path, true))
-                                {
-                                    if (!firstrecord)
-                                    {
-                                        tw.WriteLine(productNumber + "," + "Temperature" + "," + "Pressure" + "," + "Date");
-                                        firstrecord = true;
-                                    }
-
-                                    gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
-                                    tw.WriteLine(productNumber + temp.ToString() + "," + (pressure / 2.490889).ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
-                                    tw.Close();
-                                }
-
-
-                                gridControl1.Update();
+                                excelCelciusInitDivide(2.490889, enY);
                             }
+
 
                             else if (variables.numP == 2) // for mbar
                             {
 
-                                variables.records.Rows.Add(productNumber, temp, pressure, DateTime.Now);
+                                variables.records.Rows.Add(productNumber, variables.Temperature, variables.Pressure, DateTime.Now);
 
                                 using (var tw = new StreamWriter(path, true))
                                 {
@@ -2207,7 +1158,7 @@ namespace BASSCOMPORT
                                     }
 
                                     gridControl1.FirstDisplayedScrollingRowIndex = gridControl1.RowCount - 1;
-                                    tw.WriteLine(productNumber + temp.ToString() + "," + pressure.ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
+                                    tw.WriteLine(productNumber + variables.Temperature.ToString() + "," + variables.Pressure.ToString() + "," + variables.Density.ToString() + "," + DateTime.Now.ToString());
                                     tw.Close();
                                 }
 
@@ -2226,83 +1177,7 @@ namespace BASSCOMPORT
 
         }
 
-        void sp_DataReceived(object sender, SerialDataReceivedEventArgs e)
-        {
-            string data_In = serialPort1.ReadTo("^");
-            string data_identify = serialPort1.ReadTo("*");
-            Data_Identify(data_identify);
-            Data_TempPres(data_In);
-            this.BeginInvoke(new EventHandler(Show_Data));
-        }
-        public void Data_Identify(string data)
-        {
-            sbyte indexOf_startDataCharx = (sbyte)data.IndexOf("?");
-            sbyte indexOfXx = (sbyte)data.IndexOf("!");
-            sbyte indexOfYx = (sbyte)data.IndexOf("%");
-
-            if (indexOf_startDataCharx != -1 && indexOfYx != -1 && indexOfXx != -1)
-            {
-                try
-                {
-                    string str_identify = data.Substring(indexOf_startDataCharx + 1, (indexOfXx - indexOf_startDataCharx) - 1);
-                    string str_range = data.Substring(indexOfXx + 1, (indexOfYx - indexOfXx) - 1);
-                    identify = Convert.ToDouble(str_identify);
-                    if (identify == 0)
-                    {
-                        variables.data_identify = 10; // mA
-                    }
-                    else if (identify == 1)
-                    {
-                        variables.data_identify = 11; // V
-                    }
-                    string[] tokens = str_range.Split('-');
-                    double lowRangeDouble = Convert.ToDouble(tokens[0]);
-                    double upperRangeDouble = Convert.ToDouble(tokens[1]);
-                    variables.lowRange = lowRangeDouble;
-                    variables.upperRange = upperRangeDouble;
-                    updateData2 = true;
-
-                }
-                catch (Exception error)
-                {
-                    MessageBox.Show(error.Message);
-                }
-            }
-
-            else
-            {
-                updateData2 = false;
-            }
-        }
-
-        public void Data_TempPres(string data)
-        {
-            sbyte indexOf_startDataChar = (sbyte)data.IndexOf("@");
-            sbyte indexOfX = (sbyte)data.IndexOf("X");
-            sbyte indexOfY = (sbyte)data.IndexOf("Y");
-
-            if (indexOf_startDataChar != -1 && indexOfY != -1 && indexOfX != -1)
-            {
-                try
-                {
-                    string str_temp = data.Substring(indexOf_startDataChar + 1, (indexOfX - indexOf_startDataChar) - 1);
-                    string str_pressure = data.Substring(indexOfX + 1, (indexOfY - indexOfX) - 1);
-                    temp = Convert.ToDouble(str_temp);
-                    pressure = Convert.ToDouble(str_pressure);
-                    updateData = true;
-
-                }
-                catch (Exception error)
-                {
-                    MessageBox.Show(error.Message);
-                }
-            }
-
-            else
-            {
-                updateData = false;
-            }
-        }
+        
 
         private void FormFlow_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -2311,7 +1186,7 @@ namespace BASSCOMPORT
 
         private void exportButton_Click_1(object sender, EventArgs e)
         {
-            if (serialPort1.IsOpen)// && variables.connection
+            if (variables.status == 66)// && variables.connection
             {
                 if (!variables.exportBut)
                 {
@@ -2324,7 +1199,6 @@ namespace BASSCOMPORT
                         variables.exportBut = true;
                         timer2.Start();
                         variables.comportx = true;
-                        //exportButton.Enabled = false;
                     }
                     else if (variables.numEN == 10)
                     {
@@ -2335,7 +1209,6 @@ namespace BASSCOMPORT
                         variables.exportBut = true;
                         timer2.Start();
                         variables.exportBut = true;
-                        //exportButton.Enabled = false;
                     }
                 }
                 else
@@ -2345,7 +1218,6 @@ namespace BASSCOMPORT
                         exportButton.Text = "Veri Topla";
                         variables.exportBut = false;
                         variables.recordstate = false;
-                        
                         MessageBox.Show("Kayıt Durduruldu");
                         timer2.Stop();
                     }
@@ -2367,7 +1239,7 @@ namespace BASSCOMPORT
 
         private void saveDataButton_Click_1(object sender, EventArgs e)
         {
-            if (serialPort1.IsOpen)
+            if (variables.status == 66)
             {
                 try
                 {
@@ -2430,12 +1302,7 @@ namespace BASSCOMPORT
             }
         }
 
-        private void timer3_Tick(object sender, EventArgs e)
-        {
-            string data_In = serialPort1.ReadTo("^");
-            Data_TempPres(data_In);
-            this.BeginInvoke(new EventHandler(Show_Data));
-        }
+        
 
         private void solidGauge2_ChildChanged(object sender, System.Windows.Forms.Integration.ChildChangedEventArgs e)
         {
@@ -2575,8 +1442,15 @@ namespace BASSCOMPORT
 
         }
 
+        
+
         private void timer4_Tick(object sender, EventArgs e)
         {
+            if (IsHandleCreated && variables.flowOpen == true)
+            {
+                this.BeginInvoke(new EventHandler(Show_Data));
+            }
+
             if (variables.tryMe == false)
             {
                 variables.tryMe = true;
@@ -2597,9 +1471,9 @@ namespace BASSCOMPORT
                     intervalKind.Items.Clear();
                     intervalNumber.Items.AddRange(new object[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60 });
                     intervalKind.Items.AddRange(new object[] { "second", "minute", "hour" });
-                     intervalNumber.SelectedItem = null;
-            intervalNumber.SelectedIndex = 0;
-            intervalKind.SelectedIndex = 0;
+                    intervalNumber.SelectedItem = null;
+                    intervalNumber.SelectedIndex = 0;
+                    intervalKind.SelectedIndex = 0;
                 }
 
 
@@ -2614,91 +1488,7 @@ namespace BASSCOMPORT
                         solidGauge1.Uses360Mode = true;
                         solidGauge2.Value = 0;
 
-                        if (variables.numP == 14)
-                        {
-                            solidGauge2.Uses360Mode = true;
-                            solidGauge2.To = 1000;
-                            solidGauge2.From = -1;
-                            solidGauge2.Value = 0;
-                        }
-
-                        else if (variables.numP == 15)
-                        {
-                            solidGauge2.Uses360Mode = true;
-                            solidGauge2.To = 100000000;
-                            solidGauge2.From = -100000;
-                            solidGauge2.Value = 0;
-
-                        }
-                        else if (variables.numP == 16)
-                        {
-                            solidGauge2.Uses360Mode = true;
-                            solidGauge2.To = 1019;
-                            solidGauge2.From = -1;
-                            solidGauge2.Value = 0;
-
-                        }
-                        else if (variables.numP == 17)
-                        {
-                            solidGauge2.Uses360Mode = true;
-                            solidGauge2.To = 10197162;
-                            solidGauge2.From = -10197;
-                            solidGauge2.Value = 0;
-
-                        }
-                        else if (variables.numP == 18)
-                        {
-                            solidGauge2.Uses360Mode = true;
-                            solidGauge2.To = 10197;
-                            solidGauge2.From = -10;
-                            solidGauge2.Value = 0;
-
-                        }
-                        else if (variables.numP == 19)
-                        {
-                            solidGauge2.Uses360Mode = true;
-                            solidGauge2.To = 750061;
-                            solidGauge2.From = -750;
-                            solidGauge2.Value = 0;
-
-                        }
-                        else if (variables.numP == 20)
-                        {
-                            solidGauge2.Uses360Mode = true;
-                            solidGauge2.To = 14500;
-                            solidGauge2.From = -15;
-                            solidGauge2.Value = 0;
-
-                        }
-                        else if (variables.numP == 21)
-                        {
-                            solidGauge2.Uses360Mode = true;
-                            solidGauge2.To = 100000;
-                            solidGauge2.From = -100;
-                            solidGauge2.Value = 0;
-
-                        }
-                        else if (variables.numP == 22)
-                        {
-                            solidGauge2.Uses360Mode = true;
-                            solidGauge2.To = 100;
-                            solidGauge2.From = -0.1;
-                            solidGauge2.Value = 0;
-                        }
-                        else if (variables.numP == 23)
-                        {
-                            solidGauge2.Uses360Mode = true;
-                            solidGauge2.To = 401464;
-                            solidGauge2.From = -402;
-                            solidGauge2.Value = 0;
-                        }
-                        else if (variables.numP == 2)
-                        {
-                            solidGauge2.Uses360Mode = true;
-                            solidGauge2.To = 1000000;
-                            solidGauge2.From = -1000;
-                            solidGauge2.Value = 0;
-                        }
+                        loadGaugeInit();
                     }
 
                     else if (variables.numT == 13) // fahrenheit
@@ -2708,91 +1498,7 @@ namespace BASSCOMPORT
                         solidGauge1.Uses360Mode = true;
                         solidGauge2.Value = 0;
 
-                        if (variables.numP == 14)
-                        {
-                            solidGauge2.Uses360Mode = true;
-                            solidGauge2.To = 1000;
-                            solidGauge2.From = -1;
-                            solidGauge2.Value = 0;
-                        }
-
-                        else if (variables.numP == 15)
-                        {
-                            solidGauge2.Uses360Mode = true;
-                            solidGauge2.To = 100000000;
-                            solidGauge2.From = -100000;
-                            solidGauge2.Value = 0;
-
-                        }
-                        else if (variables.numP == 16)
-                        {
-                            solidGauge2.Uses360Mode = true;
-                            solidGauge2.To = 1019;
-                            solidGauge2.From = -1;
-                            solidGauge2.Value = 0;
-
-                        }
-                        else if (variables.numP == 17)
-                        {
-                            solidGauge2.Uses360Mode = true;
-                            solidGauge2.To = 10197162;
-                            solidGauge2.From = -10197;
-                            solidGauge2.Value = 0;
-
-                        }
-                        else if (variables.numP == 18)
-                        {
-                            solidGauge2.Uses360Mode = true;
-                            solidGauge2.To = 10197;
-                            solidGauge2.From = -10;
-                            solidGauge2.Value = 0;
-
-                        }
-                        else if (variables.numP == 19)
-                        {
-                            solidGauge2.Uses360Mode = true;
-                            solidGauge2.To = 750061;
-                            solidGauge2.From = -750;
-                            solidGauge2.Value = 0;
-
-                        }
-                        else if (variables.numP == 20)
-                        {
-                            solidGauge2.Uses360Mode = true;
-                            solidGauge2.To = 14500;
-                            solidGauge2.From = -15;
-                            solidGauge2.Value = 0;
-
-                        }
-                        else if (variables.numP == 21)
-                        {
-                            solidGauge2.Uses360Mode = true;
-                            solidGauge2.To = 100000;
-                            solidGauge2.From = -100;
-                            solidGauge2.Value = 0;
-
-                        }
-                        else if (variables.numP == 22)
-                        {
-                            solidGauge2.Uses360Mode = true;
-                            solidGauge2.To = 100;
-                            solidGauge2.From = -0.1;
-                            solidGauge2.Value = 0;
-                        }
-                        else if (variables.numP == 23)
-                        {
-                            solidGauge2.Uses360Mode = true;
-                            solidGauge2.To = 401464;
-                            solidGauge2.From = -402;
-                            solidGauge2.Value = 0;
-                        }
-                        else if (variables.numP == 2)
-                        {
-                            solidGauge2.Uses360Mode = true;
-                            solidGauge2.To = 1000000;
-                            solidGauge2.From = -1000;
-                            solidGauge2.Value = 0;
-                        }
+                        loadGaugeInit();
                     }
 
                     else if (variables.numT == 1) // celcius
@@ -2802,101 +1508,9 @@ namespace BASSCOMPORT
                         solidGauge1.Uses360Mode = true;
                         solidGauge2.Value = -20;
 
-                        if (variables.numP == 14)
-                        {
-                            solidGauge2.Uses360Mode = true;
-                            solidGauge2.To = 1000;
-                            solidGauge2.From = -1;
-                            solidGauge2.Value = 0;
-                        }
-
-                        else if (variables.numP == 15)
-                        {
-                            solidGauge2.Uses360Mode = true;
-                            solidGauge2.To = 100000000;
-                            solidGauge2.From = -100000;
-                            solidGauge2.Value = 0;
-
-                        }
-                        else if (variables.numP == 16)
-                        {
-                            solidGauge2.Uses360Mode = true;
-                            solidGauge2.To = 1019;
-                            solidGauge2.From = -1;
-                            solidGauge2.Value = 0;
-
-                        }
-                        else if (variables.numP == 17)
-                        {
-                            solidGauge2.Uses360Mode = true;
-                            solidGauge2.To = 10197162;
-                            solidGauge2.From = -10197;
-                            solidGauge2.Value = 0;
-
-                        }
-                        else if (variables.numP == 18)
-                        {
-                            solidGauge2.Uses360Mode = true;
-                            solidGauge2.To = 10197;
-                            solidGauge2.From = -10;
-                            solidGauge2.Value = 0;
-
-                        }
-                        else if (variables.numP == 19)
-                        {
-                            solidGauge2.Uses360Mode = true;
-                            solidGauge2.To = 750061;
-                            solidGauge2.From = -750;
-                            solidGauge2.Value = 0;
-
-                        }
-                        else if (variables.numP == 20)
-                        {
-                            solidGauge2.Uses360Mode = true;
-                            solidGauge2.To = 14500;
-                            solidGauge2.From = -15;
-                            solidGauge2.Value = 0;
-
-                        }
-                        else if (variables.numP == 21)
-                        {
-                            solidGauge2.Uses360Mode = true;
-                            solidGauge2.To = 100000;
-                            solidGauge2.From = -100;
-                            solidGauge2.Value = 0;
-
-                        }
-                        else if (variables.numP == 22)
-                        {
-                            solidGauge2.Uses360Mode = true;
-                            solidGauge2.To = 100;
-                            solidGauge2.From = -0.1;
-                            solidGauge2.Value = 0;
-                        }
-                        else if (variables.numP == 23)
-                        {
-                            solidGauge2.Uses360Mode = true;
-                            solidGauge2.To = 401464;
-                            solidGauge2.From = -402;
-                            solidGauge2.Value = 0;
-                        }
-                        else if (variables.numP == 2)
-                        {
-                            solidGauge2.Uses360Mode = true;
-                            solidGauge2.To = 1000000;
-                            solidGauge2.From = -1000;
-                            solidGauge2.Value = 0;
-                        }
+                        loadGaugeInit();
                     }
-                    /*solidGauge1.From = -20;
-                    solidGauge1.To = 150;
-                    solidGauge1.Uses360Mode = true;
-                    solidGauge2.Value = -20;
-
-                    solidGauge2.Uses360Mode = true;
-                    solidGauge2.To = 500000;
-                    solidGauge2.From = 0;
-                    solidGauge2.Value = 0;*/
+                  
                     solidGauge1.Base.LabelsVisibility = System.Windows.Visibility.Hidden;
                     solidGauge1.Base.GaugeActiveFill = new System.Windows.Media.LinearGradientBrush
                     {
@@ -2956,11 +1570,7 @@ namespace BASSCOMPORT
                 
             }
 
-            
-
-
-
-
+           
 
             if (variables.numT == 12)
             {
@@ -3029,26 +1639,11 @@ namespace BASSCOMPORT
 
         }
 
-       
-
-        public void serialPort1_DataReceived(object sender, SerialDataReceivedEventArgs e)
-        {
-
-            {
-                string data_In = serialPort1.ReadTo("^");
-                Data_TempPres(data_In);
-                this.BeginInvoke(new EventHandler(Show_Data));
-
-
-
-            }
-        }
-
 
         private void timer1_Tick(object sender, EventArgs e)
         {
 
-            if (serialPort1.IsOpen)
+            if (variables.status == 66)
             {
 
                 if (variables.numT == 12)
@@ -3056,7 +1651,7 @@ namespace BASSCOMPORT
 
                     double kelvinS = 273.15;
                     duration += 1;
-                    chart1.Series[0].Points.AddXY(duration, (temp + kelvinS));
+                    chart1.Series[0].Points.AddXY(duration, (variables.Temperature + kelvinS));
 
                     if (chart1.Series[0].Points.Count > 300)
                         chart1.Series[0].Points.RemoveAt(0);
@@ -3070,7 +1665,7 @@ namespace BASSCOMPORT
                 {
 
                     duration += 1;
-                    chart1.Series[0].Points.AddXY(duration, ((temp * 1.8) + 32));
+                    chart1.Series[0].Points.AddXY(duration, ((variables.Temperature * 1.8) + 32));
 
                     if (chart1.Series[0].Points.Count > 300)
                         chart1.Series[0].Points.RemoveAt(0);
@@ -3083,7 +1678,7 @@ namespace BASSCOMPORT
                 else if (variables.numT == 1)
                 {
 
-                    chart1.Series[0].Points.AddXY(duration, temp);
+                    chart1.Series[0].Points.AddXY(duration, variables.Temperature);
 
                     if (chart1.Series[0].Points.Count > 300)
                         chart1.Series[0].Points.RemoveAt(0);
@@ -3096,7 +1691,7 @@ namespace BASSCOMPORT
 
                 if (variables.numP == 14)
                 {
-                    chart2.Series[0].Points.AddXY(duration, pressure/1000);
+                    chart2.Series[0].Points.AddXY(duration, variables.Pressure/1000);
 
                     if (chart2.Series[0].Points.Count > 300)
                         chart2.Series[0].Points.RemoveAt(0);
@@ -3108,7 +1703,7 @@ namespace BASSCOMPORT
                 }
                 else if (variables.numP == 15)
                 {
-                    chart2.Series[0].Points.AddXY(duration, pressure*100);
+                    chart2.Series[0].Points.AddXY(duration, variables.Pressure*100);
 
                     if (chart2.Series[0].Points.Count > 300)
                         chart2.Series[0].Points.RemoveAt(0);
@@ -3120,7 +1715,7 @@ namespace BASSCOMPORT
                 }
                 else if (variables.numP == 16)
                 {
-                    chart2.Series[0].Points.AddXY(duration, pressure * 0.00102);
+                    chart2.Series[0].Points.AddXY(duration, variables.Pressure * 0.00102);
 
                     if (chart2.Series[0].Points.Count > 300)
                         chart2.Series[0].Points.RemoveAt(0);
@@ -3132,7 +1727,7 @@ namespace BASSCOMPORT
                 }
                 else if (variables.numP == 17)
                 {
-                    chart2.Series[0].Points.AddXY(duration, pressure / 0.0980665);
+                    chart2.Series[0].Points.AddXY(duration, variables.Pressure / 0.0980665);
 
                     if (chart2.Series[0].Points.Count > 300)
                         chart2.Series[0].Points.RemoveAt(0);
@@ -3144,7 +1739,7 @@ namespace BASSCOMPORT
                 }
                 else if (variables.numP == 18)
                 {
-                    chart2.Series[0].Points.AddXY(duration, pressure * 0.010197442889221);
+                    chart2.Series[0].Points.AddXY(duration, variables.Pressure * 0.010197442889221);
 
                     if (chart2.Series[0].Points.Count > 300)
                         chart2.Series[0].Points.RemoveAt(0);
@@ -3156,7 +1751,7 @@ namespace BASSCOMPORT
                 }
                 else if (variables.numP == 19)
                 {
-                    chart2.Series[0].Points.AddXY(duration, pressure * 0.750062);
+                    chart2.Series[0].Points.AddXY(duration, variables.Pressure * 0.750062);
 
                     if (chart2.Series[0].Points.Count > 300)
                         chart2.Series[0].Points.RemoveAt(0);
@@ -3168,7 +1763,7 @@ namespace BASSCOMPORT
                 }
                 else if (variables.numP == 20)
                 {
-                    chart2.Series[0].Points.AddXY(duration, pressure * 0.0145037738);
+                    chart2.Series[0].Points.AddXY(duration, variables.Pressure * 0.0145037738);
 
                     if (chart2.Series[0].Points.Count > 300)
                         chart2.Series[0].Points.RemoveAt(0);
@@ -3180,7 +1775,7 @@ namespace BASSCOMPORT
                 }
                 else if (variables.numP == 21)
                 {
-                    chart2.Series[0].Points.AddXY(duration, pressure / 100000);
+                    chart2.Series[0].Points.AddXY(duration, variables.Pressure / 100000);
 
                     if (chart2.Series[0].Points.Count > 300)
                         chart2.Series[0].Points.RemoveAt(0);
@@ -3192,7 +1787,7 @@ namespace BASSCOMPORT
                 }
                 else if (variables.numP == 22)
                 {
-                    chart2.Series[0].Points.AddXY(duration, pressure / 100000000);
+                    chart2.Series[0].Points.AddXY(duration, variables.Pressure / 100000000);
 
                     if (chart2.Series[0].Points.Count > 300)
                         chart2.Series[0].Points.RemoveAt(0);
@@ -3204,7 +1799,7 @@ namespace BASSCOMPORT
                 }
                 else if (variables.numP == 23)
                 {
-                    chart2.Series[0].Points.AddXY(duration, pressure / 2.490889);
+                    chart2.Series[0].Points.AddXY(duration, variables.Pressure / 2.490889);
 
                     if (chart2.Series[0].Points.Count > 300)
                         chart2.Series[0].Points.RemoveAt(0);
@@ -3216,7 +1811,7 @@ namespace BASSCOMPORT
                 }
                 else if (variables.numP == 2)
                 {
-                    chart2.Series[0].Points.AddXY(duration, pressure);
+                    chart2.Series[0].Points.AddXY(duration, variables.Pressure);
 
                     if (chart2.Series[0].Points.Count > 300)
                         chart2.Series[0].Points.RemoveAt(0);
@@ -3302,239 +1897,30 @@ namespace BASSCOMPORT
             }
         }
 
-        private void Show_Data(object sender, EventArgs e)
+        public void Show_Data(object sender, EventArgs e)
 
 
         {
-            if (updateData == true)
+            if (variables.updateData == true)
             {
                 if (variables.numT == 12) // for kelvin
                 {
-                    solidGauge1.Value = temp + 273.15;
-                    if (variables.numP == 14)
-                    {
-                        double example = pressure / 1000;
-                        solidGauge2.Value = ((double)((int)(example * 1000.0))) / 1000.0;
-                    }
-                    else if (variables.numP == 15)
-                    {
-                        double example = pressure * 100;
-                        solidGauge2.Value = ((double)((int)(example * 1000.0))) / 1000.0;
+                    solidGauge1.Value = variables.Temperature + 273.15;
 
-                    }
-                    else if (variables.numP == 16)
-                    {
-                        double example = pressure * 0.00102;
-                        solidGauge2.Value = ((double)((int)(example * 1000.0))) / 1000.0;
-
-
-                    }
-                    else if (variables.numP == 17)
-                    {
-                        double example = pressure / 0.0980665;
-                        solidGauge2.Value = ((double)((int)(example * 1000.0))) / 1000.0;
-
-
-                    }
-                    else if (variables.numP == 18)
-                    {
-                        double example = pressure / 98.0665;
-                        solidGauge2.Value = Math.Truncate(example * 1000) / 1000;
-
-                    }
-                    else if (variables.numP == 19)
-                    {
-                        double example = pressure * 0.750062;
-                        solidGauge2.Value = Math.Truncate(example * 1000) / 1000;
-
-
-                    }
-                    else if (variables.numP == 20)
-                    {
-                        double example = pressure * 0.0145037738;
-                        solidGauge2.Value = Math.Truncate(example * 1000) / 1000;
-
-
-                    }
-                    else if (variables.numP == 21)
-                    {
-                        double example = pressure / 10;
-                        solidGauge2.Value = Math.Truncate(example * 1000) / 1000;
-
-
-                    }
-                    else if (variables.numP == 22)
-                    {
-                        double example = pressure / 10000;
-                        solidGauge2.Value = Math.Truncate(example * 1000) / 1000;
-
-                    }
-                    else if (variables.numP == 23)
-                    {
-                        double example = pressure / 2.490889;
-                        solidGauge2.Value = Math.Truncate(example * 1000) / 1000;
-
-
-                    }
-
-                    else if (variables.numP == 2)
-                    {
-                        solidGauge2.Value = Math.Truncate(pressure * 1000) / 1000;
-
-                    }
+                    showDataInit();
 
                 }
                 else if (variables.numT == 13)// for fahrenheit
                 {
-                    solidGauge1.Value = (temp * 1.8) + 32;
+                    solidGauge1.Value = (variables.Temperature * 1.8) + 32;
 
-                    if (variables.numP == 14)
-                    {
-                        double example = pressure / 1000;
-                        solidGauge2.Value = ((double)((int)(example * 1000.0))) / 1000.0;
-                    }
-                    else if (variables.numP == 15)
-                    {
-                        double example = pressure * 100;
-                        solidGauge2.Value = ((double)((int)(example * 1000.0))) / 1000.0;
-
-                    }
-                    else if (variables.numP == 16)
-                    {
-                        double example = pressure * 0.00102;
-                        solidGauge2.Value = ((double)((int)(example * 1000.0))) / 1000.0;
-
-
-                    }
-                    else if (variables.numP == 17)
-                    {
-                        double example = pressure / 0.0980665;
-                        solidGauge2.Value = ((double)((int)(example * 1000.0))) / 1000.0;
-
-
-                    }
-                    else if (variables.numP == 18)
-                    {
-                        double example = pressure / 98.0665;
-                        solidGauge2.Value = Math.Truncate(example * 1000) / 1000;
-
-                    }
-                    else if (variables.numP == 19)
-                    {
-                        double example = pressure * 0.750062;
-                        solidGauge2.Value = Math.Truncate(example * 1000) / 1000;
-
-
-                    }
-                    else if (variables.numP == 20)
-                    {
-                        double example = pressure * 0.0145037738;
-                        solidGauge2.Value = Math.Truncate(example * 1000) / 1000;
-
-
-                    }
-                    else if (variables.numP == 21)
-                    {
-                        double example = pressure / 10;
-                        solidGauge2.Value = Math.Truncate(example * 1000) / 1000;
-
-
-                    }
-                    else if (variables.numP == 22)
-                    {
-                        double example = pressure / 10000;
-                        solidGauge2.Value = Math.Truncate(example * 1000) / 1000;
-
-                    }
-                    else if (variables.numP == 23)
-                    {
-                        double example = pressure / 2.490889;
-                        solidGauge2.Value = Math.Truncate(example * 1000) / 1000;
-
-
-                    }
-
-                    else if (variables.numP == 2)
-                    {
-                        solidGauge2.Value = Math.Truncate(pressure * 1000) / 1000;
-
-                    }
+                    showDataInit();
                 }
                 else if (variables.numT == 1) // for celcius
                 {
-                    solidGauge1.Value = temp;
+                    solidGauge1.Value = variables.Temperature;
 
-                    if (variables.numP == 14)
-                    {
-                        double example = pressure / 1000;
-                        solidGauge2.Value =  ((double)((int)(example * 1000.0))) / 1000.0;
-                    }
-                    else if (variables.numP == 15)
-                    {
-                        double example = pressure * 100;
-                        solidGauge2.Value = ((double)((int)(example * 1000.0))) / 1000.0;
-
-                    }
-                    else if (variables.numP == 16)
-                    {
-                        double example = pressure * 0.00102;
-                        solidGauge2.Value = ((double)((int)(example * 1000.0))) / 1000.0;
-                       
-
-                    }
-                    else if (variables.numP == 17)
-                    {
-                        double example = pressure / 0.0980665;
-                        solidGauge2.Value = ((double)((int)(example * 1000.0))) / 1000.0;
-                        
-
-                    }
-                    else if (variables.numP == 18)
-                    {
-                        double example = pressure / 98.0665;
-                        solidGauge2.Value = Math.Truncate(example * 1000) / 1000;
-
-                    }
-                    else if (variables.numP == 19)
-                    {
-                        double example = pressure * 0.750062;
-                        solidGauge2.Value = Math.Truncate(example * 1000) / 1000;
-                       
-
-                    }
-                    else if (variables.numP == 20)
-                    {
-                        double example = pressure * 0.0145037738;
-                        solidGauge2.Value = Math.Truncate(example * 1000) / 1000;
-                        
-
-                    }
-                    else if (variables.numP == 21)
-                    {
-                        double example = pressure / 10;
-                        solidGauge2.Value = Math.Truncate(example * 1000) / 1000;
-                        
-
-                    }
-                    else if (variables.numP == 22)
-                    {
-                        double example = pressure / 10000;
-                        solidGauge2.Value = Math.Truncate(example * 1000) / 1000;
-
-                    }
-                    else if (variables.numP == 23)
-                    {
-                        double example = pressure / 2.490889;
-                        solidGauge2.Value = Math.Truncate(example * 1000) / 1000;
-                        
-
-                    }
-
-                    else if (variables.numP == 2)
-                    {
-                        solidGauge2.Value = Math.Truncate(pressure * 1000) / 1000;
-
-                    }
+                    showDataInit();
                 }
 
             }

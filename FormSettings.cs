@@ -30,7 +30,8 @@ namespace BASSCOMPORT
         public int enNumber = 0;
         SerialPort myPort;
         private bool updateData2 = false;
-        double identify = 0, empty = 0;
+        bool updateData = false;
+        double identify = 0;
 
 
         public FormSettings()
@@ -62,10 +63,93 @@ namespace BASSCOMPORT
 
         }
 
+        void sp_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        {
+            string data_In = serialPort1.ReadTo("^");
+            string data_identify = serialPort1.ReadTo("*");
+            Data_Identify(data_identify);
+            Data_TempPres(data_In);
+            
+            
+
+        }
+        public void Data_Identify(string data)
+        {
+            sbyte indexOf_startDataCharx = (sbyte)data.IndexOf("?");
+            sbyte indexOfXx = (sbyte)data.IndexOf("!");
+            sbyte indexOfYx = (sbyte)data.IndexOf("%");
+
+            if (indexOf_startDataCharx != -1 && indexOfYx != -1 && indexOfXx != -1)
+            {
+                try
+                {
+                    string str_identify = data.Substring(indexOf_startDataCharx + 1, (indexOfXx - indexOf_startDataCharx) - 1);
+                    string str_range = data.Substring(indexOfXx + 1, (indexOfYx - indexOfXx) - 1);
+                    identify = Convert.ToDouble(str_identify);
+                    if (identify == 0)
+                    {
+                        variables.data_identify = 10; // mA
+                    }
+                    else if (identify == 1)
+                    {
+                        variables.data_identify = 11; // V
+                    }
+                    string[] tokens = str_range.Split('-');
+                    double lowRangeDouble = Convert.ToDouble(tokens[0]);
+                    double upperRangeDouble = Convert.ToDouble(tokens[1]);
+                    variables.lowRange = lowRangeDouble;
+                    variables.upperRange = upperRangeDouble;
+                    updateData2 = true;
+
+                }
+                catch (Exception error)
+                {
+                    MessageBox.Show(error.Message);
+                }
+            }
+
+            else
+            {
+                updateData2 = false;
+            }
+        }
+       
+        public void Data_TempPres(string data)
+        {
+            sbyte indexOf_startDataChar = (sbyte)data.IndexOf("@");
+            sbyte indexOfX = (sbyte)data.IndexOf("X");
+            sbyte indexOfY = (sbyte)data.IndexOf("Y");
+
+            if (indexOf_startDataChar != -1 && indexOfY != -1 && indexOfX != -1)
+            {
+                try
+                {
+                    string str_temp = data.Substring(indexOf_startDataChar + 1, (indexOfX - indexOf_startDataChar) - 1);
+                    string str_pressure = data.Substring(indexOfX + 1, (indexOfY - indexOfX) - 1);
+                    variables.Temperature = Convert.ToDouble(str_temp);
+                    variables.Pressure = Convert.ToDouble(str_pressure);
+                    variables.updateData = true;
+
+                }
+                catch (Exception error)
+                {
+                    MessageBox.Show(error.Message);
+                }
+            }
+
+            else
+            {
+                variables.updateData = false;
+            }
+        }
         private void FormSettings_Load(object sender, EventArgs e)
         {
-
             
+            serialPort1 = new SerialPort();
+            variables.serialPort = serialPort1;
+            serialPort1.DataReceived += new SerialDataReceivedEventHandler(sp_DataReceived);
+
+
             if (variables.numEN == 11)
             {
                 progressBar1.CustomText = "Bekleniyor...";
@@ -137,9 +221,24 @@ namespace BASSCOMPORT
             }
 
         }
-        
 
-        
+       
+        public void serialPort1_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        {
+
+
+            string data_In = serialPort1.ReadTo("^");
+            string data_identify = serialPort1.ReadTo("*");
+            Data_Identify(data_identify);
+            Data_TempPres(data_In);
+           
+
+
+
+
+
+        }
+
         private void btnOpen_Click(object sender, EventArgs e)
         {
 
@@ -252,10 +351,6 @@ namespace BASSCOMPORT
             //this.Close(); //now close the form
         }
 
-
-
-
-
         private void cBoxCOMPORT_DropDown(object sender, EventArgs e)
         {
 
@@ -289,9 +384,9 @@ namespace BASSCOMPORT
                 label3.Text = rm.GetString("Pressure Unit");
                 btnOpen.Text = rm.GetString("OPEN");
                 btnClose.Text = rm.GetString("CLOSE");
-                button1.Text = rm.GetString("CHANGE");
-                button2.Text = rm.GetString("CHANGE");
-                button3.Text = rm.GetString("CHANGE");
+                button1.Text = rm.GetString("CHANGE2");
+                button2.Text = rm.GetString("CHANGE2");
+                button3.Text = rm.GetString("CHANGE2");
                 label14.Text = rm.GetString("BAUD RATE");
                 label19.Text = rm.GetString("DATA BITS");
                 label20.Text = rm.GetString("STOP BITS");
@@ -444,6 +539,7 @@ namespace BASSCOMPORT
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+          
             if (variables.numEN == 11)
             {
                 if (variables.status == 66)
@@ -538,10 +634,6 @@ namespace BASSCOMPORT
 
         }
 
-       
     }
-
-
-
 
 }
