@@ -1,1 +1,3 @@
-20220707_PRESSURE_CAL_CSHARPCODE_NEW
+BASS INSTRUMENTS - calibrator as scaling, observing datas as temperature and pressure and saving data as excel
+
+C# - I2C
