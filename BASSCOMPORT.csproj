@@ -792,6 +792,9 @@
     <None Include="Resources\output-onlinegiftools.gif" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\tr.png" />
+    <None Include="Resources\scalingupside.png" />
+    <None Include="Resources\ooooo.png" />
     <None Include="Resources\ok2.png" />
     <None Include="Resources\LOGO1.png" />
     <None Include="Resources\LOGO.png" />
@@ -801,7 +804,6 @@
     <None Include="Resources\scaling.png" />
     <None Include="Resources\monitoring.png" />
     <None Include="Resources\izleme.png" />
-    <None Include="Resources\tr.png" />
     <None Include="Resources\Y.png" />
     <None Include="Resources\İ.png" />
     <None Include="Resources\1864215_arrow_direction_right_wayfinding_icon.png" />
@@ -844,7 +846,6 @@
     <None Include="Resources\Asset 81.png" />
     <None Include="Resources\Asset 91.png" />
     <None Include="Resources\Asset 114.png" />
-    <None Include="Resources\eng.png" />
     <None Include="Resources\about.png" />
     <None Include="Resources\ayarlar.png" />
     <None Include="Resources\hakkında.png" />
@@ -871,6 +872,8 @@
     <None Include="bin\Debug\Images\image7.png" />
     <None Include="bin\Debug\Images\image8.png" />
     <None Include="bin\Debug\Images\image9.png" />
+    <None Include="Resources\Asset 2- %28002%29.png" />
+    <None Include="Resources\eng.png" />
     <Content Include="Resources\icons8-ok-80.png" />
     <None Include="Resources\signboard.png" />
     <None Include="Resources\right-arrow1.png" />

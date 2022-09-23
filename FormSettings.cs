@@ -88,9 +88,13 @@ namespace BASSCOMPORT
                     identify = Convert.ToDouble(str_identify);
                     if (identify == 0)
                     {
-                        variables.data_identify = 10; // mA
+                        variables.data_identify = 9; // empty (= 0)
                     }
                     else if (identify == 1)
+                    {
+                        variables.data_identify = 10; // mA
+                    }
+                    else if (identify == 2)
                     {
                         variables.data_identify = 11; // V
                     }

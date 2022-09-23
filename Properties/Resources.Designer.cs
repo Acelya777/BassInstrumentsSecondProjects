@@ -403,6 +403,16 @@ namespace BASSCOMPORT.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Asset_2___002_ {
+            get {
+                object obj = ResourceManager.GetObject("Asset 2- (002)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Asset_3 {
             get {
                 object obj = ResourceManager.GetObject("Asset 3", resourceCulture);
@@ -653,39 +663,9 @@ namespace BASSCOMPORT.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap connection {
-            get {
-                object obj = ResourceManager.GetObject("connection", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap directions {
-            get {
-                object obj = ResourceManager.GetObject("directions", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap eng {
             get {
                 object obj = ResourceManager.GetObject("eng", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap free_settings_icon_3110_thumb {
-            get {
-                object obj = ResourceManager.GetObject("free-settings-icon-3110-thumb", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -736,26 +716,6 @@ namespace BASSCOMPORT.Properties {
         internal static System.Drawing.Bitmap İ {
             get {
                 object obj = ResourceManager.GetObject("İ", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap icons8_about_100 {
-            get {
-                object obj = ResourceManager.GetObject("icons8-about-100", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap icons8_about_65 {
-            get {
-                object obj = ResourceManager.GetObject("icons8-about-65", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1056,6 +1016,16 @@ namespace BASSCOMPORT.Properties {
         internal static System.Drawing.Bitmap scaling {
             get {
                 object obj = ResourceManager.GetObject("scaling", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap scalingupside {
+            get {
+                object obj = ResourceManager.GetObject("scalingupside", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

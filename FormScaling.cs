@@ -13,9 +13,24 @@ using System.Windows.Forms;
 namespace BASSCOMPORT
 {
     public partial class FormScaling : Form
+
+
     {
 
+        PointF firstLocation = new PointF(500f, 200f);  // upper değer
+        PointF fourthLocation = new PointF(750f, 40f); // lower limit 
+        PointF secondLocation = new PointF(450f, 40f); // upper limit
+        PointF thirdLocation = new PointF(800f, 200f); // lower değer
+        PointF fifthLocation = new PointF(120f, 80f); // output
+        PointF sixthLocation = new PointF(120f, 130f); // output değer
+
+        String lowerTemp;
+        String upperTemp;
+
+
         
+
+
 
         [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
         private static extern IntPtr CreateRoundRectRgn
@@ -208,9 +223,7 @@ namespace BASSCOMPORT
 
         private void FormScaling_Load(object sender, EventArgs e)
         {
-
-
-           
+            
             progressBar1.Maximum = 130;      
             variables.comportx = true;
         }
@@ -222,16 +235,21 @@ namespace BASSCOMPORT
         {
             
             if (variables.status == 66)
-            {   
+            {
                 if (minScaleTextBox.Text.Trim() == string.Empty || maxScaleTextBox.Text.Trim() == string.Empty)
                 {
                     MessageBox.Show("Please enter something in the textbox");
                     return; // return because we don't want to run normal code of buton click
                 }
+                else if (minScaleTextBox.Text.Trim() == maxScaleTextBox.Text.Trim())
+                {
+                    MessageBox.Show("Please enter different values");
+                    return;
+                }
                 else
                 {
 
-                 
+
 
                     string tempMinn;
                     string tempMaxx;
@@ -285,8 +303,8 @@ namespace BASSCOMPORT
                                 minScaleTextBox.Clear();
                                 maxScaleTextBox.Clear();
 
-                                
-                                
+
+
 
                             }
 
@@ -340,9 +358,9 @@ namespace BASSCOMPORT
                                 minScaleTextBox.Clear();
                                 maxScaleTextBox.Clear();
 
-                                
-                               
-                               
+
+
+
 
                             }
 
@@ -396,8 +414,8 @@ namespace BASSCOMPORT
                                 minScaleTextBox.Clear();
                                 maxScaleTextBox.Clear();
 
-                                
-                               
+
+
 
                             }
 
@@ -451,8 +469,8 @@ namespace BASSCOMPORT
                                 minScaleTextBox.Clear();
                                 maxScaleTextBox.Clear();
 
-                                
-                                
+
+
 
                             }
 
@@ -506,9 +524,9 @@ namespace BASSCOMPORT
                                 minScaleTextBox.Clear();
                                 maxScaleTextBox.Clear();
 
-                                
-                               
-                                
+
+
+
 
                             }
 
@@ -561,9 +579,9 @@ namespace BASSCOMPORT
                                 minScaleTextBox.Clear();
                                 maxScaleTextBox.Clear();
 
-                                
-                               
-                               
+
+
+
 
                             }
 
@@ -616,9 +634,9 @@ namespace BASSCOMPORT
                                 minScaleTextBox.Clear();
                                 maxScaleTextBox.Clear();
 
-                                
-                               
-                                
+
+
+
 
                             }
 
@@ -671,9 +689,9 @@ namespace BASSCOMPORT
                                 minScaleTextBox.Clear();
                                 maxScaleTextBox.Clear();
 
-                                
 
-                                
+
+
 
                             }
 
@@ -685,7 +703,7 @@ namespace BASSCOMPORT
                         double minScaleBar = Convert.ToDouble(minScaleTextBox.Text);
                         double maxScaleBar = Convert.ToDouble(maxScaleTextBox.Text);
 
-                        if (minScaleBar < -0.01|| maxScaleBar >100)
+                        if (minScaleBar < -0.01 || maxScaleBar > 100)
                         {
                             MessageBox.Show("The value must be between -0.01 and 100 ");
                             minScaleTextBox.Clear();
@@ -726,9 +744,9 @@ namespace BASSCOMPORT
                                 minScaleTextBox.Clear();
                                 maxScaleTextBox.Clear();
 
-                                
-                             
-                                
+
+
+
 
                             }
 
@@ -740,7 +758,7 @@ namespace BASSCOMPORT
                         double minScaleBar = Convert.ToDouble(minScaleTextBox.Text);
                         double maxScaleBar = Convert.ToDouble(maxScaleTextBox.Text);
 
-                        if (minScaleBar < -402  || maxScaleBar > 401464)
+                        if (minScaleBar < -402 || maxScaleBar > 401464)
                         {
                             MessageBox.Show("The value must be between -402 and 401464 ");
                             minScaleTextBox.Clear();
@@ -781,9 +799,9 @@ namespace BASSCOMPORT
                                 minScaleTextBox.Clear();
                                 maxScaleTextBox.Clear();
 
-                                
-                             
-                                
+
+
+
 
                             }
 
@@ -830,8 +848,8 @@ namespace BASSCOMPORT
                                 minScaleTextBox.Clear();
                                 maxScaleTextBox.Clear();
 
-                                
-                                
+
+
 
                             }
 
@@ -839,7 +857,7 @@ namespace BASSCOMPORT
 
                     }
 
-                    
+
 
                 }
 
@@ -881,17 +899,74 @@ namespace BASSCOMPORT
         
         private void timer2_Tick(object sender, EventArgs e)
         {
-            if (variables.status ==66)
+
+
+            if (variables.numEN == 10)
             {
-               
-                    if (variables.lowRange != 0 && variables.upperRange != 0)
+                Bitmap bitmap = (Bitmap)pictureBox4.Image;
+                using (Graphics graphics = Graphics.FromImage(bitmap))
+
+                using (Font arialFont = new Font("Arial", 10))
+                {
+
+                    if (variables.data_identify == 10)
+                    {
+                        graphics.DrawString("4-20 mA", arialFont, Brushes.Blue, sixthLocation);
+                    }
+                    else if (variables.data_identify == 11)
+                    {
+                        graphics.DrawString("0-10V", arialFont, Brushes.Blue, sixthLocation);
+                    }
+                    else
+                    {
+                        graphics.DrawString("---", arialFont, Brushes.Blue, sixthLocation);
+                    }
+                    graphics.DrawString("Output:", arialFont, Brushes.Blue, fifthLocation);
+                    graphics.DrawString(upperTemp, arialFont, Brushes.Red, firstLocation);
+                    graphics.DrawString(lowerTemp, arialFont, Brushes.Blue, thirdLocation);
+                    graphics.DrawString("Upper Limit", arialFont, Brushes.Red, secondLocation);
+                    graphics.DrawString("Lower Limit", arialFont, Brushes.Blue, fourthLocation);
+                }
+            }
+            else if(variables.numEN == 11) 
+            {
+                Bitmap bitmap2 = (Bitmap)pictureBox4.Image;
+                using (Graphics graphics2 = Graphics.FromImage(bitmap2))
+
+                using (Font arialFont = new Font("Arial", 10))
+                {
+
+                    if (variables.data_identify == 10)
+                    {
+                        graphics2.DrawString("4-20 mA", arialFont, Brushes.Blue, sixthLocation);
+                    }
+                    else if (variables.data_identify == 11)
+                    {
+                        graphics2.DrawString("0-10V", arialFont, Brushes.Blue, sixthLocation);
+                    }
+                    else
+                    {
+                        graphics2.DrawString("---", arialFont, Brushes.Blue, sixthLocation);
+                    }
+                    graphics2.DrawString("Çıkış:", arialFont, Brushes.Blue, fifthLocation);
+                    graphics2.DrawString(variables.upperRange.ToString(), arialFont, Brushes.Red, firstLocation);
+                    graphics2.DrawString(variables.lowRange.ToString(), arialFont, Brushes.Blue, thirdLocation);
+                    graphics2.DrawString("Tepe Limit", arialFont, Brushes.Red, secondLocation);
+                    graphics2.DrawString("Düşük Limit", arialFont, Brushes.Blue, fourthLocation);
+                }
+            }
+
+
+
+
+            if (variables.lowRange != 0 && variables.upperRange != 0)
                     {
                         
                         if (variables.numP == 14)
                         {
 
-                            label5.Text = variables.lowRange.ToString()+" Bar";
-                            label7.Text = variables.upperRange.ToString() + " Bar";
+                            lowerTemp = variables.lowRange.ToString()+" Bar";
+                            upperTemp = variables.upperRange.ToString() + " Bar";
 
                         }
                         else if (variables.numP == 15)
@@ -899,8 +974,8 @@ namespace BASSCOMPORT
                             double lowRange = variables.lowRange * 100000;
                             double upperRange = variables.upperRange * 100000;
 
-                            label5.Text = lowRange.ToString() + " Pa";
-                            label7.Text = upperRange.ToString() + " Pa";
+                            lowerTemp = lowRange.ToString() + " Pa";
+                            upperTemp = upperRange.ToString() + " Pa";
 
                         }
                         else if (variables.numP == 16)
@@ -908,8 +983,8 @@ namespace BASSCOMPORT
                             double lowRange = variables.lowRange * 1.02;
                             double upperRange = variables.upperRange * 1.02;
 
-                            label5.Text = lowRange.ToString() + " kg/cm2";
-                            label7.Text = upperRange.ToString() + " kg/cm2";
+                            lowerTemp = lowRange.ToString() + " kg/cm2";
+                            upperTemp = upperRange.ToString() + " kg/cm2";
 
 
                         }
@@ -917,9 +992,8 @@ namespace BASSCOMPORT
                         {
                             double lowRange = variables.lowRange / 0.0000980665;
                             double upperRange = variables.upperRange / 0.0000980665;
-
-                            label5.Text = lowRange.ToString() + " mmh2o";
-                            label7.Text = upperRange.ToString() + " mmh2o";
+                            lowerTemp = lowRange.ToString() + " mmh2o";
+                            upperTemp = upperRange.ToString() + " mmh2o";
 
 
                         }
@@ -929,8 +1003,8 @@ namespace BASSCOMPORT
                             double lowRange = variables.lowRange / 0.0980665;
                             double upperRange = variables.upperRange / 0.0980665;
 
-                            label5.Text = lowRange.ToString() + " mh2o";
-                            label7.Text = upperRange.ToString() + " mh2o";
+                            lowerTemp = lowRange.ToString() + " mh2o";
+                            upperTemp = upperRange.ToString() + " mh2o";
 
                         }
                         else if (variables.numP == 19)
@@ -938,8 +1012,8 @@ namespace BASSCOMPORT
                             double lowRange = variables.lowRange * 750.061;
                             double upperRange = variables.upperRange * 750.061;
 
-                            label5.Text = lowRange.ToString() + " mmHg";
-                            label7.Text = upperRange.ToString() + " mmHg";
+                            lowerTemp = lowRange.ToString() + " mmHg";
+                            upperTemp = upperRange.ToString() + " mmHg";
 
 
                         }
@@ -948,8 +1022,8 @@ namespace BASSCOMPORT
                             double lowRange = variables.lowRange * 14.5037738;
                             double upperRange = variables.upperRange * 14.5037738;
 
-                            label5.Text = lowRange.ToString() + " psi";
-                            label7.Text = upperRange.ToString() + " psi";
+                            lowerTemp = lowRange.ToString() + " psi";
+                            upperTemp = upperRange.ToString() + " psi";
 
 
                         }
@@ -958,8 +1032,8 @@ namespace BASSCOMPORT
                             double lowRange = variables.lowRange * 100;
                             double upperRange = variables.upperRange * 100;
 
-                            label5.Text = lowRange.ToString() + " kPa";
-                            label7.Text = upperRange.ToString() + " kPa";
+                            lowerTemp = lowRange.ToString() + " kPa";
+                            upperTemp = upperRange.ToString() + " kPa";
 
 
                         }
@@ -968,8 +1042,8 @@ namespace BASSCOMPORT
                             double lowRange = variables.lowRange * 0.1;
                             double upperRange = variables.upperRange * 0.1;
 
-                            label5.Text = lowRange.ToString() + " MPa";
-                            label7.Text = upperRange.ToString() + " MPa";
+                            lowerTemp = lowRange.ToString() + " MPa";
+                            upperTemp = upperRange.ToString() + " MPa";
 
                         }
                         else if (variables.numP == 23)
@@ -977,8 +1051,8 @@ namespace BASSCOMPORT
                             double lowRange = variables.lowRange * 401.325981;
                             double upperRange = variables.upperRange * 401.325981;
 
-                            label5.Text = lowRange.ToString() + " inch water";
-                            label7.Text = upperRange.ToString() + " inch water";
+                            lowerTemp = lowRange.ToString() + " inch water";
+                            upperTemp = upperRange.ToString() + " inch water";
 
 
                         }
@@ -988,14 +1062,15 @@ namespace BASSCOMPORT
                             double lowRange = variables.lowRange * 1000;
                             double upperRange = variables.upperRange * 1000;
 
-                            label5.Text = lowRange.ToString() + " mBar";
-                            label7.Text = upperRange.ToString() + " mBar";
+                            lowerTemp = lowRange.ToString() + " mBar";
+                            upperTemp = upperRange.ToString() + " mBar";
 
 
                         }
+
                     }
                
-            }
+            
 
             
 
@@ -1009,8 +1084,11 @@ namespace BASSCOMPORT
                 // guideGroupBox.Text = rm.GetString("Guide");
                 // richTextBox2.Text = "Sonra ölçeklendirmek istediğiniz minimum ve maksimum değerleri giriniz ve DEĞİŞTİR butonuna tıklayınız. Lütfen 'OK' işaretini görene kadar bekleyiniz.";
                 //richTextBox1.Text = "Lütfen ürün etiketi üzerinde bulunan ölçeklendirme aralığını kontrol ediniz. Ardından minimum ve maksimum değerleri belirtilen kutucuklara giriniz ve AYARLA butonuna tıklayınız. Bu şekilde cihaza referans ölçeklendirme aralığı vermiş oluyoruz. ";
-
-                if (variables.data_identify == 10)
+                if (variables.data_identify == 9)
+                {
+                    label6.Text = "---"; 
+                }
+                else if (variables.data_identify == 10)
                 {
                     label6.Text = "4-20mA";
                 }
@@ -1092,7 +1170,11 @@ namespace BASSCOMPORT
 
             else if (variables.numEN == 10)
             {
-                if (variables.data_identify == 10)
+                if (variables.data_identify == 9)
+                {
+                    label6.Text = "---";
+                }
+                else if (variables.data_identify == 10)
                 {
                     label6.Text = "4-20mA";
                 }
@@ -1101,7 +1183,7 @@ namespace BASSCOMPORT
                     label6.Text = "0-10V";
                 }
 
-               
+
 
                 label1.Text = "Output :";
                 label2.Text = "Range :";
@@ -1198,7 +1280,10 @@ namespace BASSCOMPORT
             }
         }
 
+        private void label8_Click(object sender, EventArgs e)
+        {
 
+        }
 
         private void minScaleSetTextBox_TextChanged(object sender, EventArgs e)
         {
