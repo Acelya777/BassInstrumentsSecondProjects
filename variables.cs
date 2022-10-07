@@ -8,6 +8,8 @@ namespace BASSCOMPORT
 {
     public static class variables
     {   
+        public static bool scalingChange { get; set; }
+        public static bool scalingphotocheck { get; set; }
         public static bool updateData { get; set; }
         public static bool flowOpen { get; set; }
         public static bool timerScaling { get; set; }

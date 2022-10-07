@@ -272,6 +272,8 @@ namespace BASSCOMPORT
             button5.Enabled = false;
             variables.numT = 1;
             variables.numP = 2;
+            variables.scalingphotocheck = false;
+            
             
             timer1.Enabled = true;
             timer1.Interval = 1000;

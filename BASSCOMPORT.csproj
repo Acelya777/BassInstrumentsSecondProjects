@@ -792,6 +792,7 @@
     <None Include="Resources\output-onlinegiftools.gif" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\trupper.png" />
     <None Include="Resources\tr.png" />
     <None Include="Resources\scalingupside.png" />
     <None Include="Resources\ooooo.png" />
@@ -874,6 +875,7 @@
     <None Include="bin\Debug\Images\image9.png" />
     <None Include="Resources\Asset 2- %28002%29.png" />
     <None Include="Resources\eng.png" />
+    <None Include="Resources\engupper.png" />
     <Content Include="Resources\icons8-ok-80.png" />
     <None Include="Resources\signboard.png" />
     <None Include="Resources\right-arrow1.png" />

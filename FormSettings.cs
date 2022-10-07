@@ -66,7 +66,7 @@ namespace BASSCOMPORT
         void sp_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             string data_In = serialPort1.ReadTo("^");
-            string data_identify = serialPort1.ReadTo("*");
+            string data_identify = serialPort1.ReadTo("@");
             Data_Identify(data_identify);
             Data_TempPres(data_In);
             
@@ -79,7 +79,7 @@ namespace BASSCOMPORT
             sbyte indexOfXx = (sbyte)data.IndexOf("!");
             sbyte indexOfYx = (sbyte)data.IndexOf("%");
 
-            if (indexOf_startDataCharx != -1 && indexOfYx != -1 && indexOfXx != -1)
+            if (indexOf_startDataCharx != -1 && indexOfYx != -1 && indexOfXx != -1) // @40.27X1610.02Y^?1!-1000)10000%>
             {
                 try
                 {
@@ -98,7 +98,7 @@ namespace BASSCOMPORT
                     {
                         variables.data_identify = 11; // V
                     }
-                    string[] tokens = str_range.Split('-');
+                    string[] tokens = str_range.Split(')');
                     double lowRangeDouble = Convert.ToDouble(tokens[0]);
                     double upperRangeDouble = Convert.ToDouble(tokens[1]);
                     variables.lowRange = lowRangeDouble;
@@ -152,6 +152,7 @@ namespace BASSCOMPORT
             serialPort1 = new SerialPort();
             variables.serialPort = serialPort1;
             serialPort1.DataReceived += new SerialDataReceivedEventHandler(sp_DataReceived);
+            variables.scalingChange = true;
 
 
             if (variables.numEN == 11)
@@ -374,6 +375,7 @@ namespace BASSCOMPORT
         {
             pictureBox1.Image = BASSCOMPORT.Properties.Resources.ok2;
             //variables.numEN = 11;
+            variables.scalingChange = true;
 
             if (comboBox1.SelectedItem.ToString() == "Türkçe")
             {
@@ -381,6 +383,8 @@ namespace BASSCOMPORT
                 variables.xx = true;
                 variables.tryMe = false;
                 variables.trP = false;
+                variables.scalingphotocheck = true;
+                
 
 
                 label1.Text = rm.GetString("Language");
@@ -421,6 +425,8 @@ namespace BASSCOMPORT
                 variables.tryMe = false;
                 variables.numEN = 10;
                 variables.enP = false;
+                variables.scalingphotocheck = true;
+
                 label1.Text = "Language";
                 label2.Text = "Temperature Unit";
                 label3.Text = "Pressure Unit";
@@ -455,6 +461,7 @@ namespace BASSCOMPORT
         private void button2_Click(object sender, EventArgs e)
         {
             pictureBox2.Image = BASSCOMPORT.Properties.Resources.ok2;
+            variables.scalingChange = true;
             if (comboBox2.SelectedItem.ToString() == "Kelvin(K)")
             {
                 variables.numT = 12;
@@ -483,6 +490,7 @@ namespace BASSCOMPORT
         private void button3_Click(object sender, EventArgs e)
         {   // "mBar", "Bar","Pa", "kg/s2","mmh2o","mh2o","mmHg","psi","kPa","MPa"
             pictureBox3.Image = BASSCOMPORT.Properties.Resources.ok2;
+            variables.scalingChange = true;
             if (comboBox3.SelectedItem.ToString() == "Bar")
             {
                 variables.numP = 14;

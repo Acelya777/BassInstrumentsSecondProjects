@@ -673,6 +673,16 @@ namespace BASSCOMPORT.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap engupper {
+            get {
+                object obj = ResourceManager.GetObject("engupper", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap GRAFİK_ {
             get {
                 object obj = ResourceManager.GetObject("GRAFİK ", resourceCulture);
@@ -726,16 +736,6 @@ namespace BASSCOMPORT.Properties {
         internal static System.Drawing.Bitmap icons8_adjust_64 {
             get {
                 object obj = ResourceManager.GetObject("icons8-adjust-64", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap icons8_home_65 {
-            get {
-                object obj = ResourceManager.GetObject("icons8_home_65", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1043,16 +1043,6 @@ namespace BASSCOMPORT.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap signboard {
-            get {
-                object obj = ResourceManager.GetObject("signboard", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap Spin_1s_100px {
             get {
                 object obj = ResourceManager.GetObject("Spin-1s-100px", resourceCulture);
@@ -1066,6 +1056,16 @@ namespace BASSCOMPORT.Properties {
         internal static System.Drawing.Bitmap tr {
             get {
                 object obj = ResourceManager.GetObject("tr", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap trupper {
+            get {
+                object obj = ResourceManager.GetObject("trupper", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

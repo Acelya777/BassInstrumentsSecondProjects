@@ -18,8 +18,8 @@ namespace BASSCOMPORT
     {
 
         PointF firstLocation = new PointF(500f, 200f);  // upper değer
-        PointF fourthLocation = new PointF(750f, 40f); // lower limit 
-        PointF secondLocation = new PointF(450f, 40f); // upper limit
+        PointF fourthLocation = new PointF(775f, 40f); // lower limit 
+        PointF secondLocation = new PointF(475f, 40f); // upper limit
         PointF thirdLocation = new PointF(800f, 200f); // lower değer
         PointF fifthLocation = new PointF(120f, 80f); // output
         PointF sixthLocation = new PointF(120f, 130f); // output değer
@@ -27,8 +27,11 @@ namespace BASSCOMPORT
         String lowerTemp;
         String upperTemp;
 
+        String tempUpper;
+        String tempLower;
 
-        
+
+
 
 
 
@@ -61,10 +64,7 @@ namespace BASSCOMPORT
 
             
             scaleButton.NormalBadgeColor = System.Drawing.Color.Red;
-
-            //richTextBox1.Font = new System.Drawing.Font("Arial", 15F);
-            //richTextBox2.Font = new System.Drawing.Font("Arial", 15F);
-            groupBox1.Font = new System.Drawing.Font("Arial", 13F);
+            groupBox1.Font = new System.Drawing.Font("Arial", 12F);
             groupBox2.Font = new System.Drawing.Font("Arial", 12F);
             if (variables.numEN == 11)
             {
@@ -226,6 +226,9 @@ namespace BASSCOMPORT
             
             progressBar1.Maximum = 130;      
             variables.comportx = true;
+            maxScaleSetTextBox.Enabled = false;
+            minScaleSetTextBox.Enabled = false;
+            setButton.Enabled = false;
         }
 
        
@@ -878,6 +881,7 @@ namespace BASSCOMPORT
         {
 
         }
+        
 
         private void timer1_Tick(object sender, EventArgs e)
         {
@@ -899,71 +903,13 @@ namespace BASSCOMPORT
         
         private void timer2_Tick(object sender, EventArgs e)
         {
-
-
-            if (variables.numEN == 10)
-            {
-                Bitmap bitmap = (Bitmap)pictureBox4.Image;
-                using (Graphics graphics = Graphics.FromImage(bitmap))
-
-                using (Font arialFont = new Font("Arial", 10))
-                {
-
-                    if (variables.data_identify == 10)
-                    {
-                        graphics.DrawString("4-20 mA", arialFont, Brushes.Blue, sixthLocation);
-                    }
-                    else if (variables.data_identify == 11)
-                    {
-                        graphics.DrawString("0-10V", arialFont, Brushes.Blue, sixthLocation);
-                    }
-                    else
-                    {
-                        graphics.DrawString("---", arialFont, Brushes.Blue, sixthLocation);
-                    }
-                    graphics.DrawString("Output:", arialFont, Brushes.Blue, fifthLocation);
-                    graphics.DrawString(upperTemp, arialFont, Brushes.Red, firstLocation);
-                    graphics.DrawString(lowerTemp, arialFont, Brushes.Blue, thirdLocation);
-                    graphics.DrawString("Upper Limit", arialFont, Brushes.Red, secondLocation);
-                    graphics.DrawString("Lower Limit", arialFont, Brushes.Blue, fourthLocation);
-                }
-            }
-            else if(variables.numEN == 11) 
-            {
-                Bitmap bitmap2 = (Bitmap)pictureBox4.Image;
-                using (Graphics graphics2 = Graphics.FromImage(bitmap2))
-
-                using (Font arialFont = new Font("Arial", 10))
-                {
-
-                    if (variables.data_identify == 10)
-                    {
-                        graphics2.DrawString("4-20 mA", arialFont, Brushes.Blue, sixthLocation);
-                    }
-                    else if (variables.data_identify == 11)
-                    {
-                        graphics2.DrawString("0-10V", arialFont, Brushes.Blue, sixthLocation);
-                    }
-                    else
-                    {
-                        graphics2.DrawString("---", arialFont, Brushes.Blue, sixthLocation);
-                    }
-                    graphics2.DrawString("Çıkış:", arialFont, Brushes.Blue, fifthLocation);
-                    graphics2.DrawString(variables.upperRange.ToString(), arialFont, Brushes.Red, firstLocation);
-                    graphics2.DrawString(variables.lowRange.ToString(), arialFont, Brushes.Blue, thirdLocation);
-                    graphics2.DrawString("Tepe Limit", arialFont, Brushes.Red, secondLocation);
-                    graphics2.DrawString("Düşük Limit", arialFont, Brushes.Blue, fourthLocation);
-                }
-            }
-
-
-
-
-            if (variables.lowRange != 0 && variables.upperRange != 0)
-                    {
+            if (variables.status == 66)
+            {     
                         
                         if (variables.numP == 14)
                         {
+                            double lowRange = variables.lowRange / 1000;
+                            double upperRange = variables.upperRange /1000;
 
                             lowerTemp = variables.lowRange.ToString()+" Bar";
                             upperTemp = variables.upperRange.ToString() + " Bar";
@@ -971,8 +917,8 @@ namespace BASSCOMPORT
                         }
                         else if (variables.numP == 15)
                         {
-                            double lowRange = variables.lowRange * 100000;
-                            double upperRange = variables.upperRange * 100000;
+                            double lowRange = variables.lowRange * 100;
+                            double upperRange = variables.upperRange * 100;
 
                             lowerTemp = lowRange.ToString() + " Pa";
                             upperTemp = upperRange.ToString() + " Pa";
@@ -980,8 +926,8 @@ namespace BASSCOMPORT
                         }
                         else if (variables.numP == 16)
                         {
-                            double lowRange = variables.lowRange * 1.02;
-                            double upperRange = variables.upperRange * 1.02;
+                            double lowRange = variables.lowRange * 0.0010197;
+                            double upperRange = variables.upperRange * 0.0010197;
 
                             lowerTemp = lowRange.ToString() + " kg/cm2";
                             upperTemp = upperRange.ToString() + " kg/cm2";
@@ -990,8 +936,8 @@ namespace BASSCOMPORT
                         }
                         else if (variables.numP == 17)
                         {
-                            double lowRange = variables.lowRange / 0.0000980665;
-                            double upperRange = variables.upperRange / 0.0000980665;
+                            double lowRange = variables.lowRange * 10.20;
+                            double upperRange = variables.upperRange * 10.20;
                             lowerTemp = lowRange.ToString() + " mmh2o";
                             upperTemp = upperRange.ToString() + " mmh2o";
 
@@ -1000,8 +946,8 @@ namespace BASSCOMPORT
                         else if (variables.numP == 18)
                         {
 
-                            double lowRange = variables.lowRange / 0.0980665;
-                            double upperRange = variables.upperRange / 0.0980665;
+                            double lowRange = variables.lowRange * 0.010197;
+                            double upperRange = variables.upperRange * 0.010197;
 
                             lowerTemp = lowRange.ToString() + " mh2o";
                             upperTemp = upperRange.ToString() + " mh2o";
@@ -1009,8 +955,8 @@ namespace BASSCOMPORT
                         }
                         else if (variables.numP == 19)
                         {
-                            double lowRange = variables.lowRange * 750.061;
-                            double upperRange = variables.upperRange * 750.061;
+                            double lowRange = variables.lowRange * 0.750061683;
+                            double upperRange = variables.upperRange * 0.750061683;
 
                             lowerTemp = lowRange.ToString() + " mmHg";
                             upperTemp = upperRange.ToString() + " mmHg";
@@ -1019,8 +965,8 @@ namespace BASSCOMPORT
                         }
                         else if (variables.numP == 20)
                         {
-                            double lowRange = variables.lowRange * 14.5037738;
-                            double upperRange = variables.upperRange * 14.5037738;
+                            double lowRange = variables.lowRange * 0.0145037738;
+                            double upperRange = variables.upperRange * 0.0145037738;
 
                             lowerTemp = lowRange.ToString() + " psi";
                             upperTemp = upperRange.ToString() + " psi";
@@ -1029,8 +975,8 @@ namespace BASSCOMPORT
                         }
                         else if (variables.numP == 21)
                         {
-                            double lowRange = variables.lowRange * 100;
-                            double upperRange = variables.upperRange * 100;
+                            double lowRange = variables.lowRange * 0.1;
+                            double upperRange = variables.upperRange * 0.1;
 
                             lowerTemp = lowRange.ToString() + " kPa";
                             upperTemp = upperRange.ToString() + " kPa";
@@ -1039,8 +985,8 @@ namespace BASSCOMPORT
                         }
                         else if (variables.numP == 22)
                         {
-                            double lowRange = variables.lowRange * 0.1;
-                            double upperRange = variables.upperRange * 0.1;
+                            double lowRange = variables.lowRange * 0.0001;
+                            double upperRange = variables.upperRange * 0.0001; 
 
                             lowerTemp = lowRange.ToString() + " MPa";
                             upperTemp = upperRange.ToString() + " MPa";
@@ -1048,8 +994,8 @@ namespace BASSCOMPORT
                         }
                         else if (variables.numP == 23)
                         {
-                            double lowRange = variables.lowRange * 401.325981;
-                            double upperRange = variables.upperRange * 401.325981;
+                            double lowRange = variables.lowRange * 0.401325981;
+                            double upperRange = variables.upperRange * 0.401325981;
 
                             lowerTemp = lowRange.ToString() + " inch water";
                             upperTemp = upperRange.ToString() + " inch water";
@@ -1059,34 +1005,21 @@ namespace BASSCOMPORT
 
                         else if (variables.numP == 2)
                         {
-                            double lowRange = variables.lowRange * 1000;
-                            double upperRange = variables.upperRange * 1000;
+                            double lowRange = variables.lowRange ;
+                            double upperRange = variables.upperRange;
 
-                            lowerTemp = lowRange.ToString() + " mBar";
-                            upperTemp = upperRange.ToString() + " mBar";
+                            lowerTemp = lowRange.ToString() + " mbar";
+                            upperTemp = upperRange.ToString() + " mbar";
 
 
                         }
 
-                    }
-               
-            
+                        label5.Text = upperTemp;
+                        label7.Text = lowerTemp;
 
-            
-
-            if (variables.numEN == 11)
-            {
-                label1.Text = "Çıkış :";
-                label2.Text = "Aralık :";
-                scaleButton.Text = rm.GetString("CHANGE");
-                pictureBox3.Image = BASSCOMPORT.Properties.Resources.tr;
-                //groupBox1.Text = rm.GetString("Scaling");
-                // guideGroupBox.Text = rm.GetString("Guide");
-                // richTextBox2.Text = "Sonra ölçeklendirmek istediğiniz minimum ve maksimum değerleri giriniz ve DEĞİŞTİR butonuna tıklayınız. Lütfen 'OK' işaretini görene kadar bekleyiniz.";
-                //richTextBox1.Text = "Lütfen ürün etiketi üzerinde bulunan ölçeklendirme aralığını kontrol ediniz. Ardından minimum ve maksimum değerleri belirtilen kutucuklara giriniz ve AYARLA butonuna tıklayınız. Bu şekilde cihaza referans ölçeklendirme aralığı vermiş oluyoruz. ";
                 if (variables.data_identify == 9)
                 {
-                    label6.Text = "---"; 
+                    label6.Text = "---";
                 }
                 else if (variables.data_identify == 10)
                 {
@@ -1097,10 +1030,32 @@ namespace BASSCOMPORT
                     label6.Text = "0-10V";
                 }
 
-               
 
 
-                if (variables.numP == 14)
+
+
+
+
+                if (variables.numEN == 11)
+                {
+                label1.Text = "Çıkış :";
+                scaleButton.Text = rm.GetString("CHANGE");
+                setButton.Text = "AYARLA";
+                metroSetCheckBox1.Text = "El ile giriş";
+                    label9.Text = "Tepe =";
+                    label8.Text = "Dip  =";
+                    pictureBox3.Image = BASSCOMPORT.Properties.Resources.tr;
+                    pictureBox4.Image = BASSCOMPORT.Properties.Resources.trupper;
+                    //groupBox1.Text = rm.GetString("Scaling");
+                    // guideGroupBox.Text = rm.GetString("Guide");
+                    // richTextBox2.Text = "Sonra ölçeklendirmek istediğiniz minimum ve maksimum değerleri giriniz ve DEĞİŞTİR butonuna tıklayınız. Lütfen 'OK' işaretini görene kadar bekleyiniz.";
+                    //richTextBox1.Text = "Lütfen ürün etiketi üzerinde bulunan ölçeklendirme aralığını kontrol ediniz. Ardından minimum ve maksimum değerleri belirtilen kutucuklara giriniz ve AYARLA butonuna tıklayınız. Bu şekilde cihaza referans ölçeklendirme aralığı vermiş oluyoruz. ";
+
+
+
+
+
+                    if (variables.numP == 14)
                 {
                    
                     label16.Text = rm.GetString("Ayarlanacak minScale") + "(Bar)";
@@ -1161,8 +1116,8 @@ namespace BASSCOMPORT
                 else
                 {
                    
-                    label16.Text = rm.GetString("Ayarlanacak minScale") + "(mBar)";
-                    label18.Text = rm.GetString("Ayarlanacak maxScale") + "(mBar)";
+                    label16.Text = rm.GetString("Ayarlanacak minScale") + "(mbar)";
+                    label18.Text = rm.GetString("Ayarlanacak maxScale") + "(mbar)";
 
                 }
 
@@ -1170,31 +1125,17 @@ namespace BASSCOMPORT
 
             else if (variables.numEN == 10)
             {
-                if (variables.data_identify == 9)
-                {
-                    label6.Text = "---";
-                }
-                else if (variables.data_identify == 10)
-                {
-                    label6.Text = "4-20mA";
-                }
-                else if (variables.data_identify == 11)
-                {
-                    label6.Text = "0-10V";
-                }
-
-
-
+            
                 label1.Text = "Output :";
-                label2.Text = "Range :";
                 scaleButton.Text = "SCALE";
+                metroSetCheckBox1.Text = "Manual";
+                    setButton.Text = "SET";
+                    label9.Text = "Upper =";
+                    label8.Text = "Lower =";
                 pictureBox3.Image = BASSCOMPORT.Properties.Resources.eng;
-                //groupBox1.Text = "Scaling";
-                // guideGroupBox.Text = "Guide";
+                    pictureBox4.Image = BASSCOMPORT.Properties.Resources.engupper;
 
-                // richTextBox2.Text = "After that, enter the minimum and maximum values you want to scale, click the CHANGE button . Please wait until you see the 'OK' tick.";
-                //richTextBox1.Text = "Please check the scaling range on product label. Then enter the minimum and maximum values and click to SET button. In this way, we are saying the device that what's its reference scaling range.";
-
+              
                 if (variables.numP == 14)
                 {
                     
@@ -1262,6 +1203,10 @@ namespace BASSCOMPORT
 
                 }
             }
+            }
+            variables.scalingChange = false;
+
+
 
         }
 
@@ -1284,6 +1229,574 @@ namespace BASSCOMPORT
         {
 
         }
+
+        private void metroSetCheckBox1_CheckedChanged(object sender)
+        {
+            if (metroSetCheckBox1.Checked)
+            {
+                minScaleSetTextBox.Enabled = true;
+                maxScaleSetTextBox.Enabled = true;
+                setButton.Enabled = true;
+            }
+            else
+            {
+                minScaleSetTextBox.Enabled = false;
+                maxScaleSetTextBox.Enabled = false;
+                setButton.Enabled = false;
+            }
+            
+        }
+
+        private void setButton_Click(object sender, EventArgs e)
+        {
+            if (variables.status==66)
+            {
+                String dataminSetScale;
+                String datamaxSetScale;
+                timer1.Stop();
+                if (minScaleSetTextBox.Text.Trim() == string.Empty || maxScaleSetTextBox.Text.Trim() == string.Empty)
+                {
+                    MessageBox.Show("Please enter something in the textbox");
+                    return; // return because we don't want to run normal code of buton click
+                }
+                else
+                {
+
+                    string tempMin;
+                    string tempMax;
+                    double minx;
+                    double maxx;
+
+                    if (variables.numP == 14)
+                    {
+                        double minScaleBar = Convert.ToDouble(minScaleSetTextBox.Text);
+                        double maxScaleBar = Convert.ToDouble(maxScaleSetTextBox.Text);
+
+                        if (minScaleBar < -1 || maxScaleBar > 1000)
+                        {
+                            MessageBox.Show("The value must be between -1 and 1000 ");
+                            minScaleSetTextBox.Clear();
+                            maxScaleSetTextBox.Clear();
+                            return;
+
+
+                        }
+                        else
+                        {
+                            if (MessageBox.Show("Please confirm before proceed" + "\n" + "Do you want to Continue ?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+
+                            {
+                                tempMin = minScaleSetTextBox.Text;
+                                tempMax = maxScaleSetTextBox.Text;
+
+                                minx = Convert.ToDouble(tempMin);
+                                maxx = Convert.ToDouble(tempMax);
+
+                                minx *= 1000;
+                                maxx *= 1000;
+
+                                variables.minscale = minx;
+                                variables.maxscale = maxx;
+
+                                dataminSetScale = minx.ToString();
+                                datamaxSetScale = maxx.ToString();
+
+                                label12.Text = maxScaleSetTextBox.Text;
+                                label13.Text = minScaleSetTextBox.Text;
+
+                                variables.serialPort.WriteLine("*" + dataminSetScale + "*" + datamaxSetScale + "*");
+
+                                minScaleSetTextBox.Clear();
+                                maxScaleSetTextBox.Clear();
+
+
+                            }
+
+                        }
+                    }
+
+                    else if (variables.numP == 15)
+                    {
+                        double minScaleBar = Convert.ToDouble(minScaleSetTextBox.Text);
+                        double maxScaleBar = Convert.ToDouble(maxScaleSetTextBox.Text);
+
+                        if (minScaleBar < -100000 || maxScaleBar > 100000000)
+                        {
+                            MessageBox.Show("The value must be between -100000 and 100000000 ");
+                            minScaleSetTextBox.Clear();
+                            maxScaleSetTextBox.Clear();
+                            return;
+
+
+                        }
+                        else
+                        {
+                            if (MessageBox.Show("Please confirm before proceed" + "\n" + "Do you want to Continue ?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+
+                            {
+                                tempMin = minScaleSetTextBox.Text;
+                                tempMax = maxScaleSetTextBox.Text;
+
+                                minx = Convert.ToDouble(tempMin);
+                                maxx = Convert.ToDouble(tempMax);
+
+                                minx /= 100;
+                                maxx /= 100;
+
+                                variables.minscale = minx;
+                                variables.maxscale = maxx;
+
+                                dataminSetScale = minx.ToString();
+                                datamaxSetScale = maxx.ToString();
+                                label12.Text = maxScaleSetTextBox.Text;
+                                label13.Text = minScaleSetTextBox.Text;
+
+                                variables.serialPort.WriteLine("*" + dataminSetScale + "*" + datamaxSetScale + "*");
+
+                                minScaleSetTextBox.Clear();
+                                maxScaleSetTextBox.Clear();
+
+
+                            }
+
+                        }
+                    }
+                    else if (variables.numP == 16)
+                    {
+                        double minScaleBar = Convert.ToDouble(minScaleSetTextBox.Text);
+                        double maxScaleBar = Convert.ToDouble(maxScaleSetTextBox.Text);
+
+                        if (minScaleBar < -1 || maxScaleBar > 1019)
+                        {
+                            MessageBox.Show("The value must be between -1 and 1019 ");
+                            minScaleSetTextBox.Clear();
+                            maxScaleSetTextBox.Clear();
+                            return;
+
+
+                        }
+                        else
+                        {
+                            if (MessageBox.Show("Please confirm before proceed" + "\n" + "Do you want to Continue ?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+
+                            {
+                                tempMin = minScaleSetTextBox.Text;
+                                tempMax = maxScaleSetTextBox.Text;
+
+                                minx = Convert.ToDouble(tempMin);
+                                maxx = Convert.ToDouble(tempMax);
+
+                                minx /= 0.00102;
+                                maxx /= 0.00102;
+
+                                variables.minscale = minx;
+                                variables.maxscale = maxx;
+
+                                dataminSetScale = minx.ToString();
+                                datamaxSetScale = maxx.ToString();
+
+                                label12.Text = maxScaleSetTextBox.Text;
+                                label13.Text = minScaleSetTextBox.Text;
+
+                                variables.serialPort.WriteLine("*" + dataminSetScale + "*" + datamaxSetScale + "*");
+
+                                minScaleSetTextBox.Clear();
+                                maxScaleSetTextBox.Clear();
+
+
+                            }
+
+                        }
+                    }
+                    else if (variables.numP == 17)
+                    {
+                        double minScaleBar = Convert.ToDouble(minScaleSetTextBox.Text);
+                        double maxScaleBar = Convert.ToDouble(maxScaleSetTextBox.Text);
+
+                        if (minScaleBar < -10197 || maxScaleBar > 10197162)
+                        {
+                            MessageBox.Show("The value must be between -10197 and 10197162 ");
+                            minScaleSetTextBox.Clear();
+                            maxScaleSetTextBox.Clear();
+                            return;
+
+
+                        }
+                        else
+                        {
+                            if (MessageBox.Show("Please confirm before proceed" + "\n" + "Do you want to Continue ?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+
+                            {
+                                tempMin = minScaleSetTextBox.Text;
+                                tempMax = maxScaleSetTextBox.Text;
+
+                                minx = Convert.ToDouble(tempMin);
+                                maxx = Convert.ToDouble(tempMax);
+
+                                minx *= 0.0980665;
+                                maxx *= 0.0980665;
+
+                                variables.minscale = minx;
+                                variables.maxscale = maxx;
+
+                                dataminSetScale = minx.ToString();
+                                datamaxSetScale = maxx.ToString();
+
+                                label12.Text = maxScaleSetTextBox.Text;
+                                label13.Text = minScaleSetTextBox.Text;
+
+                                variables.serialPort.WriteLine("*" + dataminSetScale + "*" + datamaxSetScale + "*");
+
+                                minScaleSetTextBox.Clear();
+                                maxScaleSetTextBox.Clear();
+
+
+
+                            }
+
+                        }
+                    }
+                    else if (variables.numP == 18)
+                    {
+                        double minScaleBar = Convert.ToDouble(minScaleSetTextBox.Text);
+                        double maxScaleBar = Convert.ToDouble(maxScaleSetTextBox.Text);
+
+                        if (minScaleBar < -10 || maxScaleBar > 10197)
+                        {
+                            MessageBox.Show("The value must be between -10 and 10197 ");
+                            minScaleSetTextBox.Clear();
+                            maxScaleSetTextBox.Clear();
+                            return;
+
+
+                        }
+                        else
+                        {
+                            if (MessageBox.Show("Please confirm before proceed" + "\n" + "Do you want to Continue ?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+
+                            {
+                                tempMin = minScaleSetTextBox.Text;
+                                tempMax = maxScaleSetTextBox.Text;
+
+                                minx = Convert.ToDouble(tempMin);
+                                maxx = Convert.ToDouble(tempMax);
+
+                                minx *= 98.0665;
+                                maxx *= 98.0665;
+
+                                variables.minscale = minx;
+                                variables.maxscale = maxx;
+
+                                dataminSetScale = minx.ToString();
+                                datamaxSetScale = maxx.ToString();
+
+                                label12.Text = maxScaleSetTextBox.Text;
+                                label13.Text = minScaleSetTextBox.Text;
+
+                                variables.serialPort.WriteLine("*" + dataminSetScale + "*" + datamaxSetScale + "*");
+
+                                minScaleSetTextBox.Clear();
+                                maxScaleSetTextBox.Clear();
+
+
+                            }
+
+                        }
+                    }
+                    else if (variables.numP == 19)
+                    {
+                        double minScaleBar = Convert.ToDouble(minScaleSetTextBox.Text);
+                        double maxScaleBar = Convert.ToDouble(maxScaleSetTextBox.Text);
+
+                        if (minScaleBar < -750 || maxScaleBar > 750061)
+                        {
+                            MessageBox.Show("The value must be between -750 and 750061 ");
+                            minScaleSetTextBox.Clear();
+                            maxScaleSetTextBox.Clear();
+                            return;
+
+
+                        }
+                        else
+                        {
+                            if (MessageBox.Show("Please confirm before proceed" + "\n" + "Do you want to Continue ?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+
+                            {
+                                tempMin = minScaleSetTextBox.Text;
+                                tempMax = maxScaleSetTextBox.Text;
+
+                                minx = Convert.ToDouble(tempMin);
+                                maxx = Convert.ToDouble(tempMax);
+
+                                minx /= 0.750062;
+                                maxx /= 0.750062;
+
+                                variables.minscale = minx;
+                                variables.maxscale = maxx;
+
+                                dataminSetScale = minx.ToString();
+                                datamaxSetScale = maxx.ToString();
+
+                                label12.Text = maxScaleSetTextBox.Text;
+                                label13.Text = minScaleSetTextBox.Text;
+
+                                variables.serialPort.WriteLine("*" + dataminSetScale + "*" + datamaxSetScale + "*");
+
+                                minScaleSetTextBox.Clear();
+                                maxScaleSetTextBox.Clear();
+
+
+                            }
+
+                        }
+                    }
+
+                    else if (variables.numP == 20)
+                    {
+                        double minScaleBar = Convert.ToDouble(minScaleSetTextBox.Text);
+                        double maxScaleBar = Convert.ToDouble(maxScaleSetTextBox.Text);
+
+                        if (minScaleBar < -15 || maxScaleBar > 14500)
+                        {
+                            MessageBox.Show("The value must be between -15 and 14500 ");
+                            minScaleSetTextBox.Clear();
+                            maxScaleSetTextBox.Clear();
+                            return;
+
+
+                        }
+                        else
+                        {
+                            if (MessageBox.Show("Please confirm before proceed" + "\n" + "Do you want to Continue ?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+
+                            {
+                                tempMin = minScaleSetTextBox.Text;
+                                tempMax = maxScaleSetTextBox.Text;
+
+                                minx = Convert.ToDouble(tempMin);
+                                maxx = Convert.ToDouble(tempMax);
+
+                                minx /= 0.0145037738;
+                                maxx /= 0.0145037738;
+
+                                variables.minscale = minx;
+                                variables.maxscale = maxx;
+
+                                dataminSetScale = minx.ToString();
+                                datamaxSetScale = maxx.ToString();
+
+                                label12.Text = maxScaleSetTextBox.Text;
+                                label13.Text = minScaleSetTextBox.Text;
+
+                                variables.serialPort.WriteLine("*" + dataminSetScale + "*" + datamaxSetScale + "*");
+
+                                minScaleSetTextBox.Clear();
+                                maxScaleSetTextBox.Clear();
+
+                            }
+
+                        }
+                    }
+                    else if (variables.numP == 21)
+                    {
+                        double minScaleBar = Convert.ToDouble(minScaleSetTextBox.Text);
+                        double maxScaleBar = Convert.ToDouble(maxScaleSetTextBox.Text);
+
+                        if (minScaleBar < -100 || maxScaleBar > 100000)
+                        {
+                            MessageBox.Show("The value must be between -100 and 100000 ");
+                            minScaleSetTextBox.Clear();
+                            maxScaleSetTextBox.Clear();
+                            return;
+
+
+                        }
+                        else
+                        {
+                            if (MessageBox.Show("Please confirm before proceed" + "\n" + "Do you want to Continue ?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+
+                            {
+                                tempMin = minScaleSetTextBox.Text;
+                                tempMax = maxScaleSetTextBox.Text;
+
+                                minx = Convert.ToDouble(tempMin);
+                                maxx = Convert.ToDouble(tempMax);
+
+                                minx *= 10;
+                                maxx *= 10;
+
+                                variables.minscale = minx;
+                                variables.maxscale = maxx;
+
+                                dataminSetScale = minx.ToString();
+                                datamaxSetScale = maxx.ToString();
+                                label12.Text = maxScaleSetTextBox.Text;
+                                label13.Text = minScaleSetTextBox.Text;
+
+                                variables.serialPort.WriteLine("*" + dataminSetScale + "*" + datamaxSetScale + "*");
+
+                                minScaleSetTextBox.Clear();
+                                maxScaleSetTextBox.Clear();
+
+
+                            }
+
+                        }
+                    }
+
+                    else if (variables.numP == 22)
+                    {
+                        double minScaleBar = Convert.ToDouble(minScaleSetTextBox.Text);
+                        double maxScaleBar = Convert.ToDouble(maxScaleSetTextBox.Text);
+
+                        if (minScaleBar < -0.1 || maxScaleBar > 100)
+                        {
+                            MessageBox.Show("The value must be between -0.1 and 100 ");
+                            minScaleSetTextBox.Clear();
+                            maxScaleSetTextBox.Clear();
+                            return;
+
+
+                        }
+                        else
+                        {
+                            if (MessageBox.Show("Please confirm before proceed" + "\n" + "Do you want to Continue ?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+
+                            {
+                                tempMin = minScaleSetTextBox.Text;
+                                tempMax = maxScaleSetTextBox.Text;
+
+                                minx = Convert.ToDouble(tempMin);
+                                maxx = Convert.ToDouble(tempMax);
+
+                                minx *= 10000;
+                                maxx *= 10000;
+
+                                variables.minscale = minx;
+                                variables.maxscale = maxx;
+
+                                dataminSetScale = minx.ToString();
+                                datamaxSetScale = maxx.ToString();
+
+                                dataminSetScale = minScaleSetTextBox.Text;
+                                datamaxSetScale = maxScaleSetTextBox.Text;
+
+                                label12.Text = maxScaleSetTextBox.Text;
+                                label13.Text = minScaleSetTextBox.Text;
+
+                                variables.serialPort.WriteLine("*" + dataminSetScale + "*" + datamaxSetScale + "*");
+
+                                minScaleSetTextBox.Clear();
+                                maxScaleSetTextBox.Clear();
+
+
+                            }
+
+                        }
+                    }
+
+                    else if (variables.numP == 23)
+                    {
+                        double minScaleBar = Convert.ToDouble(minScaleSetTextBox.Text);
+                        double maxScaleBar = Convert.ToDouble(maxScaleSetTextBox.Text);
+
+                        if (minScaleBar < -402 || maxScaleBar > 401464)
+                        {
+                            MessageBox.Show("The value must be between -402 and 401464 ");
+                            minScaleSetTextBox.Clear();
+                            maxScaleSetTextBox.Clear();
+                            return;
+
+
+                        }
+                        else
+                        {
+                            if (MessageBox.Show("Please confirm before proceed" + "\n" + "Do you want to Continue ?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+
+                            {
+                                tempMin = minScaleSetTextBox.Text;
+                                tempMax = maxScaleSetTextBox.Text;
+
+                                minx = Convert.ToDouble(tempMin);
+                                maxx = Convert.ToDouble(tempMax);
+
+                                minx *= 2.490889;
+                                maxx *= 2.490889;
+
+                                variables.minscale = minx;
+                                variables.maxscale = maxx;
+
+                                dataminSetScale = minx.ToString();
+                                datamaxSetScale = maxx.ToString();
+
+                                dataminSetScale = minScaleSetTextBox.Text;
+                                datamaxSetScale = maxScaleSetTextBox.Text;
+
+                                label12.Text = maxScaleSetTextBox.Text;
+                                label13.Text = minScaleSetTextBox.Text;
+
+                                variables.serialPort.WriteLine("*" + dataminSetScale + "*" + datamaxSetScale + "*");
+
+                                minScaleSetTextBox.Clear();
+                                maxScaleSetTextBox.Clear();
+
+
+
+                            }
+
+                        }
+                    }
+
+                    else //for mBar
+                    {
+                        double minScaleBar = Convert.ToDouble(minScaleSetTextBox.Text);
+                        double maxScaleBar = Convert.ToDouble(maxScaleSetTextBox.Text);
+
+                        if (minScaleBar < -1000 || maxScaleBar > 1000000)
+                        {
+                            MessageBox.Show("The value must be between -0.000001 and 0.001 ");
+                            minScaleSetTextBox.Clear();
+                            maxScaleSetTextBox.Clear();
+                            return;
+
+
+                        }
+                        else
+                        {
+                            if (MessageBox.Show("Please confirm before proceed" + "\n" + "Do you want to Continue ?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+
+                            {
+                                dataminSetScale = minScaleSetTextBox.Text;
+                                datamaxSetScale = maxScaleSetTextBox.Text;
+
+                                label12.Text = maxScaleSetTextBox.Text;
+                                label13.Text = minScaleSetTextBox.Text;
+
+                                variables.minscale = minScaleBar;
+                                variables.maxscale = maxScaleBar;
+
+                                variables.serialPort.WriteLine("*" + dataminSetScale + "*" + datamaxSetScale + "*");
+
+                                minScaleSetTextBox.Clear();
+                                maxScaleSetTextBox.Clear();
+
+
+                            }
+
+                        }
+                    }
+                   
+
+                }
+
+
+            }
+            else
+            {
+                MessageBox.Show("You have not been communicated!");
+            }
+        }
+    
 
         private void minScaleSetTextBox_TextChanged(object sender, EventArgs e)
         {

@@ -39,7 +39,7 @@ namespace BASSCOMPORT
 
         public static ResourceManager rm = new ResourceManager("BASSCOMPORT.tr_local", Assembly.GetExecutingAssembly());
         Image instagram = Resources.icons8_instagram_65;
-        Image home = Resources.icons8_home_65;
+        //Image home = Resources.icons8_home_65;
         Image twitter = Resources.icons8_twitter_65;
         Image linkedn = Resources.linkedn2;
         private Random random;
