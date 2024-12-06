@@ -38,6 +38,7 @@ namespace BASSCOMPORT
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormFlow));
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.solidGauge1 = new LiveCharts.WinForms.SolidGauge();
             this.solidGauge2 = new LiveCharts.WinForms.SolidGauge();
@@ -58,12 +59,16 @@ namespace BASSCOMPORT
             this.punitLabel = new System.Windows.Forms.Label();
             this.tunitLabel = new System.Windows.Forms.Label();
             this.timer4 = new System.Windows.Forms.Timer(this.components);
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             this.intervalGroup.SuspendLayout();
             this.productGroup.SuspendLayout();
             this.dataGroup.SuspendLayout();
+            this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // chart1
@@ -72,6 +77,7 @@ namespace BASSCOMPORT
             this.chart1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(33)))), ((int)(((byte)(74)))));
             this.chart1.BackGradientStyle = System.Windows.Forms.DataVisualization.Charting.GradientStyle.Center;
             this.chart1.BorderlineColor = System.Drawing.SystemColors.ActiveBorder;
+            this.chart1.BorderlineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
             chartArea1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(33)))), ((int)(((byte)(74)))));
             chartArea1.BackSecondaryColor = System.Drawing.SystemColors.ActiveBorder;
             chartArea1.BorderColor = System.Drawing.Color.Gray;
@@ -97,7 +103,7 @@ namespace BASSCOMPORT
             legend1.Name = "Legend1";
             legend1.TitleBackColor = System.Drawing.SystemColors.ActiveBorder;
             this.chart1.Legends.Add(legend1);
-            this.chart1.Location = new System.Drawing.Point(12, 337);
+            this.chart1.Location = new System.Drawing.Point(38, 554);
             this.chart1.MinimumSize = new System.Drawing.Size(380, 300);
             this.chart1.Name = "chart1";
             this.chart1.Padding = new System.Windows.Forms.Padding(15, 0, 0, 0);
@@ -107,7 +113,7 @@ namespace BASSCOMPORT
             series1.ChartArea = "ChartArea1";
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
             series1.Color = System.Drawing.Color.Gray;
-            series1.CustomProperties = "IsXAxisQuantitative=True";
+            series1.CustomProperties = "LabelStyle=Bottom, IsXAxisQuantitative=True";
             series1.LabelBackColor = System.Drawing.SystemColors.ActiveBorder;
             series1.LabelBorderColor = System.Drawing.SystemColors.ActiveBorder;
             series1.LabelForeColor = System.Drawing.Color.DimGray;
@@ -117,7 +123,6 @@ namespace BASSCOMPORT
             series1.MarkerImageTransparentColor = System.Drawing.SystemColors.ActiveBorder;
             series1.Name = "Pressure";
             series1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Light;
-            series1.YValuesPerPoint = 2;
             this.chart1.Series.Add(series1);
             this.chart1.Size = new System.Drawing.Size(420, 300);
             this.chart1.TabIndex = 45;
@@ -130,13 +135,14 @@ namespace BASSCOMPORT
             this.solidGauge1.BackColor = System.Drawing.Color.Transparent;
             this.solidGauge1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.solidGauge1.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.solidGauge1.Location = new System.Drawing.Point(466, 337);
+            this.solidGauge1.Location = new System.Drawing.Point(50, 427);
             this.solidGauge1.MinimumSize = new System.Drawing.Size(400, 215);
             this.solidGauge1.Name = "solidGauge1";
             this.solidGauge1.Padding = new System.Windows.Forms.Padding(75, 0, 0, 0);
             this.solidGauge1.Size = new System.Drawing.Size(420, 300);
             this.solidGauge1.TabIndex = 47;
             this.solidGauge1.Text = "solidGauge1";
+            this.solidGauge1.ChildChanged += new System.EventHandler<System.Windows.Forms.Integration.ChildChangedEventArgs>(this.solidGauge1_ChildChanged);
             // 
             // solidGauge2
             // 
@@ -145,7 +151,7 @@ namespace BASSCOMPORT
             this.solidGauge2.BackColor = System.Drawing.Color.Transparent;
             this.solidGauge2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.solidGauge2.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.solidGauge2.Location = new System.Drawing.Point(466, 31);
+            this.solidGauge2.Location = new System.Drawing.Point(44, 47);
             this.solidGauge2.MinimumSize = new System.Drawing.Size(400, 215);
             this.solidGauge2.Name = "solidGauge2";
             this.solidGauge2.Padding = new System.Windows.Forms.Padding(75, 0, 0, 0);
@@ -159,6 +165,7 @@ namespace BASSCOMPORT
             this.chart2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(33)))), ((int)(((byte)(74)))));
             this.chart2.BackGradientStyle = System.Windows.Forms.DataVisualization.Charting.GradientStyle.Center;
             this.chart2.BorderlineColor = System.Drawing.SystemColors.ActiveBorder;
+            this.chart2.BorderlineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
             chartArea2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(33)))), ((int)(((byte)(74)))));
             chartArea2.BackSecondaryColor = System.Drawing.SystemColors.ActiveBorder;
             chartArea2.BorderColor = System.Drawing.Color.Gray;
@@ -184,7 +191,7 @@ namespace BASSCOMPORT
             legend2.Name = "Legend1";
             legend2.TitleBackColor = System.Drawing.SystemColors.ActiveBorder;
             this.chart2.Legends.Add(legend2);
-            this.chart2.Location = new System.Drawing.Point(12, 31);
+            this.chart2.Location = new System.Drawing.Point(38, 26);
             this.chart2.MinimumSize = new System.Drawing.Size(380, 250);
             this.chart2.Name = "chart2";
             this.chart2.Padding = new System.Windows.Forms.Padding(15, 0, 0, 0);
@@ -204,10 +211,10 @@ namespace BASSCOMPORT
             series2.MarkerImageTransparentColor = System.Drawing.SystemColors.ActiveBorder;
             series2.Name = "Pressure";
             series2.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Light;
-            series2.YValuesPerPoint = 2;
             this.chart2.Series.Add(series2);
             this.chart2.Size = new System.Drawing.Size(420, 300);
             this.chart2.TabIndex = 48;
+            this.chart2.Click += new System.EventHandler(this.chart2_Click_1);
             // 
             // gridControl1
             // 
@@ -218,12 +225,12 @@ namespace BASSCOMPORT
             this.gridControl1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllHeaders;
             this.gridControl1.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(244)))), ((int)(((byte)(244)))));
             this.gridControl1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gridControl1.Location = new System.Drawing.Point(914, 12);
+            this.gridControl1.Location = new System.Drawing.Point(23, 22);
             this.gridControl1.Name = "gridControl1";
             this.gridControl1.RowHeadersWidth = 51;
             this.gridControl1.RowTemplate.Height = 24;
             this.gridControl1.RowTemplate.ReadOnly = true;
-            this.gridControl1.Size = new System.Drawing.Size(586, 504);
+            this.gridControl1.Size = new System.Drawing.Size(688, 482);
             this.gridControl1.TabIndex = 49;
             this.gridControl1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridControl1_CellContentClick);
             // 
@@ -242,9 +249,9 @@ namespace BASSCOMPORT
             this.intervalNumber.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.intervalNumber.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.intervalNumber.FormattingEnabled = true;
-            this.intervalNumber.Location = new System.Drawing.Point(37, 67);
+            this.intervalNumber.Location = new System.Drawing.Point(18, 65);
             this.intervalNumber.Name = "intervalNumber";
-            this.intervalNumber.Size = new System.Drawing.Size(121, 24);
+            this.intervalNumber.Size = new System.Drawing.Size(137, 24);
             this.intervalNumber.TabIndex = 62;
             // 
             // intervalKind
@@ -252,16 +259,16 @@ namespace BASSCOMPORT
             this.intervalKind.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.intervalKind.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.intervalKind.FormattingEnabled = true;
-            this.intervalKind.Location = new System.Drawing.Point(37, 121);
+            this.intervalKind.Location = new System.Drawing.Point(18, 113);
             this.intervalKind.Name = "intervalKind";
-            this.intervalKind.Size = new System.Drawing.Size(121, 24);
+            this.intervalKind.Size = new System.Drawing.Size(137, 24);
             this.intervalKind.TabIndex = 63;
             // 
             // textBox1
             // 
             this.textBox1.Location = new System.Drawing.Point(20, 42);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(121, 22);
+            this.textBox1.Size = new System.Drawing.Size(134, 22);
             this.textBox1.TabIndex = 65;
             // 
             // intervalGroup
@@ -272,9 +279,9 @@ namespace BASSCOMPORT
             this.intervalGroup.Controls.Add(this.intervalNumber);
             this.intervalGroup.Controls.Add(this.intervalKind);
             this.intervalGroup.ForeColor = System.Drawing.Color.Black;
-            this.intervalGroup.Location = new System.Drawing.Point(914, 452);
+            this.intervalGroup.Location = new System.Drawing.Point(23, 513);
             this.intervalGroup.Name = "intervalGroup";
-            this.intervalGroup.Size = new System.Drawing.Size(290, 199);
+            this.intervalGroup.Size = new System.Drawing.Size(316, 208);
             this.intervalGroup.TabIndex = 67;
             this.intervalGroup.TabStop = false;
             this.intervalGroup.Text = "Interval(2)";
@@ -306,7 +313,7 @@ namespace BASSCOMPORT
             this.intervalButton.PressBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
             this.intervalButton.PressColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
             this.intervalButton.PressTextColor = System.Drawing.Color.White;
-            this.intervalButton.Size = new System.Drawing.Size(111, 78);
+            this.intervalButton.Size = new System.Drawing.Size(117, 80);
             this.intervalButton.Style = MetroSet_UI.Enums.Style.Light;
             this.intervalButton.StyleManager = null;
             this.intervalButton.TabIndex = 70;
@@ -322,9 +329,9 @@ namespace BASSCOMPORT
             this.productGroup.Controls.Add(this.productButton);
             this.productGroup.Controls.Add(this.textBox1);
             this.productGroup.ForeColor = System.Drawing.Color.Black;
-            this.productGroup.Location = new System.Drawing.Point(1210, 452);
+            this.productGroup.Location = new System.Drawing.Point(389, 515);
             this.productGroup.Name = "productGroup";
-            this.productGroup.Size = new System.Drawing.Size(290, 100);
+            this.productGroup.Size = new System.Drawing.Size(322, 100);
             this.productGroup.TabIndex = 68;
             this.productGroup.TabStop = false;
             this.productGroup.Text = "Product Number(1)";
@@ -344,7 +351,7 @@ namespace BASSCOMPORT
             this.productButton.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(102)))), ((int)(((byte)(102)))));
             this.productButton.HoverTextColor = System.Drawing.Color.White;
             this.productButton.IsDerivedStyle = true;
-            this.productButton.Location = new System.Drawing.Point(167, 0);
+            this.productButton.Location = new System.Drawing.Point(192, 0);
             this.productButton.Name = "productButton";
             this.productButton.NormalBadgeColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
             this.productButton.NormalBadgeTextColor = System.Drawing.Color.White;
@@ -372,9 +379,9 @@ namespace BASSCOMPORT
             this.dataGroup.Controls.Add(this.exportButton);
             this.dataGroup.Controls.Add(this.saveDataButton);
             this.dataGroup.ForeColor = System.Drawing.Color.Black;
-            this.dataGroup.Location = new System.Drawing.Point(1210, 551);
+            this.dataGroup.Location = new System.Drawing.Point(389, 621);
             this.dataGroup.Name = "dataGroup";
-            this.dataGroup.Size = new System.Drawing.Size(290, 100);
+            this.dataGroup.Size = new System.Drawing.Size(322, 100);
             this.dataGroup.TabIndex = 69;
             this.dataGroup.TabStop = false;
             this.dataGroup.Text = "Data and Excel(3)";
@@ -394,7 +401,7 @@ namespace BASSCOMPORT
             this.exportButton.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(102)))), ((int)(((byte)(102)))));
             this.exportButton.HoverTextColor = System.Drawing.Color.White;
             this.exportButton.IsDerivedStyle = true;
-            this.exportButton.Location = new System.Drawing.Point(20, 16);
+            this.exportButton.Location = new System.Drawing.Point(30, 16);
             this.exportButton.Name = "exportButton";
             this.exportButton.NormalBadgeColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
             this.exportButton.NormalBadgeTextColor = System.Drawing.Color.White;
@@ -430,7 +437,7 @@ namespace BASSCOMPORT
             this.saveDataButton.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(102)))), ((int)(((byte)(102)))));
             this.saveDataButton.HoverTextColor = System.Drawing.Color.White;
             this.saveDataButton.IsDerivedStyle = true;
-            this.saveDataButton.Location = new System.Drawing.Point(167, 16);
+            this.saveDataButton.Location = new System.Drawing.Point(192, 16);
             this.saveDataButton.Name = "saveDataButton";
             this.saveDataButton.NormalBadgeColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
             this.saveDataButton.NormalBadgeTextColor = System.Drawing.Color.White;
@@ -457,11 +464,12 @@ namespace BASSCOMPORT
             this.punitLabel.BackColor = System.Drawing.Color.Transparent;
             this.punitLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.punitLabel.ForeColor = System.Drawing.Color.Black;
-            this.punitLabel.Location = new System.Drawing.Point(438, 43);
+            this.punitLabel.Location = new System.Drawing.Point(46, 7);
             this.punitLabel.Name = "punitLabel";
-            this.punitLabel.Size = new System.Drawing.Size(73, 22);
+            this.punitLabel.Size = new System.Drawing.Size(24, 22);
             this.punitLabel.TabIndex = 70;
-            this.punitLabel.Text = "mBar(x̄)";
+            this.punitLabel.Text = "Ω";
+            this.punitLabel.Click += new System.EventHandler(this.punitLabel_Click);
             // 
             // tunitLabel
             // 
@@ -470,7 +478,7 @@ namespace BASSCOMPORT
             this.tunitLabel.BackColor = System.Drawing.Color.Transparent;
             this.tunitLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tunitLabel.ForeColor = System.Drawing.Color.Black;
-            this.tunitLabel.Location = new System.Drawing.Point(438, 349);
+            this.tunitLabel.Location = new System.Drawing.Point(46, 391);
             this.tunitLabel.Name = "tunitLabel";
             this.tunitLabel.Size = new System.Drawing.Size(101, 22);
             this.tunitLabel.TabIndex = 71;
@@ -482,22 +490,42 @@ namespace BASSCOMPORT
             this.timer4.Interval = 1000;
             this.timer4.Tick += new System.EventHandler(this.timer4_Tick);
             // 
+            // panel1
+            // 
+            this.panel1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel1.BackgroundImage")));
+            this.panel1.Controls.Add(this.solidGauge1);
+            this.panel1.Controls.Add(this.punitLabel);
+            this.panel1.Controls.Add(this.tunitLabel);
+            this.panel1.Controls.Add(this.solidGauge2);
+            this.panel1.Location = new System.Drawing.Point(476, 2);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(470, 738);
+            this.panel1.TabIndex = 72;
+            // 
+            // panel2
+            // 
+            this.panel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.panel2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel2.BackgroundImage")));
+            this.panel2.Controls.Add(this.intervalGroup);
+            this.panel2.Controls.Add(this.productGroup);
+            this.panel2.Controls.Add(this.gridControl1);
+            this.panel2.Controls.Add(this.dataGroup);
+            this.panel2.Location = new System.Drawing.Point(989, 4);
+            this.panel2.Name = "panel2";
+            this.panel2.Padding = new System.Windows.Forms.Padding(10);
+            this.panel2.Size = new System.Drawing.Size(713, 784);
+            this.panel2.TabIndex = 73;
+            // 
             // FormFlow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(33)))), ((int)(((byte)(74)))));
-            this.BackgroundImage = global::BASSCOMPORT.Properties.Resources.Artboard_13;
-            this.ClientSize = new System.Drawing.Size(1500, 659);
-            this.Controls.Add(this.tunitLabel);
-            this.Controls.Add(this.punitLabel);
-            this.Controls.Add(this.dataGroup);
-            this.Controls.Add(this.productGroup);
-            this.Controls.Add(this.intervalGroup);
-            this.Controls.Add(this.gridControl1);
+            this.BackColor = System.Drawing.Color.White;
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.ClientSize = new System.Drawing.Size(1868, 872);
+            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.chart2);
-            this.Controls.Add(this.solidGauge1);
-            this.Controls.Add(this.solidGauge2);
             this.Controls.Add(this.chart1);
             this.Name = "FormFlow";
             this.Text = "FormFlow";
@@ -510,8 +538,10 @@ namespace BASSCOMPORT
             this.productGroup.ResumeLayout(false);
             this.productGroup.PerformLayout();
             this.dataGroup.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -537,5 +567,7 @@ namespace BASSCOMPORT
         private MetroSet_UI.Controls.MetroSetBadge productButton;
         private MetroSet_UI.Controls.MetroSetBadge exportButton;
         private MetroSet_UI.Controls.MetroSetBadge saveDataButton;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panel2;
     }
 }

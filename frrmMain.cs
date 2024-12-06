@@ -1,12 +1,17 @@
 ﻿using Ganss.Excel;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.IO.Ports;
 using System.Reflection;
 using System.Resources;
 using System.Threading;
+using System.Threading.Tasks;
+using System.Timers;
 using System.Windows.Forms;
 
 namespace BASSCOMPORT
@@ -26,7 +31,7 @@ namespace BASSCOMPORT
         bool trying2 = false;
         bool trying3 = false;
         private Form activeForm;
-        
+
 
         FormSettings formSettings = new FormSettings();
         FormFlow formFlow = new FormFlow();
@@ -173,41 +178,93 @@ namespace BASSCOMPORT
 
 
 
-       
+
 
         #endregion
 
-        
-       
+
+
         #region GUI Method
 
         public frrmMain()
         {
+
+            InitializeComponent();
             Thread t = new Thread(new ThreadStart(StartForm));
             t.Start();
             variables.numEN = 10;
             Thread.Sleep(3500);
-            InitializeComponent();
-            groupBox8.Font = new System.Drawing.Font("Arial", 8F);
+            
+            label1.Font = new System.Drawing.Font("Arial",12F);
             label8.Font = new System.Drawing.Font("Arial", 12F);
             label9.Font = new System.Drawing.Font("Arial", 12F);
             label12.Font = new System.Drawing.Font("Arial", 12F);
             label17.Font = new System.Drawing.Font("Arial", 12F);
-            t.Abort();
+
             variables.comportx = false;
 
-            
 
 
             random = new Random();
 
 
-
+            t.Abort();
+            FormClosing += MainForm_FormClosing;
 
         }
+
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if(variables.numEN == 11)
+            {
+                DialogResult result = MessageBox.Show("Uygulamayı kapatmak istediğinize emin misiniz?", "Onay", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.No)
+                {
+                    e.Cancel = true;
+                    
+                }
+                else if (result == DialogResult.Yes)
+                {
+                    if (variables.status == 66)
+                    {
+                        variables.SerialPortPendingClose = true;
+                        variables.status = 67;
+                        Thread.Sleep(1000);
+                        variables.serialPort.Close();
+
+                    }
+
+                }
+            }
+            else if(variables.numEN == 10)
+            {
+                DialogResult result = MessageBox.Show("Are you sure you want to close the application?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.No)
+
+                {
+                    e.Cancel = true; 
+                }
+                else if (result == DialogResult.Yes)
+                {
+                    if (variables.status == 66)
+                    {
+                        variables.SerialPortPendingClose = true;
+                        variables.status = 67;
+                        Thread.Sleep(1000);
+                        variables.serialPort.Close();
+
+                    }
+
+                }
+
+            }
+            
+        }
+
+
         public void StartForm()
         {
-
             //Application.Run(new splashScreen());
         }
 
@@ -222,6 +279,7 @@ namespace BASSCOMPORT
             string color = ThemeColor.ColorList[index];
             return ColorTranslator.FromHtml(color);
         }
+
         private void ActivateButton(object btnSender)
         {
             if (btnSender != null)
@@ -237,6 +295,7 @@ namespace BASSCOMPORT
                 }
             }
         }
+
         private void DisableButton()
         {
             foreach (Control previousBtn in panelMenu.Controls)
@@ -250,6 +309,17 @@ namespace BASSCOMPORT
             }
         }
 
+        private void AddEmptyPage()
+        {
+            FormEmpty formEmpty = new FormEmpty();
+            formEmpty.TopLevel = false;
+            formEmpty.FormBorderStyle = FormBorderStyle.None;
+            formEmpty.Dock = DockStyle.Fill;
+            this.panelDesktopPanel.Controls.Add(formEmpty);
+            this.panelDesktopPanel.Tag = formEmpty;
+            formEmpty.BringToFront();
+            formEmpty.Show();
+        }
 
         private void label1_Click(object sender, EventArgs e)
         {
@@ -261,25 +331,38 @@ namespace BASSCOMPORT
 
         }
 
-        public void Form1_Load(object sender, EventArgs e)
+        private void Status()
         {
-            settingButton.BackColor = Color.FromArgb(0, 87, 149);
+            
+        }
+
+        public async void Form1_Load(object sender, EventArgs e)
+        {
+            //settingButton.BackColor = Color.FromArgb(0, 87, 149);
             button4.BackColor = Color.FromArgb(0, 87, 149);
             flowButton.BackColor = Color.FromArgb(0, 87, 149);
             button5.BackColor = Color.FromArgb(0, 87, 149);
+
+            ActivateButton(settingButton);
+            
+
             button5.Enabled = false;
             flowButton.Enabled = false;
             button5.Enabled = false;
-            variables.numT = 1;
             variables.numP = 2;
+            variables.numT = 1;
             variables.scalingphotocheck = false;
+            variables.firstScaling = true;
+            variables.firstAbout = true;
             
             
             timer1.Enabled = true;
             timer1.Interval = 1000;
+            timer1.Tick += timer1_Tick;
             timer1.Start();
-            
 
+
+            
             //ActivateButton(sender);
 
 
@@ -288,13 +371,13 @@ namespace BASSCOMPORT
 
 
 
-            formSettings.TopLevel = false;
-            formSettings.FormBorderStyle = FormBorderStyle.None;
-            formSettings.Dock = DockStyle.Fill;
-            this.panelDesktopPanel.Controls.Add(formSettings);
-            this.panelDesktopPanel.Tag = formSettings;
-            formSettings.BringToFront();
-            formSettings.Show();
+            //formSettings.TopLevel = false;
+            //formSettings.FormBorderStyle = FormBorderStyle.None;
+            //formSettings.Dock = DockStyle.Fill;
+            //this.panelDesktopPanel.Controls.Add(formSettings);
+            //this.panelDesktopPanel.Tag = formSettings;
+            //formSettings.BringToFront();
+            //formSettings.Show();
 
 
 
@@ -306,11 +389,13 @@ namespace BASSCOMPORT
             formList._formSettings.BringToFront();
             formList._formSettings.Show();
 
-            
+
 
             flowButton.Enabled = true;
             button5.Enabled = true;
             button5.Enabled = true;
+            settingButton.Enabled = false;
+
 
 
 
@@ -327,10 +412,6 @@ namespace BASSCOMPORT
 
         private void OpenChildForm(Form childForm, object btnSender)
         {
-
-
-
-
             activeForm = childForm;
             childForm.TopLevel = false;
             childForm.FormBorderStyle = FormBorderStyle.None;
@@ -339,23 +420,12 @@ namespace BASSCOMPORT
             this.panelDesktopPanel.Tag = childForm;
             childForm.BringToFront();
             childForm.Show();
-
-
-
-
         }
-
-
-
-
 
         private void cLOSEToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
         }
-
-
-
 
         private void toolStripComboBox2_DropDownClosed(object sender, EventArgs e)
         {
@@ -415,12 +485,6 @@ namespace BASSCOMPORT
 
         }
 
-
-
-
-
-
-
         private void lblDataInLength_Click(object sender, EventArgs e)
         {
 
@@ -451,7 +515,6 @@ namespace BASSCOMPORT
             Application.Exit();
         }
 
-
         private void endLineToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
@@ -461,8 +524,6 @@ namespace BASSCOMPORT
         {
 
         }
-
-
 
         private void toolStripComboBox_appendOrOverwriteText_DropDownClosed(object sender, EventArgs e)
         {
@@ -474,7 +535,6 @@ namespace BASSCOMPORT
 
         }
 
-
         private void showDataToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             Form2 objForm2 = new Form2(this);
@@ -485,8 +545,13 @@ namespace BASSCOMPORT
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+            
+
             label8.Text = DateTime.Now.ToLongTimeString();
             label9.Text = DateTime.Now.ToLongDateString();
+
+
+            
 
             if (variables.numEN == 11)
             {
@@ -495,6 +560,19 @@ namespace BASSCOMPORT
                 flowButton.Image = BASSCOMPORT.Properties.Resources.izleme;
                 button5.Image = BASSCOMPORT.Properties.Resources.hakkında;
                 closeSerialButton.Text = "Yeni Ölçeklendirme";
+                label1.Text = "Durum:";
+                label12.Text = "Versiyon:";
+                lblStatusCom.Text = "Kapalı";
+                Thread.CurrentThread.CurrentCulture = new CultureInfo("tr-TR");
+                Thread.CurrentThread.CurrentUICulture = new CultureInfo("tr"); if (variables.status == 66)
+                { 
+                    lblStatusCom.Text = "AÇIK";   
+                }
+                else if (variables.status == 67)
+                {
+                    lblStatusCom.Text = "Kapalı";
+                }
+
             }
             else if (variables.numEN == 10)
             {
@@ -503,9 +581,27 @@ namespace BASSCOMPORT
                 flowButton.Image = BASSCOMPORT.Properties.Resources.monitoring;
                 button5.Image = BASSCOMPORT.Properties.Resources.about;
                 closeSerialButton.Text = "New Scaling";
+                label1.Text = "Status:";
+                label12.Text = "Version:";
+                Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+                Thread.CurrentThread.CurrentUICulture = new CultureInfo("en");
+                if (variables.status == 66)
+                {
+
+                    lblStatusCom.Text = "ON";
+
+
+                }
+                else if (variables.status == 67)
+                {
+
+                    lblStatusCom.Text = "OFF";
+
+
+                }
             }
-        
-            
+
+
             /*if (variables.numEN == 11)
             {
                 if (trying2 == false)
@@ -528,21 +624,8 @@ namespace BASSCOMPORT
                 closeSerialButton.Text = "   New Scaling";
                 trying2 = false;
             }*/
-            if (variables.status == 66)
-            {
 
-                if (trying == false)
-                {
-                    lblStatusCom.Text = "ON";
-                    trying = true;
-                }
-
-            }
-            else if (variables.status == 67)
-            {
-                trying = false;
-                lblStatusCom.Text = "OFF";
-            }
+            
 
 
         }
@@ -552,13 +635,10 @@ namespace BASSCOMPORT
 
         }
 
-
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
-
-
 
         private void groupBox1_Enter(object sender, EventArgs e)
         {
@@ -589,8 +669,6 @@ namespace BASSCOMPORT
         {
 
         }
-
-
 
         private void tBoxDataOut_KeyDown_1(object sender, KeyEventArgs e)
         {
@@ -641,12 +719,11 @@ namespace BASSCOMPORT
         {
 
         }
+
         private void groupBox2_Enter(object sender, EventArgs e)
         {
 
         }
-
-
 
         private void solidGauge1_ChildChanged(object sender, System.Windows.Forms.Integration.ChildChangedEventArgs e)
         {
@@ -769,11 +846,26 @@ namespace BASSCOMPORT
 
         private void settingsButton_Click(object sender, EventArgs e)
         {
-
             /*if (variables.status == 66)
             {*/
+
+                button4.BackColor = Color.FromArgb(0, 87, 149);
+                flowButton.BackColor = Color.FromArgb(0, 87, 149);
+                button5.BackColor = Color.FromArgb(0, 87, 149);
                 ActivateButton(sender);
 
+                settingButton.Enabled = false;
+                button4.Enabled = true;
+                flowButton.Enabled = true;
+                button5.Enabled = true;
+
+                variables.isClickedSettings = true;
+                variables.isClickedFlowing = false;
+                variables.isClickedScaling = false;
+                variables.isClickedAbout = false;
+
+
+                //AddEmptyPage();
 
                 formList._formSettings.TopLevel = false;
                 formList._formSettings.FormBorderStyle = FormBorderStyle.None;
@@ -786,7 +878,7 @@ namespace BASSCOMPORT
 
 
 
-                //OpenChildForm(new FormFlow(),sender);
+            //OpenChildForm(new FormFlow(),sender);
 
             /*}
 
@@ -804,14 +896,47 @@ namespace BASSCOMPORT
 
         }
 
-        private void flowButton_Click(object sender, EventArgs e)
+        //private async void AddFlowForm()
+        //{
+        //    formList._formFlow.TopLevel = false;
+        //    formList._formFlow.FormBorderStyle = FormBorderStyle.None;
+        //    formList._formFlow.Dock = DockStyle.Fill;
+        //    this.panelDesktopPanel.Controls.Add(formList._formFlow);
+        //    this.panelDesktopPanel.Tag = formList._formFlow;
+        //    formList._formFlow.BringToFront();
+        //    formList._formFlow.Show();
+        //}
+
+        //private async Task BackgroundFlow()
+        //{
+        //    AddFlowForm();
+        //    await Task.Delay(1000);
+        //}
+
+        //private async Task StartBackF()
+        //{
+        //    await BackgroundFlow();
+
+        //}
+
+        private async void flowButton_Click(object sender, EventArgs e)
         {
             if (variables.status ==66)
             {
-                
+                settingButton.BackColor = Color.FromArgb(0, 87, 149);
+                button4.BackColor = Color.FromArgb(0, 87, 149);
+                button5.BackColor = Color.FromArgb(0, 87, 149);
                 ActivateButton(sender);
 
+                button4.Enabled = true;
+                settingButton.Enabled = true;
+                flowButton.Enabled = false;
+                button5.Enabled = true;
 
+                variables.isClickedSettings = false;
+                variables.isClickedFlowing = true;
+                variables.isClickedScaling = false;
+                variables.isClickedAbout = false;
 
 
                 if (nupdateData == false)
@@ -821,7 +946,9 @@ namespace BASSCOMPORT
                     nupdateData = true;
                 }
 
-                
+                //StartBackF();
+
+                //AddEmptyPage();
 
 
                 formList._formFlow.TopLevel = false;
@@ -839,8 +966,10 @@ namespace BASSCOMPORT
 
             }
 
-            else
+            else 
             {
+                
+
                 if (variables.numEN == 11)
                 {
                     MessageBox.Show("Lütfen seri porta bağlanınız!");
@@ -855,13 +984,25 @@ namespace BASSCOMPORT
 
         }
 
-
-
         private void button4_Click(object sender, EventArgs e)
         {
             if (variables.status == 66)
             {
+                button4.Enabled = false;
+                settingButton.Enabled = true;
+                flowButton.Enabled = true;
+                button5.Enabled = true;
+
+                settingButton.BackColor = Color.FromArgb(0, 87, 149);
+                flowButton.BackColor = Color.FromArgb(0, 87, 149);
+                button5.BackColor = Color.FromArgb(0, 87, 149);
+
                 ActivateButton(sender);
+
+                variables.isClickedSettings = false;
+                variables.isClickedFlowing = false;
+                variables.isClickedScaling = true;
+                variables.isClickedAbout = false;
                 /*formList._formFlow.Hide();
                 formList._formSettings.Hide();*/
 
@@ -872,7 +1013,7 @@ namespace BASSCOMPORT
                     kupdateData = true;
                 }
 
-                
+                //AddEmptyPage();
 
 
                 formList._formScaling.TopLevel = false;
@@ -887,7 +1028,7 @@ namespace BASSCOMPORT
 
             }
 
-            else
+            else 
             {
                 if (variables.numEN == 11)
                 {
@@ -904,7 +1045,21 @@ namespace BASSCOMPORT
         {
             if (variables.status == 66)
             {
+                settingButton.BackColor = Color.FromArgb(0, 87, 149);
+                button4.BackColor = Color.FromArgb(0, 87, 149);
+                flowButton.BackColor = Color.FromArgb(0, 87, 149);
+
                 ActivateButton(sender);
+
+                button4.Enabled = true;
+                settingButton.Enabled = true;
+                flowButton.Enabled = true;
+                button5.Enabled = false;
+
+                variables.isClickedSettings = false;
+                variables.isClickedFlowing = false;
+                variables.isClickedScaling = false;
+                variables.isClickedAbout = true;
                 if (kupdateData == false)
                 {
                     // settingsButton.Enabled = false;
@@ -912,7 +1067,8 @@ namespace BASSCOMPORT
                     kupdateData = true;
                 }
 
-                
+                //AddEmptyPage();
+
 
                 formList._formAbout.TopLevel = false;
                 formList._formAbout.FormBorderStyle = FormBorderStyle.None;
@@ -926,7 +1082,7 @@ namespace BASSCOMPORT
 
             }
 
-            else
+            else 
             {
                 if (variables.numEN == 11)
                 {
@@ -950,7 +1106,6 @@ namespace BASSCOMPORT
         {
 
         }
-
 
         private void chart1_Click(object sender, EventArgs e)
         {
@@ -998,6 +1153,26 @@ namespace BASSCOMPORT
         }
 
         private void panelMenu_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void groupBox8_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://bass.com.tr/");
+        }
+
+        private void lblStatusCom_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void label9_Click(object sender, EventArgs e)
         {
 
         }

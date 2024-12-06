@@ -142,6 +142,15 @@ namespace BASSCOMPORT {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SEÇ.
+        /// </summary>
+        internal static string CHANGE6 {
+            get {
+                return ResourceManager.GetString("CHANGE6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to KAPAT.
         /// </summary>
         internal static string CLOSE {

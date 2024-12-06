@@ -4,6 +4,7 @@ using System.IO;
 using System.IO.Ports;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 using static BASSCOMPORT.frrmMain;
 
 namespace BASSCOMPORT
@@ -33,8 +34,7 @@ namespace BASSCOMPORT
         bool updateData = false;
         bool updateData2 = false;
         double duration,durationn;
-        String trY = "," + "Sıcaklık" + "," + "Basınç" + "," + "Tarih";
-        String enY = "," + "Temperature" + "," + "Pressure" + "," + "Date";
+        
 
 
         SerialPort myPort;
@@ -44,166 +44,80 @@ namespace BASSCOMPORT
 
         private void loadGaugeInit()
         {
-            if (variables.numP == 14)
-            {
-                solidGauge2.Uses360Mode = true;
-                solidGauge2.To = 1000;
-                solidGauge2.From = -1;
-                solidGauge2.Value = 0;
-            }
 
-            else if (variables.numP == 15)
+            if (variables.device == 1)
             {
                 solidGauge2.Uses360Mode = true;
-                solidGauge2.To = 100000000;
-                solidGauge2.From = -100000;
-                solidGauge2.Value = 0;
-
+                solidGauge2.To = 391;
+                solidGauge2.From = 18.52;
+                solidGauge2.Value = 18.52;
             }
-            else if (variables.numP == 16)
+            else if (variables.device == 2)
             {
                 solidGauge2.Uses360Mode = true;
-                solidGauge2.To = 1019;
-                solidGauge2.From = -1;
-                solidGauge2.Value = 0;
-
+                solidGauge2.To = 2840;
+                solidGauge2.From = 683;
+                solidGauge2.Value = 683;
             }
-            else if (variables.numP == 17)
+            else
             {
                 solidGauge2.Uses360Mode = true;
-                solidGauge2.To = 10197162;
-                solidGauge2.From = -10197;
-                solidGauge2.Value = 0;
-
-            }
-            else if (variables.numP == 18)
-            {
-                solidGauge2.Uses360Mode = true;
-                solidGauge2.To = 10197;
-                solidGauge2.From = -10;
-                solidGauge2.Value = 0;
-
-            }
-            else if (variables.numP == 19)
-            {
-                solidGauge2.Uses360Mode = true;
-                solidGauge2.To = 750061;
-                solidGauge2.From = -750;
-                solidGauge2.Value = 0;
-
-            }
-            else if (variables.numP == 20)
-            {
-                solidGauge2.Uses360Mode = true;
-                solidGauge2.To = 14500;
-                solidGauge2.From = -15;
-                solidGauge2.Value = 0;
-
-            }
-            else if (variables.numP == 21)
-            {
-                solidGauge2.Uses360Mode = true;
-                solidGauge2.To = 100000;
-                solidGauge2.From = -100;
-                solidGauge2.Value = 0;
-
-            }
-            else if (variables.numP == 22)
-            {
-                solidGauge2.Uses360Mode = true;
-                solidGauge2.To = 100;
-                solidGauge2.From = -0.1;
-                solidGauge2.Value = 0;
-            }
-            else if (variables.numP == 23)
-            {
-                solidGauge2.Uses360Mode = true;
-                solidGauge2.To = 401464;
-                solidGauge2.From = -402;
-                solidGauge2.Value = 0;
-            }
-            else if ( variables.numP ==2)
-            {
-                solidGauge2.Uses360Mode = true;
-                solidGauge2.To = 1000000;
-                solidGauge2.From = -1000;
+                solidGauge2.To = 10000;
+                solidGauge2.From = 0;
                 solidGauge2.Value = 0;
             }
         }
 
         private void showDataInit()
         {
-            if (variables.numP == 14)
-            {
-                double example = variables.Pressure / 1000;
-                solidGauge2.Value = ((double)((int)(example * 1000.0))) / 1000.0;
-            }
-            else if (variables.numP == 15)
-            {
-                double example = variables.Pressure * 100;
-                solidGauge2.Value = ((double)((int)(example * 1000.0))) / 1000.0;
-
-            }
-            else if (variables.numP == 16)
-            {
-                double example = variables.Pressure * 0.00102;
-                solidGauge2.Value = ((double)((int)(example * 1000.0))) / 1000.0;
-
-
-            }
-            else if (variables.numP == 17)
-            {
-                double example = variables.Pressure / 0.0980665;
-                solidGauge2.Value = ((double)((int)(example * 1000.0))) / 1000.0;
-
-
-            }
-            else if (variables.numP == 18)
-            {
-                double example = variables.Pressure / 98.0665;
-                solidGauge2.Value = Math.Truncate(example * 1000) / 1000;
-
-            }
-            else if (variables.numP == 19)
-            {
-                double example = variables.Pressure * 0.750062;
-                solidGauge2.Value = Math.Truncate(example * 1000) / 1000;
-
-
-            }
-            else if (variables.numP == 20)
-            {
-                double example = variables.Pressure * 0.0145037738;
-                solidGauge2.Value = Math.Truncate(example * 1000) / 1000;
-
-
-            }
-            else if (variables.numP == 21)
-            {
-                double example = variables.Pressure / 10;
-                solidGauge2.Value = Math.Truncate(example * 1000) / 1000;
-
-
-            }
-            else if (variables.numP == 22)
-            {
-                double example = variables.Pressure / 10000;
-                solidGauge2.Value = Math.Truncate(example * 1000) / 1000;
-
-            }
-            else if (variables.numP == 23)
-            {
-                double example = variables.Pressure / 2.490889;
-                solidGauge2.Value = Math.Truncate(example * 1000) / 1000;
-
-
-            }
-
-            else if (variables.numP == 2)
-            {
-                solidGauge2.Value = Math.Truncate(variables.Pressure * 1000) / 1000;
-
-            }
+            if (!variables.connectionLost)
+                if (variables.type == 1) // pressure
+                {
+                    switch (variables.numP)
+                    {
+                        case 2:
+                            solidGauge2.Value = Math.Truncate(variables.Pressure * 1000) / 1000;
+                            break;
+                        case 14:
+                            solidGauge2.Value = Math.Truncate((variables.Pressure/1000) * 1000) / 1000;
+                            break;
+                        case 15:
+                            solidGauge2.Value = Math.Truncate((variables.Pressure * 100) * 1000) / 1000;
+                            break;
+                        case 16:
+                            solidGauge2.Value = Math.Truncate((variables.Pressure * 0.00102) * 1000) / 1000;
+                            break;
+                        case 17:
+                            solidGauge2.Value = Math.Truncate((variables.Pressure / 0.0980665) * 1000) / 1000;
+                            break;
+                        case 18:
+                            solidGauge2.Value = Math.Truncate((variables.Pressure / 98.0665) * 1000) / 1000;
+                            break;
+                        case 19:
+                            solidGauge2.Value = Math.Truncate((variables.Pressure * 0.75006) * 1000) / 1000;
+                            break;
+                        case 20:
+                            solidGauge2.Value = Math.Truncate((variables.Pressure * 0.0145037738) * 1000) / 1000;
+                            break;
+                        case 21:
+                            solidGauge2.Value = Math.Truncate((variables.Pressure / 10) * 1000) / 1000;
+                            break;
+                        case 22:
+                            solidGauge2.Value = Math.Truncate((variables.Pressure / 10000) * 1000) / 1000;
+                            break;
+                        case 23:
+                            solidGauge2.Value = Math.Truncate((variables.Pressure/ 2.490889) * 1000) / 1000;
+                            break;
+                    }
+                }
+                else if (variables.type == 2)
+                {
+                    solidGauge2.Value = Math.Truncate(variables.Pressure * 1000) / 1000;
+                }
+                
+            else
+                solidGauge2.Value = -999;
+            
         }
 
         private void excelKelvinInitDivide(double x,String y) // y = "," + "Sıcaklık" + "," + "Basınç" + "," + "Tarih" // y = "," + "Temperature" + "," + "Pressure" + "," + "Date"
@@ -230,6 +144,7 @@ namespace BASSCOMPORT
         }
         private void excelKelvinInitMultiple(double x,String y)
         {
+
             double kelvinS = 273.15;
             double kelvin = (variables.Temperature + kelvinS);
             double fahrenheit = ((variables.Temperature * 1.8) + 32);
@@ -349,8 +264,8 @@ namespace BASSCOMPORT
             productGroup.Font = new System.Drawing.Font("Arial", 8F);
             dataGroup.Font = new System.Drawing.Font("Arial", 8F);
             intervalGroup.Font = new System.Drawing.Font("Arial", 8F);
-            punitLabel.Font = new System.Drawing.Font("Arial", 15F);
-            tunitLabel.Font = new System.Drawing.Font("Arial", 15F);
+            punitLabel.Font = new System.Drawing.Font("Arial", 16F);
+            tunitLabel.Font = new System.Drawing.Font("Arial", 16F);
             productButton.NormalBadgeColor = System.Drawing.Color.Red;
             intervalButton.NormalBadgeColor = System.Drawing.Color.Red;
             exportButton.NormalBadgeColor = System.Drawing.Color.Red;
@@ -374,6 +289,32 @@ namespace BASSCOMPORT
 
 
 
+            
+
+
+
+
+
+        }
+
+
+
+        private void chart2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        public void StartForm()
+        {
+
+            Application.Run(new splashScreen());
+        }
+
+        private void FormFlow_Load(object sender, EventArgs e)
+        {
+            variables.flowOpen = true;
+            variables.comportx = true;
+
             if (variables.numEN == 11)
             {
                 variables.records = new DataTable();
@@ -386,57 +327,62 @@ namespace BASSCOMPORT
                 else if (variables.numT == 13)
                 {
                     variables.records.Columns.Add("Sıcaklık(°F)", typeof(float));
-
                 }
-                else if (variables.numT ==1)
+                else if (variables.numT == 1)
                 {
                     variables.records.Columns.Add("Sıcaklık(°C)", typeof(float));
                 }
-                if (variables.numP == 14)
+                if (variables.type == 1)
                 {
-                    variables.records.Columns.Add("Basınç(Bar)", typeof(float));
-                }
-                else if (variables.numP == 15)
-                {
-                    variables.records.Columns.Add("Basınç(Pa)", typeof(float));
-                }
-                else if (variables.numP == 16)
-                {
-                    variables.records.Columns.Add("Basınç(kg/cm2)", typeof(float));
-                }
-                else if (variables.numP == 17)
-                {
-                    variables.records.Columns.Add("Basınç(mmh2o)", typeof(float));
-                }
-                else if (variables.numP == 18)
-                {
-                    variables.records.Columns.Add("Basınç(mh2o)", typeof(float));
-                }
-                else if (variables.numP == 19)
-                {
-                    variables.records.Columns.Add("Basınç(mmHg)", typeof(float));
-                }
-                else if (variables.numP == 20)
-                {
-                    variables.records.Columns.Add("Basınç(psi)", typeof(float));
-                }
-                else if (variables.numP == 21)
-                {
-                    variables.records.Columns.Add("Basınç(kPa)", typeof(float));
-                }
-                else if (variables.numP == 22)
-                {
-                    variables.records.Columns.Add("Basınç(MPa)", typeof(float));
+                    if (variables.numP == 14)
+                    {
+                        variables.records.Columns.Add("Basınç(Bar)", typeof(float));
+                    }
+                    else if (variables.numP == 15)
+                    {
+                        variables.records.Columns.Add("Basınç(Pa)", typeof(float));
+                    }
+                    else if (variables.numP == 16)
+                    {
+                        variables.records.Columns.Add("Basınç(kg/cm2)", typeof(float));
+                    }
+                    else if (variables.numP == 17)
+                    {
+                        variables.records.Columns.Add("Basınç(mmh2o)", typeof(float));
+                    }
+                    else if (variables.numP == 18)
+                    {
+                        variables.records.Columns.Add("Basınç(mh2o)", typeof(float));
+                    }
+                    else if (variables.numP == 19)
+                    {
+                        variables.records.Columns.Add("Basınç(mmHg)", typeof(float));
+                    }
+                    else if (variables.numP == 20)
+                    {
+                        variables.records.Columns.Add("Basınç(psi)", typeof(float));
+                    }
+                    else if (variables.numP == 21)
+                    {
+                        variables.records.Columns.Add("Basınç(kPa)", typeof(float));
+                    }
+                    else if (variables.numP == 22)
+                    {
+                        variables.records.Columns.Add("Basınç(MPa)", typeof(float));
 
+                    }
+                    else if (variables.numP == 23)
+                    {
+                        variables.records.Columns.Add("Basınç(iwg)", typeof(float));
+                    }
+                    else
+                    {
+                        variables.records.Columns.Add("Basınç(mbar)", typeof(float));
+                    }
                 }
-                else if (variables.numP == 23)
-                {
-                    variables.records.Columns.Add("Basınç(iwg)", typeof(float));
-                }
-                else
-                {
-                    variables.records.Columns.Add("Basınç(mBar)", typeof(float));
-                }
+                else if (variables.type == 2)
+                    variables.records.Columns.Add("   Ω", typeof(float));
+
                 variables.records.Columns.Add("Tarih", typeof(DateTime));
                 gridControl1.DataSource = variables.records;
                 txtname = variables.RandomString(5) + ".txt";
@@ -462,50 +408,57 @@ namespace BASSCOMPORT
                 {
                     variables.records.Columns.Add("Temperature(°C)", typeof(float));
                 }
-                if (variables.numP == 14)
+
+                if (variables.type == 1)
                 {
-                    variables.records.Columns.Add("Pressure(Bar)", typeof(float));
+                    if (variables.numP == 14)
+                    {
+                        variables.records.Columns.Add("Pressure(Bar)", typeof(float));
+                    }
+                    else if (variables.numP == 15)
+                    {
+                        variables.records.Columns.Add("Pressure(Pa)", typeof(float));
+                    }
+                    else if (variables.numP == 16)
+                    {
+                        variables.records.Columns.Add("Pressure(kg/cm2)", typeof(float));
+                    }
+                    else if (variables.numP == 17)
+                    {
+                        variables.records.Columns.Add("Pressure(mmh2o)", typeof(float));
+                    }
+                    else if (variables.numP == 18)
+                    {
+                        variables.records.Columns.Add("Pressure(mh2o)", typeof(float));
+                    }
+                    else if (variables.numP == 19)
+                    {
+                        variables.records.Columns.Add("Pressure(mmHg)", typeof(float));
+                    }
+                    else if (variables.numP == 20)
+                    {
+                        variables.records.Columns.Add("Pressure(psi)", typeof(float));
+                    }
+                    else if (variables.numP == 21)
+                    {
+                        variables.records.Columns.Add("Pressure(kPa)", typeof(float));
+                    }
+                    else if (variables.numP == 22)
+                    {
+                        variables.records.Columns.Add("Pressure(MPa)", typeof(float));
+                    }
+                    else if (variables.numP == 23)
+                    {
+                        variables.records.Columns.Add("Inch Water(iwg)", typeof(float));
+                    }
+                    else
+                    {
+                        variables.records.Columns.Add("Pressure(mbar)", typeof(float));
+                    }
                 }
-                else if (variables.numP == 15)
-                {
-                    variables.records.Columns.Add("Pressure(Pa)", typeof(float));
-                }
-                else if (variables.numP == 16)
-                {
-                    variables.records.Columns.Add("Pressure(kg/cm2)", typeof(float));
-                }
-                else if (variables.numP == 17)
-                {
-                    variables.records.Columns.Add("Pressure(mmh2o)", typeof(float));
-                }
-                else if (variables.numP == 18)
-                {
-                    variables.records.Columns.Add("Pressure(mh2o)", typeof(float));
-                }
-                else if (variables.numP == 19)
-                {
-                    variables.records.Columns.Add("Pressure(mmHg)", typeof(float));
-                }
-                else if (variables.numP == 20)
-                {
-                    variables.records.Columns.Add("Pressure(psi)", typeof(float));
-                }
-                else if (variables.numP == 21)
-                {
-                    variables.records.Columns.Add("Pressure(kPa)", typeof(float));
-                }
-                else if (variables.numP == 22)
-                {
-                    variables.records.Columns.Add("Pressure(MPa)", typeof(float));
-                }
-                else if (variables.numP == 23)
-                {
-                    variables.records.Columns.Add("Inch Water(iwg)", typeof(float));
-                }
-                else
-                {
-                    variables.records.Columns.Add("Pressure(mBar)", typeof(float));
-                }
+                else if (variables.type == 2)
+                    variables.records.Columns.Add("   Ω", typeof(float));
+
                 variables.records.Columns.Add("Date", typeof(DateTime));
                 gridControl1.DataSource = variables.records;
                 txtname = variables.RandomString(5) + ".txt";
@@ -513,30 +466,6 @@ namespace BASSCOMPORT
                 File.Create(path);
             }
 
-
-
-
-
-        }
-
-
-
-        private void chart2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        public void StartForm()
-        {
-
-            Application.Run(new splashScreen());
-        }
-
-        private void FormFlow_Load(object sender, EventArgs e)
-        {
-            variables.flowOpen = true;
-            variables.comportx = true;
-           
             if (variables.numT == 12)
             {
                 tunitLabel.Text = "°K";
@@ -552,51 +481,7 @@ namespace BASSCOMPORT
                 tunitLabel.Text = "°C ";
             }
 
-            if (variables.numP == 14)
-            {
-                punitLabel.Text = "Bar";
-
-            }
-            else if (variables.numP == 15)
-            {
-                punitLabel.Text = "Pa";
-            }
-            else if (variables.numP == 16)
-            {
-                punitLabel.Text = "kg/cm2";
-            }
-            else if (variables.numP == 17)
-            {
-                punitLabel.Text = "mmh2o";
-            }
-            else if (variables.numP == 18)
-            {
-                punitLabel.Text = "mh2o";
-            }
-            else if (variables.numP == 19)
-            {
-                punitLabel.Text = "mmHg";
-            }
-            else if (variables.numP == 20)
-            {
-                punitLabel.Text = "psi";
-            }
-            else if (variables.numP == 21)
-            {
-                punitLabel.Text = "kPa";
-            }
-            else if (variables.numP == 22)
-            {
-                punitLabel.Text = "MPa";
-            }
-            else if (variables.numP == 23)
-            {
-                punitLabel.Text = "MPa";
-            }
-            else
-            {
-                punitLabel.Text = "mBar";
-            }
+            
 
             if (variables.numEN == 11)
             {
@@ -620,7 +505,7 @@ namespace BASSCOMPORT
             if (variables.status == 66)
             {
 
-                Enabled = true;
+                timer1.Enabled = true;
                 timer1.Interval = 1000;
                 timer2.Interval = 3000;
                 timer2.Enabled = true;
@@ -634,43 +519,30 @@ namespace BASSCOMPORT
             {
                 if (variables.numT == 12) // kelvin
                 {
-                    solidGauge1.From = 254;
-                    solidGauge1.To = 414;
+                    solidGauge1.From = 23.15;
+                    solidGauge1.To = 1123.15;
                     solidGauge1.Uses360Mode = true;
                     solidGauge2.Value = 0;
-
-                    loadGaugeInit();
-
                 }
 
                 else if (variables.numT == 13) // fahrenheit
                 {
-                    solidGauge1.From = 30;
-                    solidGauge1.To = 284;
+                    solidGauge1.From = -418;
+                    solidGauge1.To = 1562;
                     solidGauge1.Uses360Mode = true;
                     solidGauge2.Value = 0;
-
-                    loadGaugeInit();
                 }
 
                 else if (variables.numT == 1) // celcius
                 {
-                    solidGauge1.From = -20;
-                    solidGauge1.To = 150;
+                    solidGauge1.From = -250;
+                    solidGauge1.To = 850;
                     solidGauge1.Uses360Mode = true;
                     solidGauge2.Value = -20;
-
-                    loadGaugeInit();
                 }
-                /*solidGauge1.From = -20;
-                solidGauge1.To = 150;
-                solidGauge1.Uses360Mode = true;
-                solidGauge2.Value = -20;
 
-                solidGauge2.Uses360Mode = true;
-                solidGauge2.To = 500000;
-                solidGauge2.From = 0;
-                solidGauge2.Value = 0;*/
+                loadGaugeInit();
+
                 solidGauge1.Base.LabelsVisibility = System.Windows.Visibility.Hidden;
                 solidGauge1.Base.GaugeActiveFill = new System.Windows.Media.LinearGradientBrush
                 {
@@ -691,7 +563,7 @@ namespace BASSCOMPORT
                             }
 
                 };
-            })); // gauge's features == graph
+            })); 
 
 
         }
@@ -699,8 +571,18 @@ namespace BASSCOMPORT
         bool firstrecord = false;
         private void timer2_Tick(object sender, EventArgs e)
         {
-            if (variables.status == 66)
+            if (variables.status == 66 && !variables.connectionLost)
             {
+                if (variables.type == 1)
+                {
+                    variables.trY = "," + "Sıcaklık" + "," + "Basınç" + "," + "Tarih";
+                    variables.enY = "," + "Temperature" + "," + "Pressure" + "," + "Date";
+                }
+                else if (variables.type == 2)
+                {
+                    variables.trY = "," + "Sıcaklık" + "," + "Omaj" + "," + "Tarih";
+                    variables.enY = "," + "Temperature" + "," + "Ohm" + "," + "Date";
+                }
                 
                 if (variables.numEN == 11) //for TR
                 {
@@ -710,51 +592,51 @@ namespace BASSCOMPORT
                         {
                             if (variables.numP == 14) // for Bar
                             {
-                                excelKelvinInitDivide(1000,trY);
+                                excelKelvinInitDivide(1000,variables.trY);
                             }
 
                             else if (variables.numP == 15) // for Pa
                             {
-                                excelKelvinInitMultiple(100, trY);
+                                excelKelvinInitMultiple(100, variables.trY);
                             }
 
                             else if (variables.numP == 16) // for kg/cm2
                             {
-                                excelKelvinInitMultiple(0.00102, trY);
+                                excelKelvinInitMultiple(0.00102, variables.trY);
                             }
 
                             else if (variables.numP == 17) // for mmh2o
                             {
-                                excelKelvinInitDivide(0.0980665, trY);
+                                excelKelvinInitDivide(0.0980665, variables.trY);
                             }
 
                             else if (variables.numP == 18) // for mh2o
                             {
-                                excelKelvinInitDivide(98.0665, trY);
+                                excelKelvinInitDivide(98.0665, variables.trY);
                             }
 
                             else if (variables.numP == 19) // for mmHg
                             {
-                                excelKelvinInitMultiple(0.75006, trY);
+                                excelKelvinInitMultiple(0.75006, variables.trY);
                             }
 
                             else if (variables.numP == 20) // for psi
                             {
-                                excelKelvinInitMultiple(0.0145037738, trY);
+                                excelKelvinInitMultiple(0.0145037738, variables.trY);
                             }
 
                             else if (variables.numP == 21) // for kPa
                             {
-                                excelKelvinInitDivide(10, trY);
+                                excelKelvinInitDivide(10, variables.trY);
                             }
 
                             else if (variables.numP == 22) // for MPa
                             {
-                                excelKelvinInitDivide(10000, trY);
+                                excelKelvinInitDivide(10000, variables.trY);
                             }
                             else if (variables.numP == 23) // for iwg
                             {
-                                excelKelvinInitDivide(2.490889, trY);
+                                excelKelvinInitDivide(2.490889, variables.trY);
                             }
 
                             else if (variables.numP == 2) // for mbar
@@ -787,51 +669,51 @@ namespace BASSCOMPORT
                         {
                             if (variables.numP == 14) // for Bar
                             {
-                                excelFahrenheitInitDivide(1000, trY);
+                                excelFahrenheitInitDivide(1000, variables.trY);
                             }
 
                             else if (variables.numP == 15) // for Pa
                             {
-                                excelFahrenheitInitMultiple(100, trY);
+                                excelFahrenheitInitMultiple(100, variables.trY);
                             }
 
                             else if (variables.numP == 16) // for kg/cm2
                             {
-                                excelFahrenheitInitMultiple(0.00102, trY);
+                                excelFahrenheitInitMultiple(0.00102, variables.trY);
                             }
 
                             else if (variables.numP == 17) // for mmh2o
                             {
-                                excelFahrenheitInitDivide(0.0980665, trY);
+                                excelFahrenheitInitDivide(0.0980665, variables.trY);
                             }
 
                             else if (variables.numP == 18) // for mh2o
                             {
-                                excelFahrenheitInitDivide(98.0665, trY);
+                                excelFahrenheitInitDivide(98.0665, variables.trY);
                             }
 
                             else if (variables.numP == 19) // for mmHg
                             {
-                                excelFahrenheitInitMultiple(0.75006, trY);
+                                excelFahrenheitInitMultiple(0.75006, variables.trY);
                             }
 
                             else if (variables.numP == 20) // for psi
                             {
-                                excelFahrenheitInitMultiple(0.0145037738, trY);
+                                excelFahrenheitInitMultiple(0.0145037738, variables.trY);
                             }
 
                             else if (variables.numP == 21) // for kPa
                             {
-                                excelFahrenheitInitDivide(10, trY);
+                                excelFahrenheitInitDivide(10, variables.trY);
                             }
 
                             else if (variables.numP == 22) // for MPa
                             {
-                                excelFahrenheitInitDivide(10000, trY);
+                                excelFahrenheitInitDivide(10000, variables.trY);
                             }
                             else if (variables.numP == 23) // for iwg
                             {
-                                excelFahrenheitInitDivide(2.490889, trY);
+                                excelFahrenheitInitDivide(2.490889, variables.trY);
                             }
 
                             else if (variables.numP == 2) // for mbar
@@ -860,52 +742,52 @@ namespace BASSCOMPORT
                         {
                             if (variables.numP == 14) // for Bar
                             {
-                                excelCelciusInitDivide(1000, trY);  
+                                excelCelciusInitDivide(1000, variables.trY);  
                             }
 
                             else if (variables.numP == 15) // for Pa
                             {
-                                excelCelciusInitMultiple(100, trY);
+                                excelCelciusInitMultiple(100, variables.trY);
                             }
 
                             else if (variables.numP == 16) // for kg/cm2
                             {
-                                excelCelciusInitMultiple(0.00102, trY);
+                                excelCelciusInitMultiple(0.00102, variables.trY);
                             }
 
                             else if (variables.numP == 17) // for mmh2o
                             {
-                                excelCelciusInitDivide(0.0980665, trY);
+                                excelCelciusInitDivide(0.0980665, variables.trY);
                             }
 
                             else if (variables.numP == 18) // for mh2o
                             {
-                                excelCelciusInitDivide(98.0665, trY);
+                                excelCelciusInitDivide(98.0665, variables.trY);
                             }
 
                             else if (variables.numP == 19) // for mmHg
                             {
-                                excelCelciusInitMultiple(0.750062, trY);
+                                excelCelciusInitMultiple(0.750062, variables.trY);
                             }
 
                             else if (variables.numP == 20) // for psi
                             {
-                                excelCelciusInitMultiple(0.0145037738, trY);
+                                excelCelciusInitMultiple(0.0145037738, variables.trY);
                             }
 
                             else if (variables.numP == 21) // for kPa
                             {
-                                excelCelciusInitDivide(10, trY);
+                                excelCelciusInitDivide(10, variables.trY);
                             }
 
                             else if (variables.numP == 22) // for MPa
                             {
-                                excelCelciusInitDivide(10000, trY);
+                                excelCelciusInitDivide(10000, variables.trY);
                             }
 
                             else if (variables.numP == 23) // for iwg
                             {
-                                excelCelciusInitDivide(2.490889, trY);
+                                excelCelciusInitDivide(2.490889, variables.trY);
                             }
 
                             else if (variables.numP == 2) // for mbar
@@ -945,51 +827,51 @@ namespace BASSCOMPORT
                         {
                             if (variables.numP == 14) // for Bar
                             {
-                                excelKelvinInitDivide(1000, enY);
+                                excelKelvinInitDivide(1000, variables.enY);
                             }
 
                             else if (variables.numP == 15) // for Pa
                             {
-                                excelKelvinInitMultiple(100, enY);
+                                excelKelvinInitMultiple(100, variables.enY);
                             }
 
                             else if (variables.numP == 16) // for kg/cm2
                             {
-                                excelKelvinInitMultiple(0.00102, enY);
+                                excelKelvinInitMultiple(0.00102, variables.enY);
                             }
 
                             else if (variables.numP == 17) // for mmh2o
                             {
-                                excelKelvinInitDivide(0.0980665, enY);
+                                excelKelvinInitDivide(0.0980665, variables.enY);
                             }
 
                             else if (variables.numP == 18) // for mh2o
                             {
-                                excelKelvinInitDivide(98.0665, enY);
+                                excelKelvinInitDivide(98.0665, variables.enY);
                             }
 
                             else if (variables.numP == 19) // for mmHg
                             {
-                                excelKelvinInitMultiple(0.75006, enY);
+                                excelKelvinInitMultiple(0.75006, variables.enY);
                             }
 
                             else if (variables.numP == 20) // for psi
                             {
-                                excelKelvinInitMultiple(0.0145037738, enY);
+                                excelKelvinInitMultiple(0.0145037738, variables.enY);
                             }
 
                             else if (variables.numP == 21) // for kPa
                             {
-                                excelKelvinInitDivide(10, enY);
+                                excelKelvinInitDivide(10, variables.enY);
                             }
 
                             else if (variables.numP == 22) // for MPa
                             {
-                                excelKelvinInitDivide(10000, enY);
+                                excelKelvinInitDivide(10000, variables.enY);
                             }
                             else if (variables.numP == 23) // for iwg
                             {
-                                excelKelvinInitDivide(2.490889, enY);
+                                excelKelvinInitDivide(2.490889, variables.enY);
                             }
 
                             else if (variables.numP == 2) // for mbar
@@ -1002,7 +884,10 @@ namespace BASSCOMPORT
                                 {
                                     if (!firstrecord)
                                     {
-                                        tw.WriteLine(productNumber + "," + "Temperature" + "," + "Pressure" + "," + "Date");
+                                        if(variables.type == 2)
+                                            tw.WriteLine(productNumber + "," + "Temperature" + "," + "Ω" + "," + "Date");
+                                        else if (variables.type == 1)
+                                            tw.WriteLine(productNumber + "," + "Temperature" + "," + "Pressure" + "," + "Date");
                                         firstrecord = true;
                                     }
 
@@ -1022,51 +907,51 @@ namespace BASSCOMPORT
                         {
                             if (variables.numP == 14) // for Bar
                             {
-                                excelFahrenheitInitDivide(1000, enY);
+                                excelFahrenheitInitDivide(1000, variables.enY);
                             }
 
                             else if (variables.numP == 15) // for Pa
                             {
-                                excelFahrenheitInitMultiple(100, enY);
+                                excelFahrenheitInitMultiple(100, variables.enY);
                             }
 
                             else if (variables.numP == 16) // for kg/cm2
                             {
-                                excelFahrenheitInitMultiple(0.00102, enY);
+                                excelFahrenheitInitMultiple(0.00102, variables.enY);
                             }
 
                             else if (variables.numP == 17) // for mmh2o
                             {
-                                excelFahrenheitInitDivide(0.0980665, enY);
+                                excelFahrenheitInitDivide(0.0980665, variables.enY);
                             }
 
                             else if (variables.numP == 18) // for mh2o
                             {
-                                excelFahrenheitInitDivide(98.0665, enY);
+                                excelFahrenheitInitDivide(98.0665, variables.enY);
                             }
 
                             else if (variables.numP == 19) // for mmHg
                             {
-                                excelFahrenheitInitMultiple(0.75006, enY);
+                                excelFahrenheitInitMultiple(0.75006, variables.enY);
                             }
 
                             else if (variables.numP == 20) // for psi
                             {
-                                excelFahrenheitInitMultiple(0.0145037738, enY);
+                                excelFahrenheitInitMultiple(0.0145037738, variables.enY);
                             }
 
                             else if (variables.numP == 21) // for kPa
                             {
-                                excelFahrenheitInitDivide(10, enY);
+                                excelFahrenheitInitDivide(10, variables.enY);
                             }
 
                             else if (variables.numP == 22) // for MPa
                             {
-                                excelFahrenheitInitDivide(10000, enY);
+                                excelFahrenheitInitDivide(10000, variables.enY);
                             }
                             else if (variables.numP == 23) // for iwg
                             {
-                                excelFahrenheitInitDivide(2.490889, enY);
+                                excelFahrenheitInitDivide(2.490889, variables.enY);
                             }
 
                             else if (variables.numP == 2) // for mbar
@@ -1078,7 +963,10 @@ namespace BASSCOMPORT
                                 {
                                     if (!firstrecord)
                                     {
-                                        tw.WriteLine(productNumber + "," + "Temperature" + "," + "Pressure" + "," + "Date");
+                                        if (variables.type == 2)
+                                            tw.WriteLine(productNumber + "," + "Temperature" + "," + "Ω" + "," + "Date");
+                                        else if (variables.type == 1)
+                                            tw.WriteLine(productNumber + "," + "Temperature" + "," + "Pressure" + "," + "Date"); ;
                                         firstrecord = true;
                                     }
 
@@ -1095,52 +983,52 @@ namespace BASSCOMPORT
                         {
                             if (variables.numP == 14) // for Bar
                             {
-                                excelCelciusInitDivide(1000, enY);
+                                excelCelciusInitDivide(1000, variables.enY);
                             }
 
                             else if (variables.numP == 15) // for Pa
                             {
-                                excelCelciusInitMultiple(100, enY);
+                                excelCelciusInitMultiple(100, variables.enY);
                             }
 
                             else if (variables.numP == 16) // for kg/cm2
                             {
-                                excelCelciusInitMultiple(0.00102, enY);
+                                excelCelciusInitMultiple(0.00102, variables.enY);
                             }
 
                             else if (variables.numP == 17) // for mmh2o
                             {
-                                excelCelciusInitDivide(0.0980665, enY);
+                                excelCelciusInitDivide(0.0980665, variables.enY);
                             }
 
                             else if (variables.numP == 18) // for mh2o
                             {
-                                excelCelciusInitDivide(98.0665, enY);
+                                excelCelciusInitDivide(98.0665, variables.enY);
                             }
 
                             else if (variables.numP == 19) // for mmHg
                             {
-                                excelCelciusInitMultiple(0.750062, enY);
+                                excelCelciusInitMultiple(0.750062, variables.enY);
                             }
 
                             else if (variables.numP == 20) // for psi
                             {
-                                excelCelciusInitMultiple(0.0145037738, enY);
+                                excelCelciusInitMultiple(0.0145037738, variables.enY);
                             }
 
                             else if (variables.numP == 21) // for kPa
                             {
-                                excelCelciusInitDivide(10, enY);
+                                excelCelciusInitDivide(10, variables.enY);
                             }
 
                             else if (variables.numP == 22) // for MPa
                             {
-                                excelCelciusInitDivide(10000, enY);
+                                excelCelciusInitDivide(10000, variables.enY);
                             }
 
                             else if (variables.numP == 23) // for iwg
                             {
-                                excelCelciusInitDivide(2.490889, enY);
+                                excelCelciusInitDivide(2.490889, variables.enY);
                             }
 
 
@@ -1153,7 +1041,10 @@ namespace BASSCOMPORT
                                 {
                                     if (!firstrecord)
                                     {
-                                        tw.WriteLine(productNumber + "," + "Temperature" + "," + "Pressure" + "," + "Date");
+                                        if (variables.type == 2)
+                                            tw.WriteLine(productNumber + "," + "Temperature" + "," + "Ω" + "," + "Date");
+                                        else if (variables.type == 1)
+                                            tw.WriteLine(productNumber + "," + "Temperature" + "," + "Pressure" + "," + "Date");
                                         firstrecord = true;
                                     }
 
@@ -1338,6 +1229,7 @@ namespace BASSCOMPORT
                         {
                             timer2.Interval = Convert.ToInt32(intervalNumber.SelectedItem) * 360000;
                         }
+                        timer1.Interval = timer2.Interval;
                     }
                     else
 
@@ -1372,6 +1264,7 @@ namespace BASSCOMPORT
                         {
                             timer2.Interval = Convert.ToInt32(intervalNumber.SelectedItem) * 360000;
                         }
+                        timer1.Interval = timer2.Interval;
                     }
                     else
 
@@ -1400,7 +1293,6 @@ namespace BASSCOMPORT
 
                     {
                         productNumber = textBox1.Text;
-                        productButton.Enabled = false;
                         textBox1.Clear();
                     }
                     else
@@ -1422,8 +1314,7 @@ namespace BASSCOMPORT
                     if (MessageBox.Show("Please confirm before proceed" + "\n" + "Do you want to Continue ?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
 
                     {
-                        productNumber = textBox1.Text;
-                        productButton.Enabled = false;
+                        productNumber = textBox1.Text;             
                         textBox1.Clear();
                     }
                     else
@@ -1480,37 +1371,33 @@ namespace BASSCOMPORT
                 System.Windows.Threading.Dispatcher.CurrentDispatcher.Invoke((() =>
 
                 {
-                    
+
                     if (variables.numT == 12) // kelvin
                     {
-                        solidGauge1.From = 254;
-                        solidGauge1.To = 414;
+                        solidGauge1.From = 23.15;
+                        solidGauge1.To = 1123.15;
                         solidGauge1.Uses360Mode = true;
                         solidGauge2.Value = 0;
-
-                        loadGaugeInit();
                     }
 
                     else if (variables.numT == 13) // fahrenheit
                     {
-                        solidGauge1.From = 30;
-                        solidGauge1.To = 284;
+                        solidGauge1.From = -418;
+                        solidGauge1.To = 1562;
                         solidGauge1.Uses360Mode = true;
                         solidGauge2.Value = 0;
-
-                        loadGaugeInit();
                     }
 
                     else if (variables.numT == 1) // celcius
                     {
-                        solidGauge1.From = -20;
-                        solidGauge1.To = 150;
+                        solidGauge1.From = -250;
+                        solidGauge1.To = 850;
                         solidGauge1.Uses360Mode = true;
                         solidGauge2.Value = -20;
-
-                        loadGaugeInit();
                     }
-                  
+
+                    loadGaugeInit();
+
                     solidGauge1.Base.LabelsVisibility = System.Windows.Visibility.Hidden;
                     solidGauge1.Base.GaugeActiveFill = new System.Windows.Media.LinearGradientBrush
                     {
@@ -1533,294 +1420,424 @@ namespace BASSCOMPORT
                     };
                 })); // gauge's features == graph
             }
+            
             if (variables.numEN == 11)
             {
-                intervalButton.Text = rm.GetString("Save Interval");
+                
 
-                /* if (variables.xx == true)
-                 {
-                     exportButton.Text = "Veri Topla ";
-                     variables.xx = false;
-                 } */
                 if (!variables.exportBut)
                 {
                     exportButton.Text = "Veri Topla";
                 }
-                saveDataButton.Text = rm.GetString("Save Data(xsl)");
-                productButton.Text = rm.GetString("Save Product Number");
-                productGroup.Text = rm.GetString("Product Number(1)");
-                intervalGroup.Text = rm.GetString("İnterval(2)");
-                dataGroup.Text = rm.GetString("Data and Excel(3)");
+                if (variables.isClickedFlowing)
+                {
+                    saveDataButton.Text = rm.GetString("Save Data(xsl)");
+                    productButton.Text = rm.GetString("Save Product Number");
+                    productGroup.Text = rm.GetString("Product Number(1)");
+                    intervalGroup.Text = rm.GetString("İnterval(2)");
+                    dataGroup.Text = rm.GetString("Data and Excel(3)");
+                    intervalButton.Text = rm.GetString("Save Interval");
+                    
+                }
+                
                 
 
             }
             else if (variables.numEN == 10)
             {
-                intervalButton.Text = "Save Interval";
+                
                 // exportButton.Text = "Collect Data";
                 if (!variables.exportBut)
                 {
                     exportButton.Text = "Collect Data";
                 }
-                saveDataButton.Text ="Save Data(xsl)";
-                productButton.Text = "Save Product Number";
-                productGroup.Text = "Product Number(1)";
-                intervalGroup.Text = "İnterval(2)";
-                dataGroup.Text = "Data and Excel(3)";
-                
+                if (variables.isClickedFlowing)
+                {
+                    intervalButton.Text = "Save Interval";
+                    saveDataButton.Text = "Save Data(xsl)";
+                    productButton.Text = "Save Product Number";
+                    productGroup.Text = "Product Number(1)";
+                    intervalGroup.Text = "İnterval(2)";
+                    dataGroup.Text = "Data and Excel(3)";
+                    
+                }
+            }
+            if (variables.isClickedFlowing)
+            {
+                switch (variables.numT)
+                {
+                    case 12:
+                        tunitLabel.Text = "°K";
+                        break;
+                    case 13:
+                        tunitLabel.Text = "°F";
+                        break;
+                    case 14:
+                        tunitLabel.Text = "°C ";
+                        break;
+                }
+
+                if (variables.type == 1)
+                {
+                    switch (variables.numP)
+                    {
+                        case 14:
+                            punitLabel.Text = "Bar";
+                            punitLabel.Text = "Bar";
+                            break;
+                        case 15:
+                            punitLabel.Text = "Pa";
+                            punitLabel.Text = "Pa";
+                            break;
+                        case 16:
+                            punitLabel.Text = "kg/cm2";
+                            punitLabel.Text = "kg/cm2";
+                            break;
+                        case 17:
+                            punitLabel.Text = "mmh2o";
+                            punitLabel.Text = "mmh2o";
+                            break;
+                        case 18:
+                            punitLabel.Text = "mh2o";
+                            punitLabel.Text = "mh2o";
+                            break;
+                        case 19:
+                            punitLabel.Text = "mmHg";
+                            punitLabel.Text = "mmHg";
+                            break;
+                        case 20:
+                            punitLabel.Text = "psi";
+                            punitLabel.Text = "psi";
+                            break;
+                        case 21:
+                            punitLabel.Text = "kPa";
+                            punitLabel.Text = "kPa";
+                            break;
+                        case 22:
+                            punitLabel.Text = "MPa";
+                            punitLabel.Text = "MPa";
+                            break;
+                        case 23:
+                            punitLabel.Text = "iwg";
+                            punitLabel.Text = "iwg";
+                            break;
+                        case 2:
+                            punitLabel.Text = "mbar";
+                            punitLabel.Text = "mbar";
+                            break;
+                        default:
+                            punitLabel.Text = "mbar";
+                            punitLabel.Text = "mbar";
+                            break;
+
+                    }
+
+                }
+                else if (variables.type == 2)
+                    punitLabel.Text = "Ω";
+
+                variables.isClickedFlowing = false;
             }
 
-           
-
-            if (variables.numT == 12)
-            {
-                tunitLabel.Text = "°K";
-
-            }
-            else if (variables.numT == 13)
-            {
-                tunitLabel.Text = "°F";
-
-            }
-            else if (variables.numT == 1)
-            {
-                tunitLabel.Text = "°C ";
-            }
-
-            if (variables.numP == 14)
-            {
-                punitLabel.Text = "Bar";
-
-            }
-            else if (variables.numP == 15)
-            {
-                punitLabel.Text = "Pa";
-            }
-            else if (variables.numP == 16)
-            {
-                punitLabel.Text = "kg/cm2";
-            }
-            else if (variables.numP == 17)
-            {
-                punitLabel.Text = "mmh2o";
-            }
-            else if (variables.numP == 18)
-            {
-                punitLabel.Text = "mh2o";
-            }
-            else if (variables.numP == 19)
-            {
-                punitLabel.Text = "mmHg";
-            }
-            else if (variables.numP == 20)
-            {
-                punitLabel.Text = "psi";
-            }
-            else if (variables.numP == 21)
-            {
-                punitLabel.Text = "kPa";
-            }
-            else if (variables.numP == 22)
-            {
-                punitLabel.Text = "MPa";
-            }
-            else if (variables.numP == 23)
-            {
-                punitLabel.Text = "MPa";
-            }
-            else if (variables.numP == 2)
-            {
-                punitLabel.Text = "mBar";
-            }
-
-
-
-
-
+            
         }
 
 
         private void timer1_Tick(object sender, EventArgs e)
         {
 
-            if (variables.status == 66)
+            if (variables.status == 66 && !variables.connectionLost)
             {
 
+                
                 if (variables.numT == 12)
-                {
+                    {
 
-                    double kelvinS = 273.15;
-                    duration += 1;
-                    chart1.Series[0].Points.AddXY(duration, (variables.Temperature + kelvinS));
+                        double kelvinS = 273.15;
+                    double maksval = 0;
+                    double minval = 0;
+                    double val = variables.Temperature + kelvinS;
+                    if (val > maksval)
+                        maksval = val;
+                    if(val<minval)
+                        minval = val;
+                    chart1.Series[0].Points.AddXY(DateTime.Now, val);
+                    chart1.Series[0].XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
+                    chart1.ChartAreas[0].AxisX.IntervalType = (DateTimeIntervalType)DateRangeType.Hour;
+                    chart1.ChartAreas[0].AxisX.LabelStyle.Format = "hh:mm";
 
-                    if (chart1.Series[0].Points.Count > 300)
-                        chart1.Series[0].Points.RemoveAt(0);
+                    chart1.ChartAreas[0].AxisY.Maximum = maksval+100;
+                    chart1.ChartAreas[0].AxisY.Minimum = minval - 100;
+                    
 
-                    chart1.ChartAreas[0].AxisX.Minimum = chart1.Series[0].Points[0].XValue;
-                    chart1.ChartAreas[0].AxisX.Maximum = duration;
+                        
+                    }
+                    else if (variables.numT == 13)
+                    {
 
-                    durationn += 1;
+                    double maksval = 0;
+                    double minval = 0;
+                    double val = ((variables.Temperature * 1.8) + 32);
+                    if (val > maksval)
+                        maksval = val;
+                    if (val < minval)
+                        minval = val;
+                    chart1.Series[0].Points.AddXY(DateTime.Now, val);
+                    chart1.Series[0].XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
+                    chart1.ChartAreas[0].AxisX.IntervalType = (DateTimeIntervalType)DateRangeType.Hour;
+                    chart1.ChartAreas[0].AxisX.LabelStyle.Format = "hh:mm";
+
+                    chart1.ChartAreas[0].AxisY.Maximum = maksval + 100;
+                    chart1.ChartAreas[0].AxisY.Minimum = minval - 100;
+
+
+                    
+
+                    
+
                 }
-                else if (variables.numT == 13)
-                {
+                    else if (variables.numT == 1)
+                    {
 
-                    duration += 1;
-                    chart1.Series[0].Points.AddXY(duration, ((variables.Temperature * 1.8) + 32));
+                    double maksval = 0;
+                    double minval = 0;
+                    double val = variables.Temperature;
+                    if (val > maksval)
+                        maksval = val;
+                    if (val < minval)
+                        minval = val;
+                    chart1.Series[0].Points.AddXY(DateTime.Now, val);
+                    chart1.Series[0].XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
+                    chart1.ChartAreas[0].AxisX.IntervalType = (DateTimeIntervalType)DateRangeType.Hour;
+                    chart1.ChartAreas[0].AxisX.LabelStyle.Format = "hh:mm";
 
-                    if (chart1.Series[0].Points.Count > 300)
-                        chart1.Series[0].Points.RemoveAt(0);
 
-                    chart1.ChartAreas[0].AxisX.Minimum = chart1.Series[0].Points[0].XValue;
-                    chart1.ChartAreas[0].AxisX.Maximum = duration;
+                    chart1.ChartAreas[0].AxisY.Maximum = maksval + 100;
+                    chart1.ChartAreas[0].AxisY.Minimum = minval - 100;
 
-                    durationn += 1;
+                    
+                        
+                    }
+                    if (variables.numP == 14)
+                    {
+                    double maksval = 0;
+                    double minval = 0;
+                    double val = variables.Pressure / 1000;
+                    if (val > maksval)
+                        maksval = val;
+                    if (val < minval)
+                        minval = val;
+                    chart2.Series[0].Points.AddXY(DateTime.Now, val);
+                    chart2.Series[0].XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
+                    chart2.ChartAreas[0].AxisX.IntervalType = (DateTimeIntervalType)DateRangeType.Hour;
+                    chart2.ChartAreas[0].AxisX.LabelStyle.Format = "hh:mm";
+
+
+                    chart2.ChartAreas[0].AxisY.Maximum = maksval + 5;
+                    chart2.ChartAreas[0].AxisY.Minimum = minval - 5;
+                    
+
+                    }
+                    else if (variables.numP == 15)
+                    {
+                    double maksval = 0;
+                    double minval = 0;
+                    double val = variables.Pressure * 100;
+                    if (val > maksval)
+                        maksval = val;
+                    if (val < minval)
+                        minval = val;
+                    chart2.Series[0].Points.AddXY(DateTime.Now, val);
+                    chart2.Series[0].XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
+                    chart2.ChartAreas[0].AxisX.IntervalType = (DateTimeIntervalType)DateRangeType.Hour;
+                    chart2.ChartAreas[0].AxisX.LabelStyle.Format = "hh:mm";
+
+
+                    chart2.ChartAreas[0].AxisY.Maximum = maksval + 100;
+                    chart2.ChartAreas[0].AxisY.Minimum = minval - 100;
+                    
                 }
-                else if (variables.numT == 1)
-                {
+                    else if (variables.numP == 16)
+                    {
+                    double maksval = 0;
+                    double minval = 0;
+                    double val = variables.Pressure * 0.00102;
+                    if (val > maksval)
+                        maksval = val;
+                    if (val < minval)
+                        minval = val;
+                    chart2.Series[0].Points.AddXY(DateTime.Now, val);
+                    chart2.Series[0].XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
+                    chart2.ChartAreas[0].AxisX.IntervalType = (DateTimeIntervalType)DateRangeType.Hour;
+                    chart2.ChartAreas[0].AxisX.LabelStyle.Format = "hh:mm";
 
-                    chart1.Series[0].Points.AddXY(duration, variables.Temperature);
 
-                    if (chart1.Series[0].Points.Count > 300)
-                        chart1.Series[0].Points.RemoveAt(0);
-
-                    chart1.ChartAreas[0].AxisX.Minimum = chart1.Series[0].Points[0].XValue;
-                    chart1.ChartAreas[0].AxisX.Maximum = duration;
-
-                    durationn += 1;
+                    chart2.ChartAreas[0].AxisY.Maximum = maksval + 100;
+                    chart2.ChartAreas[0].AxisY.Minimum = minval - 100;
+                    
                 }
+                    else if (variables.numP == 17)
+                    {
 
-                if (variables.numP == 14)
-                {
-                    chart2.Series[0].Points.AddXY(duration, variables.Pressure/1000);
+                    double maksval = 0;
+                    double minval = 0;
+                    double val = variables.Pressure / 0.0980665;
+                    if (val > maksval)
+                        maksval = val;
+                    if (val < minval)
+                        minval = val;
+                    chart2.Series[0].Points.AddXY(DateTime.Now, val);
+                    chart2.Series[0].XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
+                    chart2.ChartAreas[0].AxisX.IntervalType = (DateTimeIntervalType)DateRangeType.Hour;
+                    chart2.ChartAreas[0].AxisX.LabelStyle.Format = "hh:mm";
 
-                    if (chart2.Series[0].Points.Count > 300)
-                        chart2.Series[0].Points.RemoveAt(0);
 
-                    chart2.ChartAreas[0].AxisX.Minimum = chart2.Series[0].Points[0].XValue;
-                    chart2.ChartAreas[0].AxisX.Maximum = duration;
-
-                    duration += 1;
+                    chart2.ChartAreas[0].AxisY.Maximum = maksval + 100;
+                    chart2.ChartAreas[0].AxisY.Minimum = minval - 100;
+                    
                 }
-                else if (variables.numP == 15)
-                {
-                    chart2.Series[0].Points.AddXY(duration, variables.Pressure*100);
+                    else if (variables.numP == 18)
+                    {
 
-                    if (chart2.Series[0].Points.Count > 300)
-                        chart2.Series[0].Points.RemoveAt(0);
+                    double maksval = 0;
+                    double minval = 0;
+                    double val = variables.Pressure * 0.010197442889221;
+                    if (val > maksval)
+                        maksval = val;
+                    if (val < minval)
+                        minval = val;
+                    chart2.Series[0].Points.AddXY(DateTime.Now, val);
+                    chart2.Series[0].XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
+                    chart2.ChartAreas[0].AxisX.IntervalType = (DateTimeIntervalType)DateRangeType.Hour;
+                    chart2.ChartAreas[0].AxisX.LabelStyle.Format = "hh:mm";
 
-                    chart2.ChartAreas[0].AxisX.Minimum = chart2.Series[0].Points[0].XValue;
-                    chart2.ChartAreas[0].AxisX.Maximum = duration;
 
-                    duration += 1;
+                    chart2.ChartAreas[0].AxisY.Maximum = maksval + 100;
+                    chart2.ChartAreas[0].AxisY.Minimum = minval - 100;
+                    
+
                 }
-                else if (variables.numP == 16)
-                {
-                    chart2.Series[0].Points.AddXY(duration, variables.Pressure * 0.00102);
+                    else if (variables.numP == 19)
+                    {
+                    double maksval = 0;
+                    double minval = 0;
+                    double val = variables.Pressure * 0.750062;
+                    if (val > maksval)
+                        maksval = val;
+                    if (val < minval)
+                        minval = val;
+                    chart2.Series[0].Points.AddXY(DateTime.Now, val);
+                    chart2.Series[0].XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
+                    chart2.ChartAreas[0].AxisX.IntervalType = (DateTimeIntervalType)DateRangeType.Hour;
+                    chart2.ChartAreas[0].AxisX.LabelStyle.Format = "hh:mm";
 
-                    if (chart2.Series[0].Points.Count > 300)
-                        chart2.Series[0].Points.RemoveAt(0);
 
-                    chart2.ChartAreas[0].AxisX.Minimum = chart2.Series[0].Points[0].XValue;
-                    chart2.ChartAreas[0].AxisX.Maximum = duration;
+                    chart2.ChartAreas[0].AxisY.Maximum = maksval + 100;
+                    chart2.ChartAreas[0].AxisY.Minimum = minval - 100;
+                   
 
-                    duration += 1;
                 }
-                else if (variables.numP == 17)
-                {
-                    chart2.Series[0].Points.AddXY(duration, variables.Pressure / 0.0980665);
+                    else if (variables.numP == 20)
+                    {
 
-                    if (chart2.Series[0].Points.Count > 300)
-                        chart2.Series[0].Points.RemoveAt(0);
+                    double maksval = 0;
+                    double minval = 0;
+                    double val = variables.Pressure * 0.0145037738;
+                    if (val > maksval)
+                        maksval = val;
+                    if (val < minval)
+                        minval = val;
+                    chart2.Series[0].Points.AddXY(DateTime.Now, val);
+                    chart2.Series[0].XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
+                    chart2.ChartAreas[0].AxisX.IntervalType = (DateTimeIntervalType)DateRangeType.Hour;
+                    chart2.ChartAreas[0].AxisX.LabelStyle.Format = "hh:mm";
 
-                    chart2.ChartAreas[0].AxisX.Minimum = chart2.Series[0].Points[0].XValue;
-                    chart2.ChartAreas[0].AxisX.Maximum = duration;
 
-                    duration += 1;
+                    chart2.ChartAreas[0].AxisY.Maximum = maksval + 100;
+                    chart2.ChartAreas[0].AxisY.Minimum = minval - 100;
+                    
+
                 }
-                else if (variables.numP == 18)
-                {
-                    chart2.Series[0].Points.AddXY(duration, variables.Pressure * 0.010197442889221);
+                    else if (variables.numP == 21)
+                    {
+                    double maksval = 0;
+                    double minval = 0;
+                    double val = variables.Pressure / 100000;
+                    if (val > maksval)
+                        maksval = val;
+                    if (val < minval)
+                        minval = val;
+                    chart2.Series[0].Points.AddXY(DateTime.Now, val);
+                    chart2.Series[0].XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
+                    chart2.ChartAreas[0].AxisX.IntervalType = (DateTimeIntervalType)DateRangeType.Hour;
+                    chart2.ChartAreas[0].AxisX.LabelStyle.Format = "hh:mm";
 
-                    if (chart2.Series[0].Points.Count > 300)
-                        chart2.Series[0].Points.RemoveAt(0);
 
-                    chart2.ChartAreas[0].AxisX.Minimum = chart2.Series[0].Points[0].XValue;
-                    chart2.ChartAreas[0].AxisX.Maximum = duration;
+                    chart2.ChartAreas[0].AxisY.Maximum = maksval + 1;
+                    chart2.ChartAreas[0].AxisY.Minimum = minval - 1;
+                    
 
-                    duration += 1;
                 }
-                else if (variables.numP == 19)
-                {
-                    chart2.Series[0].Points.AddXY(duration, variables.Pressure * 0.750062);
+                    else if (variables.numP == 22)
+                    {
+                    double maksval = 0;
+                    double minval = 0;
+                    double val = variables.Pressure / 100000000;
+                    if (val > maksval)
+                        maksval = val;
+                    if (val < minval)
+                        minval = val;
+                    chart2.Series[0].Points.AddXY(DateTime.Now, val);
+                    chart2.Series[0].XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
+                    chart2.ChartAreas[0].AxisX.IntervalType = (DateTimeIntervalType)DateRangeType.Hour;
+                    chart2.ChartAreas[0].AxisX.LabelStyle.Format = "hh:mm";
 
-                    if (chart2.Series[0].Points.Count > 300)
-                        chart2.Series[0].Points.RemoveAt(0);
 
-                    chart2.ChartAreas[0].AxisX.Minimum = chart2.Series[0].Points[0].XValue;
-                    chart2.ChartAreas[0].AxisX.Maximum = duration;
+                    chart2.ChartAreas[0].AxisY.Maximum = maksval + 1;
+                    chart2.ChartAreas[0].AxisY.Minimum = minval - 1;
+                    
 
-                    duration += 1;
                 }
-                else if (variables.numP == 20)
-                {
-                    chart2.Series[0].Points.AddXY(duration, variables.Pressure * 0.0145037738);
+                    else if (variables.numP == 23)
+                    {
+                    double maksval = 0;
+                    double minval = 0;
+                    double val = variables.Pressure / 2.490889;
+                    if (val > maksval)
+                        maksval = val;
+                    if (val < minval)
+                        minval = val;
+                    chart2.Series[0].Points.AddXY(DateTime.Now, val);
+                    chart2.Series[0].XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
+                    chart2.ChartAreas[0].AxisX.IntervalType = (DateTimeIntervalType)DateRangeType.Hour;
+                    chart2.ChartAreas[0].AxisX.LabelStyle.Format = "hh:mm";
 
-                    if (chart2.Series[0].Points.Count > 300)
-                        chart2.Series[0].Points.RemoveAt(0);
 
-                    chart2.ChartAreas[0].AxisX.Minimum = chart2.Series[0].Points[0].XValue;
-                    chart2.ChartAreas[0].AxisX.Maximum = duration;
-
-                    duration += 1;
+                    chart2.ChartAreas[0].AxisY.Maximum = maksval + 100;
+                    chart2.ChartAreas[0].AxisY.Minimum = minval - 100;
+                    
                 }
-                else if (variables.numP == 21)
-                {
-                    chart2.Series[0].Points.AddXY(duration, variables.Pressure / 100000);
+                    else if (variables.numP == 2)
+                    {
+                    double maksval = 0;
+                    double minval = 0;
+                    double val = variables.Pressure;
+                    if (val > maksval)
+                        maksval = val;
+                    if (val < minval)
+                        minval = val;
+                    chart2.Series[0].Points.AddXY(DateTime.Now, Math.Round(val,0));
+                    chart2.Series[0].XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
+                    chart2.ChartAreas[0].AxisX.IntervalType = (DateTimeIntervalType)DateRangeType.Hour;
+                    chart2.ChartAreas[0].AxisX.LabelStyle.Format = "hh:mm";
 
-                    if (chart2.Series[0].Points.Count > 300)
-                        chart2.Series[0].Points.RemoveAt(0);
 
-                    chart2.ChartAreas[0].AxisX.Minimum = chart2.Series[0].Points[0].XValue;
-                    chart2.ChartAreas[0].AxisX.Maximum = duration;
-
-                    duration += 1;
+                    chart2.ChartAreas[0].AxisY.Maximum = maksval + 100;
+                    chart2.ChartAreas[0].AxisY.Minimum = minval - 100;
+                    
                 }
-                else if (variables.numP == 22)
-                {
-                    chart2.Series[0].Points.AddXY(duration, variables.Pressure / 100000000);
-
-                    if (chart2.Series[0].Points.Count > 300)
-                        chart2.Series[0].Points.RemoveAt(0);
-
-                    chart2.ChartAreas[0].AxisX.Minimum = chart2.Series[0].Points[0].XValue;
-                    chart2.ChartAreas[0].AxisX.Maximum = duration;
-
-                    duration += 1;
-                }
-                else if (variables.numP == 23)
-                {
-                    chart2.Series[0].Points.AddXY(duration, variables.Pressure / 2.490889);
-
-                    if (chart2.Series[0].Points.Count > 300)
-                        chart2.Series[0].Points.RemoveAt(0);
-
-                    chart2.ChartAreas[0].AxisX.Minimum = chart2.Series[0].Points[0].XValue;
-                    chart2.ChartAreas[0].AxisX.Maximum = duration;
-
-                    duration += 1;
-                }
-                else if (variables.numP == 2)
-                {
-                    chart2.Series[0].Points.AddXY(duration, variables.Pressure);
-
-                    if (chart2.Series[0].Points.Count > 300)
-                        chart2.Series[0].Points.RemoveAt(0);
-
-                    chart2.ChartAreas[0].AxisX.Minimum = chart2.Series[0].Points[0].XValue;
-                    chart2.ChartAreas[0].AxisX.Maximum = duration ;
-
-                    duration += 1;
-                }
+               
+                
 
                 
             }
@@ -1897,6 +1914,21 @@ namespace BASSCOMPORT
             }
         }
 
+        private void chart2_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void solidGauge1_ChildChanged(object sender, System.Windows.Forms.Integration.ChildChangedEventArgs e)
+        {
+
+        }
+
+        private void punitLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
         public void Show_Data(object sender, EventArgs e)
 
 
@@ -1905,21 +1937,29 @@ namespace BASSCOMPORT
             {
                 if (variables.numT == 12) // for kelvin
                 {
-                    solidGauge1.Value = variables.Temperature + 273.15;
+                    
+                    if (!variables.connectionLost)
+                        solidGauge1.Value = variables.Temperature + 273.15;
+                    else
+                        solidGauge1.Value = -999;
 
                     showDataInit();
 
                 }
                 else if (variables.numT == 13)// for fahrenheit
                 {
-                    solidGauge1.Value = (variables.Temperature * 1.8) + 32;
-
+                    if (!variables.connectionLost)
+                        solidGauge1.Value = (variables.Temperature * 1.8) + 32;
+                    else
+                        solidGauge1.Value = -999;
                     showDataInit();
                 }
                 else if (variables.numT == 1) // for celcius
                 {
-                    solidGauge1.Value = variables.Temperature;
-
+                    if (!variables.connectionLost)
+                        solidGauge1.Value = variables.Temperature;
+                    else
+                        solidGauge1.Value = -999;
                     showDataInit();
                 }
 

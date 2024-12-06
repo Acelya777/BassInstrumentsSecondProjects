@@ -7,7 +7,24 @@ using System.Linq;
 namespace BASSCOMPORT
 {
     public static class variables
-    {   
+    {
+        public static bool SerialPortPendingClose { get; set; }
+        public static bool connectionLost { get; set; }
+        public static bool isClickedSettings { get; set; }
+        public static bool isClickedFlowing { get; set; }
+        public static double is_calibrated { get; set; }
+        public static int owiStatus { get; set; }
+        public static double deviceID { get; set; }
+        public static string trY { get; set; }
+        public static string enY { get; set; }
+        public static int type { get; set; }
+        public static int device { get; set; }
+        public static int outputDevice { get; set; }
+        public static int aboutQuery { get; set; }
+        public static bool isClickedScaling { get; set; }
+        public static bool isClickedAbout { get; set; }
+        public static bool firstScaling { get; set; }
+        public static bool firstAbout { get; set; }
         public static bool scalingChange { get; set; }
         public static bool scalingphotocheck { get; set; }
         public static bool updateData { get; set; }

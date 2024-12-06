@@ -13,14 +13,7 @@ namespace BASSCOMPORT
 {
     public partial class FormAbout : Form
     {
-        private Bitmap image1 = BASSCOMPORT.Properties.Resources.image1;
-        private Bitmap image2 = BASSCOMPORT.Properties.Resources.image2;
-        private Bitmap image3 = BASSCOMPORT.Properties.Resources.image3;
-        private Bitmap image4 = BASSCOMPORT.Properties.Resources.image4;
-        private Bitmap image6 = BASSCOMPORT.Properties.Resources.image6;
-        private Bitmap image7 = BASSCOMPORT.Properties.Resources.image7;
-        private Bitmap image8 = BASSCOMPORT.Properties.Resources.image8;
-        private Bitmap image9 = BASSCOMPORT.Properties.Resources.image9;
+        
 
         [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
         private static extern IntPtr CreateRoundRectRgn
@@ -51,83 +44,33 @@ namespace BASSCOMPORT
         public System.Net.NetworkCredential smtpCreds = new System.Net.NetworkCredential("mail", "password");
         MailMessage message = new MailMessage();
         SmtpClient smtp = new SmtpClient();
+        int count;
         
 
         public FormAbout()
         {
             InitializeComponent();
-            groupBox1.Font = new System.Drawing.Font("Arial", 12F);
+            groupBox1.Font = new System.Drawing.Font("Arial", 8F);
             
-            IntPtr ptr = CreateRoundRectRgn(0, 0, groupBox1.Width, groupBox1.Height, 15, 15);
-            groupBox1.Region = System.Drawing.Region.FromHrgn(ptr);
-            DeleteObject(ptr);
-            /*IntPtr ptr2 = CreateRoundRectRgn(0, 0, pictureBox8.Width, pictureBox8.Height, 30, 30);
-            pictureBox8.Region = System.Drawing.Region.FromHrgn(ptr2);
-            DeleteObject(ptr2);*/
+  
 
-            //pictureBox1.Image = home;
-            /*pictureBox2.Image = instagram;
-            pictureBox3.Image = twitter;
-            pictureBox4.Image = linkedn;
-            */
+
         }
 
         private int imageno = 1;
         private int imageno2 = 6;
 
-        private void loadimage()
-        {
-            
-            if (imageno == 4)
-            {
-                imageno = 1;
-                
-            }
-            
-            //pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox8.ImageLocation = string.Format(@"Images\{0}.png", imageno);
-
-            imageno++;
-        }
-        private void loadimage2()
-        {
-
-            if (imageno2 == 9)
-            {
-                imageno2 = 6;
-
-            }
-
-            //pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox8.ImageLocation = string.Format(@"Images\{0}.png", imageno2);
-
-            imageno2++;
-        }
-
-        private Color SelectThemeColor()
-        {
-            int index = random.Next(ThemeColor.ColorList.Count);
-            while (tempIndex == index)
-            {
-                index = random.Next(ThemeColor.ColorList.Count);
-            }
-            tempIndex = index;
-            string color = ThemeColor.ColorList[index];
-            return ColorTranslator.FromHtml(color);
-        }
+        
         private void FormAbout_Load(object sender, EventArgs e)
         {
-            if (variables.numEN == 11)
-            {
-                pictureBox5.Image = BASSCOMPORT.Properties.Resources.com2;
-                pictureBox8.Image = image1;
-            }
-            else if (variables.numEN == 10)
-            {
-                pictureBox5.Image = BASSCOMPORT.Properties.Resources.com3;
-                pictureBox8.Image = image6;
-            }
+            
+            pictureBox8.Image = BASSCOMPORT.Properties.Resources.aboutphoto;
             variables.comportx = true;
+            //Timer timer = new Timer();
+            timer1.Enabled = true;
+            timer1.Interval = 500;
+            timer1.Tick += timer1_Tick;
+            timer1.Start();
 
 
         }
@@ -307,96 +250,50 @@ namespace BASSCOMPORT
 
         private void pictureBox4_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("https://tr.linkedin.com/company/bass-%C3%B6l%C3%A7me-enstr%C3%BCmanlar%C4%B1-ltd-%C5%9Fti");
+            System.Diagnostics.Process.Start("https://www.youtube.com/@bassinstruments3452");
         }
         
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (variables.numEN == 11)
-            {
-                pictureBox5.Image = BASSCOMPORT.Properties.Resources.com2;
-                if (variables.trP == false)
-                {
-                    pictureBox8.Image = image1;
-                    variables.trP = true;
-                }
-                if (pictureBox8.Image == image1)
-                {
-                    pictureBox8.Image = image2;
-                }
-                else if (pictureBox8.Image == image2)
-                {
-                    pictureBox8.Image = image3;
-                }
-                else if (pictureBox8.Image == image3)
-                {
-                    pictureBox8.Image = image4;
-                }
-                else if(pictureBox8.Image == image4)
-                {
-                    pictureBox8.Image = image1;
-                }
 
-            }
-            else if (variables.numEN == 10)
-            {
-                pictureBox5.Image = BASSCOMPORT.Properties.Resources.com3;
-                if (variables.enP == false)
-                {
-                    pictureBox8.Image = image6;
-                    variables.enP = true;
-                }
 
-                if (pictureBox8.Image == image6)
-                {
-                    pictureBox8.Image = image7;
-                }
-                else if (pictureBox8.Image == image7)
-                {
-                    pictureBox8.Image = image8;
-                }
-                else if (pictureBox8.Image == image8)
-                {
-                    pictureBox8.Image = image9;
-                }
-                else if (pictureBox8.Image == image9)
-                {
-                    pictureBox8.Image = image6;
-                }
-            }
-            
-            if (variables.numEN == 11)
+            if (variables.isClickedAbout)
             {
-                
-                
-                if (trying2 == false)
+                if (variables.numEN == 11)
                 {
-                    subjectLabel.Text = rm.GetString("Subject");
-                    messageLabel.Text = rm.GetString("Message");
-                    attachLabel.Text = "Dosya";
-                    button1.Text = "Ekle";
-                    btnTest.Text = rm.GetString("SEND");
-                    groupBox1.Text = rm.GetString("Help");
-                    firmLabel.Text = "Firma İsmi";
-                    telLabel.Text = "İletişim";
-                    trying2 = true;
-                }
 
+
+                    if (trying2 == false)
+                    {
+                        subjectLabel.Text = "Konu";
+                        messageLabel.Text = "Mesaj";
+                        attachLabel.Text = "Dosya";
+                        button1.Text = "Ekle";
+                        btnTest.Text = "Gönder";
+                        groupBox1.Text = "Destek";
+                        firmLabel.Text = "Firma İsmi";
+                        telLabel.Text = "İletişim";
+                        trying2 = true;
+
+
+                    }
+
+                }
+                else if (variables.numEN == 10)
+                {
+
+                    subjectLabel.Text = "Subject";
+                    messageLabel.Text = "Message";
+                    attachLabel.Text = "File";
+                    button1.Text = "Attach";
+                    btnTest.Text = "SEND";
+                    groupBox1.Text = "Support";
+                    firmLabel.Text = "Firm Name";
+                    telLabel.Text = "Contact";
+                    trying2 = false;
+                }
+                variables.isClickedAbout = false;
             }
-            else if (variables.numEN == 10)
-            {
-                
-                subjectLabel.Text = "Subject";
-                messageLabel.Text = "Message";
-                attachLabel.Text = "File";
-                button1.Text = "Attach";
-                btnTest.Text = "SEND";
-                groupBox1.Text = "Help";
-                firmLabel.Text = "Firm Name";
-                telLabel.Text = "Contact";
-                trying2 = false;
-            }
-            
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -437,6 +334,17 @@ namespace BASSCOMPORT
             {
                 System.Diagnostics.Process.Start("https://bass.com.tr/en/products");
             }
+        }
+
+        private void telLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox1_Click_1(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://www.linkedin.com/company/bass-%C3%B6l%C3%A7me-enstr%C3%BCmanlar%C4%B1-ltd-%C5%9Fti/");
+
         }
     }
     

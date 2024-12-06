@@ -1,0 +1,338 @@
+bool isVoltage (void)  // define registerı boş mu değil mi?
+{
+	HAL_I2C_Mem_Read(NSA_I2C, NSA_ADDR_READ, SPARE1, 1,&isVoltageOrNot, 1, HAL_MAX_DELAY); // D5'den oku
+	msDelay(200);
+
+	if(isVoltageOrNot== 1 || isVoltageOrNot == 2) // 1: mA , 2 : voltage
+	{
+		return true;
+	}
+	else if(isVoltageOrNot == 0) // empty
+	{
+		return false;
+	}
+	//isVoltageOrNot = 2; // sil
+	return true;
+
+}
+void writesnewoff(void)
+{
+					datatowrite=0x00;// data yazmak için eeeprom açıldı
+					owi_writeNByte(CMD_R,datatowrite,1);
+					//HAL_I2C_Mem_Write(NSA_I2C, NSA_ADDR_WRITE, CMD_R, 1, &datatowrite, 1, HAL_MAX_DELAY); // data yazmak için eeeprom açıldı
+					msDelay(1000);// data yazmak için eeeproma erisim saglandi
+
+					//scale s set edilir
+					scaledatawrite=scale_s>>16;
+					owi_writeNByte(SCALE_S_HR,scaledatawrite,1);
+					msDelay(100);
+					//HAL_I2C_Mem_Write(NSA_I2C, NSA_ADDR_WRITE, SCALE_S_HR, 1, &scaledatawrite, 1, HAL_MAX_DELAY);
+					scaledatawrite=scale_s>>8;
+					owi_writeNByte(SCALE_S_MR,scaledatawrite,1);
+					msDelay(100);
+					//HAL_I2C_Mem_Write(NSA_I2C, NSA_ADDR_WRITE, SCALE_S_MR, 1, &scaledatawrite, 1, HAL_MAX_DELAY);
+					scaledatawrite=scale_s;
+					owi_writeNByte(SCALE_S_LR,scaledatawrite,1);
+					//HAL_I2C_Mem_Write(NSA_I2C, NSA_ADDR_WRITE, SCALE_S_LR, 1, &scaledatawrite, 1, HAL_MAX_DELAY);
+					msDelay(100);
+
+					//scale off set edilir
+					scaleoffdatawrite=scale_off>>16;
+					owi_writeNByte(SCALE_OFF_HR,scaleoffdatawrite,1);
+					//HAL_I2C_Mem_Write(NSA_I2C, NSA_ADDR_WRITE, SCALE_OFF_HR, 1, &scaleoffdatawrite, 1, HAL_MAX_DELAY);
+					scaleoffdatawrite=scale_off>>8;
+					owi_writeNByte(SCALE_OFF_MR,scaleoffdatawrite,1);
+					//HAL_I2C_Mem_Write(NSA_I2C, NSA_ADDR_WRITE, SCALE_OFF_MR, 1, &scaleoffdatawrite, 1, HAL_MAX_DELAY);
+					scaleoffdatawrite=scale_off;
+					owi_writeNByte(SCALE_OFF_LR,scaleoffdatawrite,1);
+					//HAL_I2C_Mem_Write(NSA_I2C, NSA_ADDR_WRITE, SCALE_OFF_LR, 1, &scaleoffdatawrite, 1, HAL_MAX_DELAY);
+					msDelay(100);
+
+					datatowrite=0x33;
+					owi_writeNByte(CMD_R,datatowrite,1);
+					//HAL_I2C_Mem_Write(NSA_I2C, NSA_ADDR_WRITE, CMD_R, 1, &datatowrite, 1, HAL_MAX_DELAY); // data yazmak için eeeproma erisim saglandi
+					msDelay(200);
+
+					datatowrite=0x2e;
+					owi_writeNByte(EE_PROG,datatowrite,1);
+					//HAL_I2C_Mem_Write(NSA_I2C, NSA_ADDR_WRITE, EE_PROG, 1, &datatowrite, 1, HAL_MAX_DELAY);
+					msDelay(3500);
+
+					datatowrite=0xA5; // software reset b10100101
+					owi_writeNByte(CTRL_R,datatowrite,1);
+					//HAL_I2C_Mem_Write(NSA_I2C, NSA_ADDR_WRITE, CTRL_R, 1, &datatowrite, 1, HAL_MAX_DELAY);
+					msDelay(4000);
+}
+
+void writeUpperLower(void)
+{
+
+	if(isUpperNegative && isLowerNegative)
+	{
+		finalCheck=1;
+		owi_writeNByte(SPARE8,finalCheck,1);
+		//HAL_I2C_Mem_Write(NSA_I2C, NSA_ADDR_WRITE,SPARE8,1,&finalCheck,1,HAL_MAX_DELAY);
+	}
+	else if(!isUpperNegative && isLowerNegative)
+	{
+		finalCheck=2;
+		owi_writeNByte(SPARE8,finalCheck,1);
+		//HAL_I2C_Mem_Write(NSA_I2C, NSA_ADDR_WRITE,SPARE8,1,&finalCheck,1,HAL_MAX_DELAY);
+	}
+	/*else if(isUpperNegative && !isLowerNegative)
+	{
+		finalCheck=3;
+		owi_writeNByte(SPARE8,finalCheck,1);
+		HAL_I2C_Mem_Write(NSA_I2C, NSA_ADDR_WRITE,SPARE8,1,&finalCheck,1,HAL_MAX_DELAY);
+	}*/
+	else if(!isUpperNegative && !isLowerNegative)
+	{
+		finalCheck=4;
+		owi_writeNByte(SPARE8,finalCheck,1);
+		//HAL_I2C_Mem_Write(NSA_I2C, NSA_ADDR_WRITE,SPARE8,1,&finalCheck,1,HAL_MAX_DELAY);
+	}
+
+
+	if(isUpperNegative)
+	{
+
+		datatowrite=0x00;
+		owi_writeNByte(CMD_R,datatowrite,1);
+		//HAL_I2C_Mem_Write(NSA_I2C, NSA_ADDR_WRITE, CMD_R, 1, &datatowrite, 1, HAL_MAX_DELAY); // data yazmak için eeeproma erisim saglandi
+		msDelay(200);
+
+		valwrite=(-upperLimit)>>16;
+		owi_writeNByte(SPARE1,valwrite,1);
+		//HAL_I2C_Mem_Write(NSA_I2C, NSA_ADDR_WRITE, SPARE1, 1, &valwrite, 1, HAL_MAX_DELAY);
+		valwrite=(-upperLimit)>>8;
+		owi_writeNByte(SPARE2,SPARE2,1);
+		//HAL_I2C_Mem_Write(NSA_I2C, NSA_ADDR_WRITE, SPARE2, 1, &valwrite, 1, HAL_MAX_DELAY);
+		valwrite=(-upperLimit);
+		owi_writeNByte(SPARE3,valwrite,1);
+		//HAL_I2C_Mem_Write(NSA_I2C, NSA_ADDR_WRITE, SPARE3, 1, &valwrite, 1, HAL_MAX_DELAY);
+		msDelay(100);
+
+		datatowrite=0x33;
+		owi_writeNByte(CMD_R,datatowrite,1);
+		//HAL_I2C_Mem_Write(NSA_I2C, NSA_ADDR_WRITE, CMD_R, 1, &datatowrite, 1, HAL_MAX_DELAY); // data yazmak için eeeproma erisim saglandi
+		msDelay(200);
+
+		datatowrite=0x2e;
+		owi_writeNByte(EE_PROG,datatowrite,1);
+		//HAL_I2C_Mem_Write(NSA_I2C, NSA_ADDR_WRITE, EE_PROG, 1, &datatowrite, 1, HAL_MAX_DELAY);
+		msDelay(3500);
+
+		datatowrite=0xA5; // software reset b10100101
+		owi_writeNByte(CTRL_R,datatowrite,1);
+		//HAL_I2C_Mem_Write(NSA_I2C, NSA_ADDR_WRITE, CTRL_R, 1, &datatowrite, 1, HAL_MAX_DELAY);
+		msDelay(4000);
+
+
+	}
+	else if(!isUpperNegative)
+	{
+
+		datatowrite=0x00;
+				owi_writeNByte(CMD_R,datatowrite,1);
+				//HAL_I2C_Mem_Write(NSA_I2C, NSA_ADDR_WRITE, CMD_R, 1, &datatowrite, 1, HAL_MAX_DELAY); // data yazmak için eeeproma erisim saglandi
+				msDelay(200);
+
+				valwrite=(upperLimit)>>16;
+				owi_writeNByte(SPARE1,valwrite,1);
+				//HAL_I2C_Mem_Write(NSA_I2C, NSA_ADDR_WRITE, SPARE1, 1, &valwrite, 1, HAL_MAX_DELAY);
+				valwrite=(upperLimit)>>8;
+				owi_writeNByte(SPARE2,SPARE2,1);
+				//HAL_I2C_Mem_Write(NSA_I2C, NSA_ADDR_WRITE, SPARE2, 1, &valwrite, 1, HAL_MAX_DELAY);
+				valwrite=(upperLimit);
+				owi_writeNByte(SPARE3,valwrite,1);
+				//HAL_I2C_Mem_Write(NSA_I2C, NSA_ADDR_WRITE, SPARE3, 1, &valwrite, 1, HAL_MAX_DELAY);
+				msDelay(100);
+
+				datatowrite=0x33;
+				owi_writeNByte(CMD_R,datatowrite,1);
+				//HAL_I2C_Mem_Write(NSA_I2C, NSA_ADDR_WRITE, CMD_R, 1, &datatowrite, 1, HAL_MAX_DELAY); // data yazmak için eeeproma erisim saglandi
+				msDelay(200);
+
+				datatowrite=0x2e;
+				owi_writeNByte(EE_PROG,datatowrite,1);
+				//HAL_I2C_Mem_Write(NSA_I2C, NSA_ADDR_WRITE, EE_PROG, 1, &datatowrite, 1, HAL_MAX_DELAY);
+				msDelay(3500);
+
+				datatowrite=0xA5; // software reset b10100101
+				owi_writeNByte(CTRL_R,datatowrite,1);
+				//HAL_I2C_Mem_Write(NSA_I2C, NSA_ADDR_WRITE, CTRL_R, 1, &datatowrite, 1, HAL_MAX_DELAY);
+				msDelay(4000);
+	}
+
+	if(isLowerNegative)
+	{
+
+		datatowrite=0x00;
+				owi_writeNByte(CMD_R,datatowrite,1);
+				//HAL_I2C_Mem_Write(NSA_I2C, NSA_ADDR_WRITE, CMD_R, 1, &datatowrite, 1, HAL_MAX_DELAY); // data yazmak için eeeproma erisim saglandi
+				msDelay(200);
+
+				valwrite=(-lowerLimit)>>16;
+				owi_writeNByte(SPARE1,valwrite,1);
+				//HAL_I2C_Mem_Write(NSA_I2C, NSA_ADDR_WRITE, SPARE1, 1, &valwrite, 1, HAL_MAX_DELAY);
+				valwrite=(-lowerLimit)>>8;
+				owi_writeNByte(SPARE2,SPARE2,1);
+				//HAL_I2C_Mem_Write(NSA_I2C, NSA_ADDR_WRITE, SPARE2, 1, &valwrite, 1, HAL_MAX_DELAY);
+				valwrite=(-lowerLimit);
+				owi_writeNByte(SPARE3,valwrite,1);
+				//HAL_I2C_Mem_Write(NSA_I2C, NSA_ADDR_WRITE, SPARE3, 1, &valwrite, 1, HAL_MAX_DELAY);
+				msDelay(100);
+
+				datatowrite=0x33;
+				owi_writeNByte(CMD_R,datatowrite,1);
+				//HAL_I2C_Mem_Write(NSA_I2C, NSA_ADDR_WRITE, CMD_R, 1, &datatowrite, 1, HAL_MAX_DELAY); // data yazmak için eeeproma erisim saglandi
+				msDelay(200);
+
+				datatowrite=0x2e;
+				owi_writeNByte(EE_PROG,datatowrite,1);
+				//HAL_I2C_Mem_Write(NSA_I2C, NSA_ADDR_WRITE, EE_PROG, 1, &datatowrite, 1, HAL_MAX_DELAY);
+				msDelay(3500);
+
+				datatowrite=0xA5; // software reset b10100101
+				owi_writeNByte(CTRL_R,datatowrite,1);
+				//HAL_I2C_Mem_Write(NSA_I2C, NSA_ADDR_WRITE, CTRL_R, 1, &datatowrite, 1, HAL_MAX_DELAY);
+				msDelay(4000);
+	}
+	else if(!isLowerNegative)
+	{
+
+
+		datatowrite=0x00;
+						owi_writeNByte(CMD_R,datatowrite,1);
+						//HAL_I2C_Mem_Write(NSA_I2C, NSA_ADDR_WRITE, CMD_R, 1, &datatowrite, 1, HAL_MAX_DELAY); // data yazmak için eeeproma erisim saglandi
+						msDelay(200);
+
+						valwrite=(-lowerLimit)>>16;
+						owi_writeNByte(SPARE1,valwrite,1);
+						//HAL_I2C_Mem_Write(NSA_I2C, NSA_ADDR_WRITE, SPARE1, 1, &valwrite, 1, HAL_MAX_DELAY);
+						valwrite=(-lowerLimit)>>8;
+						owi_writeNByte(SPARE2,SPARE2,1);
+						//HAL_I2C_Mem_Write(NSA_I2C, NSA_ADDR_WRITE, SPARE2, 1, &valwrite, 1, HAL_MAX_DELAY);
+						valwrite=(-lowerLimit);
+						owi_writeNByte(SPARE3,valwrite,1);
+						//HAL_I2C_Mem_Write(NSA_I2C, NSA_ADDR_WRITE, SPARE3, 1, &valwrite, 1, HAL_MAX_DELAY);
+						msDelay(100);
+
+						datatowrite=0x33;
+						owi_writeNByte(CMD_R,datatowrite,1);
+						//HAL_I2C_Mem_Write(NSA_I2C, NSA_ADDR_WRITE, CMD_R, 1, &datatowrite, 1, HAL_MAX_DELAY); // data yazmak için eeeproma erisim saglandi
+						msDelay(200);
+
+						datatowrite=0x2e;
+						owi_writeNByte(EE_PROG,datatowrite,1);
+						//HAL_I2C_Mem_Write(NSA_I2C, NSA_ADDR_WRITE, EE_PROG, 1, &datatowrite, 1, HAL_MAX_DELAY);
+						msDelay(3500);
+
+						datatowrite=0xA5; // software reset b10100101
+						owi_writeNByte(CTRL_R,datatowrite,1);
+						//HAL_I2C_Mem_Write(NSA_I2C, NSA_ADDR_WRITE, CTRL_R, 1, &datatowrite, 1, HAL_MAX_DELAY);
+						msDelay(4000);
+	}
+}
+void readLowerAndUpper(void)
+{
+	//HAL_I2C_Mem_Read(NSA_I2C, NSA_ADDR_READ, SPARE8, 1, &ffinalCheckArray, 1, HAL_MAX_DELAY);
+	ffinalCheckArray=owi_read_nByte(SPARE8,1);
+	finalCheckArray=ffinalCheckArray;
+	if(finalCheckArray==1)
+	{
+		//HAL_I2C_Mem_Read(NSA_I2C, NSA_ADDR_READ, SPARE1, 1, &valread, 1, HAL_MAX_DELAY);
+		upperread[0]=owi_read_nByte(SPARE1,1);
+		//HAL_I2C_Mem_Read(NSA_I2C, NSA_ADDR_READ, SPARE2, 1, &valread, 1, HAL_MAX_DELAY);
+		upperread[1]=owi_read_nByte(SPARE2,1);
+		//HAL_I2C_Mem_Read(NSA_I2C, NSA_ADDR_READ, SPARE3, 1, &valread, 1, HAL_MAX_DELAY);
+		upperread[2]=owi_read_nByte(SPARE3,1);
+		upperread[3]=0x00;
+		msDelay(1000);
+		upperLimit = (upperread[0]<<16) | (upperread[1]<<8) |(upperread[2]);
+		upperLimit = - upperLimit;
+
+		//HAL_I2C_Mem_Read(NSA_I2C, NSA_ADDR_READ, SPARE4, 1, &valread, 1, HAL_MAX_DELAY);
+		lowerread[0]=owi_read_nByte(SPARE4,1);
+		//HAL_I2C_Mem_Read(NSA_I2C, NSA_ADDR_READ, SPARE5, 1, &valread, 1, HAL_MAX_DELAY);
+		lowerread[1]=owi_read_nByte(SPARE5,1);
+		//HAL_I2C_Mem_Read(NSA_I2C, NSA_ADDR_READ, SPARE6, 1, &valread, 1, HAL_MAX_DELAY);
+		lowerread[2]=owi_read_nByte(SPARE6,1);
+		lowerread[3]=0x00;
+		msDelay(1000);
+		lowerLimit=(lowerread[0]<<16) | (lowerread[1]<<8) |(lowerread[2]);
+		lowerLimit=-lowerLimit;
+	}
+	/*else if(finalCheckArray==3)
+	{
+		HAL_I2C_Mem_Read(NSA_I2C, NSA_ADDR_READ, SPARE1, 1, &valread, 1, HAL_MAX_DELAY);
+		upperread[0]=valread;
+		HAL_I2C_Mem_Read(NSA_I2C, NSA_ADDR_READ, SPARE2, 1, &valread, 1, HAL_MAX_DELAY);
+		upperread[1]=valread;
+		HAL_I2C_Mem_Read(NSA_I2C, NSA_ADDR_READ, SPARE3, 1, &valread, 1, HAL_MAX_DELAY);
+		upperread[2]=valread;
+		upperread[3]=0x00;
+		msDelay(1000);
+		upperLimit = (upperread[0]<<16) | (upperread[1]<<8) |(upperread[2]);
+		upperLimit = - upperLimit;
+
+		HAL_I2C_Mem_Read(NSA_I2C, NSA_ADDR_READ, SPARE4, 1, &valread, 1, HAL_MAX_DELAY);
+		lowerread[0]=valread;
+		HAL_I2C_Mem_Read(NSA_I2C, NSA_ADDR_READ, SPARE5, 1, &valread, 1, HAL_MAX_DELAY);
+		lowerread[1]=valread;
+		HAL_I2C_Mem_Read(NSA_I2C, NSA_ADDR_READ, SPARE6, 1, &valread, 1, HAL_MAX_DELAY);
+		lowerread[2]=valread;
+		lowerread[3]=0x00;
+		msDelay(1000);
+		lowerLimit=(lowerread[0]<<16) | (lowerread[1]<<8) |(lowerread[2]);
+	}*/
+	else if(finalCheckArray==2)
+	{
+		//HAL_I2C_Mem_Read(NSA_I2C, NSA_ADDR_READ, SPARE1, 1, &valread, 1, HAL_MAX_DELAY);
+		upperread[0]=owi_read_nByte(SPARE1,1);
+		//HAL_I2C_Mem_Read(NSA_I2C, NSA_ADDR_READ, SPARE2, 1, &valread, 1, HAL_MAX_DELAY);
+		upperread[1]=owi_read_nByte(SPARE2,1);
+		//HAL_I2C_Mem_Read(NSA_I2C, NSA_ADDR_READ, SPARE3, 1, &valread, 1, HAL_MAX_DELAY);
+		upperread[2]=owi_read_nByte(SPARE3,1);
+		upperread[3]=0x00;
+		msDelay(1000);
+		upperLimit = (upperread[0]<<16) | (upperread[1]<<8) |(upperread[2]);
+
+		//HAL_I2C_Mem_Read(NSA_I2C, NSA_ADDR_READ, SPARE4, 1, &valread, 1, HAL_MAX_DELAY);
+		lowerread[0]=owi_read_nByte(SPARE4,1);
+		//HAL_I2C_Mem_Read(NSA_I2C, NSA_ADDR_READ, SPARE5, 1, &valread, 1, HAL_MAX_DELAY);
+		lowerread[1]=owi_read_nByte(SPARE5,1);
+		//HAL_I2C_Mem_Read(NSA_I2C, NSA_ADDR_READ, SPARE6, 1, &valread, 1, HAL_MAX_DELAY);
+		lowerread[2]=owi_read_nByte(SPARE6,1);
+		lowerread[3]=0x00;
+		msDelay(1000);
+		lowerLimit=(lowerread[0]<<16) | (lowerread[1]<<8) |(lowerread[2]);
+		lowerLimit=-lowerLimit;
+	}
+	else if(finalCheckArray==4)
+	{
+		//HAL_I2C_Mem_Read(NSA_I2C, NSA_ADDR_READ, SPARE1, 1, &valread, 1, HAL_MAX_DELAY);
+		upperread[0]=owi_read_nByte(SPARE1,1);
+		//HAL_I2C_Mem_Read(NSA_I2C, NSA_ADDR_READ, SPARE2, 1, &valread, 1, HAL_MAX_DELAY);
+		upperread[1]=owi_read_nByte(SPARE2,1);
+		//HAL_I2C_Mem_Read(NSA_I2C, NSA_ADDR_READ, SPARE3, 1, &valread, 1, HAL_MAX_DELAY);
+		upperread[2]=owi_read_nByte(SPARE3,1);
+		upperread[3]=0x00;
+		msDelay(1000);
+		upperLimit = (upperread[0]<<16) | (upperread[1]<<8) |(upperread[2]);
+
+		//HAL_I2C_Mem_Read(NSA_I2C, NSA_ADDR_READ, SPARE4, 1, &valread, 1, HAL_MAX_DELAY);
+		lowerread[0]=owi_read_nByte(SPARE4,1);
+		//HAL_I2C_Mem_Read(NSA_I2C, NSA_ADDR_READ, SPARE5, 1, &valread, 1, HAL_MAX_DELAY);
+		lowerread[1]=owi_read_nByte(SPARE5,1);
+		//HAL_I2C_Mem_Read(NSA_I2C, NSA_ADDR_READ, SPARE6, 1, &valread, 1, HAL_MAX_DELAY);
+		lowerread[2]=owi_read_nByte(SPARE6,1);
+		lowerread[3]=0x00;
+		msDelay(1000);
+		lowerLimit=(lowerread[0]<<16) | (lowerread[1]<<8) |(lowerread[2]);
+
+
+	}
+
+
+}

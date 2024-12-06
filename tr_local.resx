@@ -144,6 +144,9 @@
   <data name="CHANGE2" xml:space="preserve">
     <value>AYARLA</value>
   </data>
+  <data name="CHANGE6" xml:space="preserve">
+    <value>SEÇ</value>
+  </data>
   <data name="CLOSE" xml:space="preserve">
     <value>KAPAT</value>
   </data>

@@ -7,7 +7,7 @@ namespace BASSCOMPORT
     {
         public static Color PrimaryColor { get; set; }
         public static Color SecondaryColor { get; set; }
-        public static List<string> ColorList = new List<string>() { "#3F51B5",
+        public static List<string> ColorList = new List<string>() { 
                                                                     "#009688",
                                                                     "#FF5722",
                                                                     "#607D8B",
@@ -18,7 +18,7 @@ namespace BASSCOMPORT
                                                                     "#E41A4A",
                                                                     "#5978BB",
                                                                     "#018790",
-                                                                    "#0E3441",
+                                                                    
 
                                                                     "#721D47",
                                                                     "#EA4833",

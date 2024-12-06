@@ -47,11 +47,11 @@
             // progressBar1
             // 
             this.progressBar1.Location = new System.Drawing.Point(12, 415);
-            this.progressBar1.MarqueeAnimationSpeed = 20;
+            //this.progressBar1.MarqueeAnimationSpeed = 20;
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(776, 23);
             this.progressBar1.Step = 30;
-            this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
+            this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Blocks;
             this.progressBar1.TabIndex = 1;
             // 
             // splashScreen
